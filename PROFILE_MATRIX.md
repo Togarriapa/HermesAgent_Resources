@@ -1,14 +1,25 @@
 # Profile-to-Skill Matrix
 
-Profiles intentionally import only capabilities that are directly relevant to their role. Shared skills are reused where responsibilities genuinely overlap; the registry does not grant every profile the full skill library.
+Profiles intentionally import only capabilities directly relevant to their role. Shared skills are reused where responsibilities genuinely overlap; the registry does not grant every profile the full skill library.
 
 | Profile | Skills |
 | --- | --- |
 | Hermes | conversation-gateway |
 | Orchestrator | task-decomposition, delegation-coordination, decision-routing, progress-synthesis, specialist-recruitment |
+| Team Leader | delegation-coordination, meeting-facilitation, feedback-coaching, project-planning, specialist-recruitment |
+| Home Assistant Optimizer | home-assistant-ops, home-assistant-config-audit, automation-optimization, entity-device-hygiene, home-energy-optimization |
+| Farming Specialist | farm-operations-planning, crop-production-planning, soil-health-management, livestock-husbandry-planning, integrated-pest-management |
+| Weather Analyst | meteorological-analysis, forecast-uncertainty, severe-weather-risk, microclimate-analysis |
+| Agricultural Specialist | agronomic-reasoning, soil-health-management, crop-production-planning, irrigation-water-management, integrated-pest-management |
+| Homesteading Specialist | homestead-systems-planning, seasonal-resilience-planning, food-preservation-safety, small-scale-water-systems, farm-operations-planning |
+| Home Improvement Specialist | home-maintenance-assessment, renovation-scope-planning, building-envelope, contractor-scope-review, household-project-safety |
+| Mechanical Engineer | mechanical-design, engineering-calculations, materials-selection, failure-analysis, machine-safety |
+| Robotics Engineer | robotics-system-design, embedded-systems-development, control-systems, sensor-actuator-integration, robot-safety |
+| Electrical Engineer | circuit-analysis, electrical-system-design, engineering-calculations, instrumentation-measurement, power-electrical-safety, electrical-code-awareness |
+| Smart Home & IoT Engineer | home-assistant-ops, smart-home-architecture, mqtt-integration, zigbee-thread-matter, iot-network-security, device-lifecycle-management |
+| Integration Curator | integration-discovery, third-party-supply-chain-review, mcp-server-vetting, agent-skill-vetting |
 | Scientific Researcher | scientific-method, literature-review, evidence-synthesis, academic-citation, statistical-reasoning |
 | Writer | prose-craft, editing-revision, source-integrity |
-| Team Leader | delegation-coordination, meeting-facilitation, feedback-coaching, project-planning, specialist-recruitment |
 | Personal Trainer | fitness-programming, exercise-safety, progress-tracking |
 | Life Improvement Coach | goal-setting, habit-design, reflective-review |
 | Nutritionist | nutrition-planning, nutrition-evidence, dietary-tracking |
@@ -52,13 +63,17 @@ See `TOPOLOGY.md` for the runtime enforcement contract.
 
 ## Boundary rule
 
-A profile should gain a new skill only when that skill is part of the profile's normal responsibility, not merely because it might occasionally be useful. Cross-domain work should be delegated to another specialist profile or explicitly composed at runtime.
+A profile gains a skill only when that skill is part of the profile's normal responsibility, not merely because it might occasionally be useful. Cross-domain work is delegated to another specialist profile or explicitly composed at runtime.
 
-Examples of intentional boundaries:
+Additional boundaries for the new domains:
 
-- Personal Chef handles culinary execution and food safety; nutritional targets and medical diets should be coordinated with Nutritionist rather than turning the chef into a nutrition clinician.
+- Farming Specialist owns practical farm operations; Agricultural Specialist owns deeper agronomic analysis; Weather Analyst owns forecast interpretation.
+- Home Assistant Optimizer improves Home Assistant configuration and automation; Smart Home & IoT Engineer owns the wider protocol/network/device architecture.
+- Home Improvement Specialist scopes and coordinates household projects but does not replace licensed electrical, structural, gas, or other regulated trades.
+- Mechanical, Electrical, and Robotics engineers share calculations and interfaces only where their domains overlap; safety-critical certification stays with competent professionals.
+- Integration Curator discovers and vets third-party resources but cannot auto-install or execute them solely because a marketplace or index lists them.
+- Personal Chef handles culinary execution and food safety; nutritional targets and medical diets should be coordinated with Nutritionist.
 - Scrum Master facilitates Scrum and team improvement; Team Leader retains leadership authority and Agile Methodology Master handles broader method/system design.
-- UX/UI Designer & Developer owns user-centered interface design and implementation-aware design systems; Frontend Developer owns application implementation and runtime behavior.
 - QA Developer / Tester owns quality evidence and release-risk assessment but does not unilaterally replace the designated release authority.
 - Homeroom Teacher supports learning and safeguarding escalation without diagnosing medical, developmental, or mental-health conditions.
 - Personal Assistant organizes and prepares work but does not claim that a message, booking, or calendar change occurred unless an authorized integration actually performed it.
@@ -67,7 +82,7 @@ Examples of intentional boundaries:
 
 Orchestrator and Team Leader are the two general leadership profiles authorized by this registry to use `specialist-recruitment`. They may recruit **any registered Profile** when task requirements justify additional expertise, capacity, independent review, or domain coverage. Recruitment is not limited to profiles already present in the active bundle or initial team.
 
-This scope automatically covers all present and future catalogued specialists, including Data Scientist, Data Engineer, both Accountant profiles, UX/UI Designer & Developer, Backend Developer, Frontend Developer, DevOps Developer, Scrum Master, Agile Methodology Master, QA Developer / Tester, Personal Chef, Homeroom Teacher, and Personal Assistant. Leadership manifests therefore do not need to be edited every time the registry gains another specialist.
+This scope automatically covers every present and future catalogued specialist, so leadership manifests do not need editing each time the registry gains another profile.
 
 When the selected profile is registered but not currently running, these leadership profiles may request that the Hermes provisioner instantiate it. The host remains authoritative: recruitment does not bypass local authorization, resource limits, or policy, and a recruited specialist retains its own profile-specific skills, permissions, and safety boundaries rather than inheriting the recruiter's privileges.
 
