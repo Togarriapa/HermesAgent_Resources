@@ -30,6 +30,15 @@ Profiles intentionally import only capabilities directly relevant to their role.
 | Researcher | — |
 | Scientific Researcher | scientific-method, literature-review, evidence-synthesis, academic-citation, statistical-reasoning |
 | Product Research Specialist | market-research, competitive-analysis, product-discovery, customer-needs-synthesis, feature-evaluation, source-integrity |
+| Investment Research Analyst | investment-research-synthesis, investment-due-diligence, source-integrity, evidence-synthesis |
+| Equity Analyst | equity-research, fundamental-analysis, valuation-analysis, investment-due-diligence, source-integrity |
+| Fixed Income Analyst | fixed-income-analysis, macroeconomic-analysis, portfolio-risk-analysis, investment-due-diligence |
+| Macroeconomic Analyst | macroeconomic-analysis, evidence-synthesis, statistical-reasoning |
+| Quantitative Investment Analyst | quantitative-investment-analysis, statistical-reasoning, statistical-modeling, data-visualization, portfolio-risk-analysis |
+| Investment Risk Analyst | portfolio-risk-analysis, performance-attribution, investment-due-diligence, risk-management |
+| Crypto Asset Analyst | crypto-asset-analysis, market-structure-analysis, investment-due-diligence, digital-asset-custody-risk |
+| Blockchain Researcher | blockchain-protocol-research, source-integrity, security-review |
+| Real Estate Investment Analyst | real-estate-investment-analysis, real-estate-cashflow-modeling, investment-due-diligence, valuation-analysis |
 | Writer | prose-craft, editing-revision, source-integrity |
 | Project Manager | project-planning, risk-management, status-reporting, meeting-facilitation |
 | Scrum Master | scrum-facilitation, backlog-refinement, impediment-management, team-retrospectives |
@@ -37,6 +46,13 @@ Profiles intentionally import only capabilities directly relevant to their role.
 | CEO | executive-strategy, organizational-design, portfolio-prioritization, executive-decision-making, stakeholder-communication |
 | CFO | financial-planning-analysis, cash-flow-management, budgeting-forecasting, management-reporting, capital-allocation, risk-management |
 | CTO | technology-strategy, technical-portfolio-management, engineering-organization, architecture-governance, technology-risk-management, portfolio-prioritization |
+| Financial Advisor | financial-planning, investment-policy-design, behavioral-finance, tax-aware-investment-planning |
+| Wealth Manager | wealth-planning, financial-planning, investment-policy-design, asset-allocation, tax-aware-investment-planning |
+| Portfolio Manager | investment-policy-design, asset-allocation, portfolio-construction, portfolio-rebalancing, portfolio-risk-analysis, performance-attribution |
+| Asset Manager | manager-due-diligence, asset-allocation, portfolio-risk-analysis, performance-attribution, investment-due-diligence |
+| Stocks Manager | equity-research, fundamental-analysis, valuation-analysis, portfolio-construction, portfolio-risk-analysis, market-structure-analysis |
+| Cryptocurrency Manager | crypto-asset-analysis, digital-asset-custody-risk, portfolio-risk-analysis, portfolio-rebalancing, investment-due-diligence |
+| Real Estate Manager | real-estate-investment-analysis, real-estate-cashflow-modeling, investment-due-diligence, portfolio-risk-analysis, asset-allocation |
 | Accountant — Portugal | double-entry-bookkeeping, financial-reporting, reconciliation-controls, portuguese-snc-accounting, portuguese-tax-compliance |
 | Accountant — International | double-entry-bookkeeping, financial-reporting, reconciliation-controls, ifrs-reporting, consolidation-multicurrency, cross-border-accounting |
 | Portuguese Law Specialist | portuguese-legal-research, statutory-interpretation, case-law-research, legal-issue-spotting, legal-citation, jurisdiction-analysis |
@@ -103,6 +119,17 @@ Upstream resources are a replaceable base, not the storage location for learned 
 The Resource Evolution Manager rebases the two persistent local overlays onto upstream changes. It must never overwrite or auto-publish them. Compatible changes may auto-apply only after dependency, topology, safety, and regression checks; conflicts and breaking changes are quarantined.
 
 See `RESOURCE_EVOLUTION.md`.
+
+## Investment and wealth boundary
+
+Investment roles are decision-support and research roles by default. They may analyze objectives, portfolios, securities, funds, digital assets, real estate, managers, risks, scenarios and proposed rebalancing, but they do **not** receive broker/exchange/wallet/property-transaction execution authority from these manifests.
+
+- Financial Advisor structures planning and investment-policy questions; it does not impersonate a regulated adviser where licensing is required.
+- Wealth Manager coordinates the overall wealth picture; Portfolio Manager manages portfolio design; Asset Manager oversees mandates/managers; asset-class managers own their narrower domains.
+- Investment Risk Analyst is intentionally independent from thesis owners and should be recruited for material portfolio decisions.
+- Cryptocurrency roles never request or handle private keys, seed phrases, recovery codes or signing secrets.
+- Tax and legal implications are routed to the appropriate Accountant and Law Specialist rather than inferred across jurisdictions.
+- Current market, regulatory, issuer, protocol and property facts should be verified from authoritative/current sources before materially relying on them.
 
 ## Boundary rule
 
