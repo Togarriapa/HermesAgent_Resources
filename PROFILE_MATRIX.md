@@ -5,9 +5,9 @@ Profiles intentionally import only capabilities directly relevant to their role.
 | Profile | Skills |
 | --- | --- |
 | Base | — |
-| Hermes | conversation-gateway, speech-input-routing, spoken-response-delivery |
-| Orchestrator | task-decomposition, delegation-coordination, decision-routing, progress-synthesis, specialist-recruitment, parallel-work-planning, hierarchical-orchestration, elastic-agent-scaling, work-dependency-graph, epic-kanban-management, result-reconciliation, instance-lifecycle-management, parallel-workspace-isolation |
-| Team Leader | delegation-coordination, meeting-facilitation, feedback-coaching, project-planning, specialist-recruitment, parallel-work-planning, work-dependency-graph, work-package-coordination, result-reconciliation |
+| Hermes | conversation-gateway, speech-input-routing, spoken-response-delivery, hermes-response-contract |
+| Orchestrator | task-decomposition, delegation-coordination, decision-routing, progress-synthesis, specialist-recruitment, parallel-work-planning, hierarchical-orchestration, elastic-agent-scaling, work-dependency-graph, epic-kanban-management, result-reconciliation, instance-lifecycle-management, parallel-workspace-isolation, multi-agent-deliberation, argument-mapping, dissent-analysis, assumption-challenge, strategy-synthesis |
+| Team Leader | delegation-coordination, meeting-facilitation, feedback-coaching, project-planning, specialist-recruitment, parallel-work-planning, work-dependency-graph, work-package-coordination, result-reconciliation, multi-agent-deliberation, dissent-analysis, assumption-challenge |
 | Resource Evolution Manager | upstream-change-analysis, three-way-resource-merge, learned-overlay-preservation, resource-regression-testing, resource-version-migration, agent-skill-vetting, safety-boundary-review |
 | Developer | github-maintainer |
 | Backend Developer | api-contract-design, backend-service-development, database-sql-engineering, secure-application-development, automated-testing |
@@ -27,6 +27,7 @@ Profiles intentionally import only capabilities directly relevant to their role.
 | Robotics Engineer | robotics-system-design, embedded-systems-development, control-systems, sensor-actuator-integration, robot-safety |
 | Data Scientist | exploratory-data-analysis, statistical-reasoning, statistical-modeling, machine-learning-workflow, data-visualization |
 | Data Engineer | data-pipeline-design, dimensional-data-modeling, data-quality-engineering, database-sql-engineering, data-platform-operations |
+| Data Analytics Specialist | business-analytics, kpi-dashboard-design, analytics-storytelling, exploratory-data-analysis, statistical-reasoning, database-sql-engineering, data-visualization, source-integrity |
 | Researcher | — |
 | Scientific Researcher | scientific-method, literature-review, evidence-synthesis, academic-citation, statistical-reasoning |
 | Product Research Specialist | market-research, competitive-analysis, product-discovery, customer-needs-synthesis, feature-evaluation, source-integrity |
@@ -47,6 +48,9 @@ Profiles intentionally import only capabilities directly relevant to their role.
 | Project Manager | project-planning, risk-management, status-reporting, meeting-facilitation |
 | Scrum Master | scrum-facilitation, backlog-refinement, impediment-management, team-retrospectives |
 | Agile Methodology Master | agile-method-selection, flow-metrics, continuous-improvement, agile-coaching |
+| Remote Work Manager | remote-work-optimization, home-office-optimization, async-collaboration-design, meeting-facilitation, flow-metrics, continuous-improvement |
+| Career Advisor | career-advising, job-market-positioning, labor-market-research, interview-strategy, goal-setting, source-integrity |
+| Career Development Specialist | career-development-planning, job-market-positioning, labor-market-research, skill-gap-analysis, capability-mapping, goal-setting, progress-tracking |
 | CEO | executive-strategy, organizational-design, portfolio-prioritization, executive-decision-making, stakeholder-communication |
 | CFO | financial-planning-analysis, cash-flow-management, budgeting-forecasting, management-reporting, capital-allocation, risk-management |
 | CTO | technology-strategy, technical-portfolio-management, engineering-organization, architecture-governance, technology-risk-management, portfolio-prioritization |
@@ -61,6 +65,12 @@ Profiles intentionally import only capabilities directly relevant to their role.
 | Accountant — International | double-entry-bookkeeping, financial-reporting, reconciliation-controls, ifrs-reporting, consolidation-multicurrency, cross-border-accounting |
 | Portuguese Law Specialist | portuguese-legal-research, statutory-interpretation, case-law-research, legal-issue-spotting, legal-citation, jurisdiction-analysis |
 | International Law Specialist | international-law-research, treaty-research, jurisdiction-analysis, cross-border-legal-analysis, legal-issue-spotting, legal-citation |
+| Philosophy Specialist | philosophical-analysis, logic-argument-analysis, argument-mapping, assumption-challenge, evidence-synthesis, source-integrity |
+| Culture Expert | cultural-analysis, perspective-integration, historical-method, source-integrity, evidence-synthesis |
+| Psychology Expert | psychology-evidence-analysis, literature-review, evidence-synthesis, statistical-reasoning, source-integrity |
+| Sociology Expert | sociology-analysis, literature-review, evidence-synthesis, statistical-reasoning, perspective-integration |
+| Anthropology Expert | anthropology-analysis, cultural-analysis, literature-review, evidence-synthesis, perspective-integration |
+| Debate Analyst | debate-facilitation, debate-quality-analysis, argument-mapping, logic-argument-analysis, dissent-analysis, assumption-challenge, strategy-synthesis |
 | Language Teacher | language-instruction, second-language-pedagogy, pronunciation-coaching, age-adaptive-teaching, language-assessment, lesson-design |
 | Curriculum Designer | curriculum-architecture, learning-objective-design, assessment-design, scope-sequence-design, differentiation-planning, lesson-design |
 | Homeschooling Specialist | homeschooling-planning, family-learning-routines, multi-age-instruction, portfolio-progress-tracking, curriculum-selection, differentiation-planning |
@@ -70,6 +80,10 @@ Profiles intentionally import only capabilities directly relevant to their role.
 | Theology Teacher | theological-method, scripture-exegesis, magisterial-source-research, lesson-design |
 | Catholic Guidance | catholic-catechesis, magisterial-source-research, pastoral-boundaries |
 | Catholic Traditional Advisor | catholic-catechesis, magisterial-source-research, catholic-tradition-discernment, liturgical-tradition-research, pastoral-boundaries |
+| Portuguese Catholic Family Advisor | catholic-family-life-discernment, culturally-situated-family-advice, household-family-routines, catholic-catechesis, magisterial-source-research |
+| Sicilian Catholic Family Advisor | catholic-family-life-discernment, culturally-situated-family-advice, household-family-routines, catholic-catechesis, magisterial-source-research |
+| Spanish Catholic Family Advisor | catholic-family-life-discernment, culturally-situated-family-advice, household-family-routines, catholic-catechesis, magisterial-source-research |
+| German Catholic Family Advisor | catholic-family-life-discernment, culturally-situated-family-advice, household-family-routines, catholic-catechesis, magisterial-source-research |
 | Personal Trainer | fitness-programming, exercise-safety, progress-tracking |
 | Nutritionist | nutrition-planning, nutrition-evidence, dietary-tracking |
 | Personal Chef | culinary-menu-planning, cooking-techniques, food-safety, kitchen-workflow |
@@ -81,6 +95,14 @@ Profiles intentionally import only capabilities directly relevant to their role.
 | Homesteading Specialist | homestead-systems-planning, seasonal-resilience-planning, food-preservation-safety, small-scale-water-systems, farm-operations-planning |
 | Home Improvement Specialist | home-maintenance-assessment, renovation-scope-planning, building-envelope, contractor-scope-review, household-project-safety |
 | Home Fixing Specialist | home-repair-diagnostics, repair-procedure-planning, tool-selection, maintenance-triage, household-project-safety |
+| Home Maintenance Manager | preventive-home-maintenance-planning, home-maintenance-assessment, maintenance-scheduling, maintenance-triage, inventory-planning, household-project-safety |
+| Plumbing Maintenance Specialist | plumbing-home-maintenance, home-repair-diagnostics, repair-procedure-planning, household-project-safety |
+| Appliance Maintenance Specialist | appliance-home-maintenance, home-repair-diagnostics, repair-procedure-planning, tool-selection, household-project-safety |
+| Carpentry & Joinery Specialist | carpentry-joinery-maintenance, home-repair-diagnostics, repair-procedure-planning, tool-selection, household-project-safety |
+| Painting & Finishes Specialist | painting-finishes-maintenance, building-envelope, home-repair-diagnostics, repair-procedure-planning, household-project-safety |
+| Roofing & Drainage Specialist | roofing-drainage-maintenance, building-envelope, home-maintenance-assessment, household-project-safety |
+| Garden & Grounds Maintenance Specialist | garden-grounds-maintenance, seasonal-resilience-planning, maintenance-scheduling, household-project-safety |
+| Home Comfort Maintenance Specialist | home-comfort-maintenance, home-energy-optimization, home-repair-diagnostics, household-project-safety |
 | Home & Farm Manager | household-operations-management, farm-operations-planning, maintenance-scheduling, inventory-planning, seasonal-resilience-planning, resource-budget-coordination, task-follow-through |
 | Integration Curator | integration-discovery, third-party-supply-chain-review, mcp-server-vetting, agent-skill-vetting |
 | Skills Analyser | skill-gap-analysis, capability-mapping, usage-evidence-analysis |
@@ -96,11 +118,17 @@ The user-facing chain remains strictly:
 
 Hermes is the only user-facing profile. Web, Telegram, Discord, WhatsApp Business, and voice channels bind only to Hermes. Voice is transcribed before entering Hermes and Hermes output is synthesized to speech after orchestration; neither modality exposes specialists directly.
 
-The Orchestrator is internal-only. It decomposes requests, maintains the Epic dependency graph and Kanban, chooses specialists/teams, creates additional instances when capacity is useful, coordinates nested Team Leaders, reconciles parallel outputs, and returns a synthesized result to Hermes.
+The Orchestrator is internal-only. It decomposes requests, maintains the Epic dependency graph and Kanban, chooses specialists/teams, creates additional instances when capacity is useful, coordinates nested Team Leaders, runs adaptive deliberation where useful, reconciles parallel outputs, preserves material dissent, and returns a synthesized result to Hermes.
 
-Team Leader is internal-only and may run parallel subteams within delegated scope. It can recruit any registered profile and multiple instances of a profile, but it reports through the orchestration chain rather than becoming a user endpoint.
+Team Leader is internal-only and may run parallel subteams and structured deliberation within delegated scope. It can recruit any registered profile and multiple instances of a profile, but it reports through the orchestration chain rather than becoming a user endpoint.
 
-See `TOPOLOGY.md` and `ORCHESTRATION.md`.
+See `TOPOLOGY.md`, `ORCHESTRATION.md`, and `DELIBERATION.md`.
+
+## Deliberation and response rule
+
+For material strategic or ambiguous questions, independent profiles should form initial positions before cross-critique where practical. Debate Analyst may structure the disagreement. Evidence and user constraints determine synthesis; majority vote is not the decision rule. Material dissent must be returned to Hermes.
+
+Every Hermes user-facing result renders six sections: Initial Question or Request; Quick Answer / Result / Action; Detailed Answer / Result / Action; Agent Profiles That Contributed; Opinions Against the Final Answer / Solution and Why; Permissions Needed to Proceed. Empty dissent or permission sections use explicit `No material dissent.` / `None.` values.
 
 ## Parallelism and instance rule
 
@@ -145,17 +173,14 @@ See `FINANCIAL_ACCESS.md` and `INVESTMENT_GOVERNANCE.md`.
 
 A profile gains a capability only when it is part of the profile's normal responsibility. Cross-domain work should be delegated or composed rather than solved by giving every profile every skill/tool.
 
-Examples of intentional boundaries:
+Important v2 boundaries:
 
-- Language Teacher teaches a language; Curriculum Designer designs programs; Homeschooling Specialist coordinates home education; subject expertise remains with subject teachers.
-- Portuguese and International Law profiles provide legal research/information and issue spotting, not legal representation; action-specific or material matters should go to qualified counsel in the relevant jurisdiction.
-- Catholic Traditional Advisor may provide a clearly traditional/conservative Catholic perspective but must distinguish doctrine from discipline, theological opinion, legitimate preference, and prudential judgment and must not impersonate clergy.
-- CEO sets organizational direction; CFO owns management-finance analysis; CTO owns technology strategy. Statutory accounting, legal, security, architecture, and implementation work remains with specialist roles.
-- Website Developer is a useful full-stack generalist; the Orchestrator should recruit dedicated UX/UI, Frontend, Backend, DevOps, QA, or Security profiles when depth or parallel work justifies them.
-- Infrastructure Manager governs capacity/reliability/lifecycle/change; DevOps and Homelab Operator perform scoped implementation work.
-- Skills Analyser finds gaps, Skills Reviewer challenges quality/safety, Skills Improver implements reviewed improvements, and Improvement Manager manages the improvement portfolio. These roles should not collapse into an unreviewed self-modification loop.
-- Home Improvement Specialist scopes larger household projects; Home Fixing Specialist handles practical repairs; regulated electrical/structural/gas work is escalated to the appropriate engineer/trade.
-- Home & Farm Manager coordinates operations and schedules but recruits farming, weather, engineering, accounting, nutrition, or smart-home specialists for domain judgments.
+- Catholic regional Family Advisors offer culturally informed Catholic family-life lenses without claiming human lived experience or universal representation; they distinguish Church teaching from regional custom and individual preference.
+- Psychology Expert is evidence-oriented and non-clinical; it does not diagnose or provide clinical treatment.
+- Culture, Sociology, Anthropology, Psychology, and Philosophy remain distinct levels of analysis and are integrated rather than collapsed.
+- Data Analytics handles decision metrics and BI; Data Engineer handles data systems; Data Scientist handles advanced statistical/ML work.
+- Career Advisor handles near-term career decisions and market positioning; Career Development Specialist handles longer-horizon capability growth.
+- Home Maintenance Manager coordinates preventive property condition; focused maintenance profiles diagnose their narrower domains; regulated electrical/structural/gas/refrigerant/high-risk work is escalated.
 
 ## Dynamic recruitment rule
 
