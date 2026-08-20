@@ -2,16 +2,75 @@ apiVersion: hermes.togarriapa/v1
 kind: Catalog
 metadata:
   name: hermesagent-resources
-  version: 1.0.0
+  version: 1.1.0
 resources:
   - {kind: Profile, name: base, version: 1.0.0, path: profiles/base.yaml}
   - {kind: Profile, name: homelab-operator, version: 1.0.0, path: profiles/homelab-operator.yaml}
   - {kind: Profile, name: developer, version: 1.0.0, path: profiles/developer.yaml}
   - {kind: Profile, name: researcher, version: 1.0.0, path: profiles/researcher.yaml}
+  - {kind: Profile, name: orchestrator, version: 1.0.0, path: profiles/orchestrator.yaml}
+  - {kind: Profile, name: scientific-researcher, version: 1.0.0, path: profiles/scientific-researcher.yaml}
+  - {kind: Profile, name: writer, version: 1.0.0, path: profiles/writer.yaml}
+  - {kind: Profile, name: team-leader, version: 1.0.0, path: profiles/team-leader.yaml}
+  - {kind: Profile, name: personal-trainer, version: 1.0.0, path: profiles/personal-trainer.yaml}
+  - {kind: Profile, name: life-improvement-coach, version: 1.0.0, path: profiles/life-improvement-coach.yaml}
+  - {kind: Profile, name: nutritionist, version: 1.0.0, path: profiles/nutritionist.yaml}
+  - {kind: Profile, name: catholic-guidance, version: 1.0.0, path: profiles/catholic-guidance.yaml}
+  - {kind: Profile, name: theology-teacher, version: 1.0.0, path: profiles/theology-teacher.yaml}
+  - {kind: Profile, name: music-teacher, version: 1.0.0, path: profiles/music-teacher.yaml}
+  - {kind: Profile, name: history-teacher, version: 1.0.0, path: profiles/history-teacher.yaml}
+  - {kind: Profile, name: project-manager, version: 1.0.0, path: profiles/project-manager.yaml}
+  - {kind: Profile, name: systems-architect, version: 1.0.0, path: profiles/systems-architect.yaml}
+  - {kind: Profile, name: cybersecurity-analyst, version: 1.0.0, path: profiles/cybersecurity-analyst.yaml}
   - {kind: Skill, name: docker-ops, version: 1.0.0, path: skills/docker-ops.yaml}
   - {kind: Skill, name: github-maintainer, version: 1.0.0, path: skills/github-maintainer.yaml}
   - {kind: Skill, name: cloudflare-tunnel-ops, version: 1.0.0, path: skills/cloudflare-tunnel-ops.yaml}
   - {kind: Skill, name: home-assistant-ops, version: 1.0.0, path: skills/home-assistant-ops.yaml}
+  - {kind: Skill, name: task-decomposition, version: 1.0.0, path: skills/task-decomposition.yaml}
+  - {kind: Skill, name: delegation-coordination, version: 1.0.0, path: skills/delegation-coordination.yaml}
+  - {kind: Skill, name: decision-routing, version: 1.0.0, path: skills/decision-routing.yaml}
+  - {kind: Skill, name: progress-synthesis, version: 1.0.0, path: skills/progress-synthesis.yaml}
+  - {kind: Skill, name: scientific-method, version: 1.0.0, path: skills/scientific-method.yaml}
+  - {kind: Skill, name: literature-review, version: 1.0.0, path: skills/literature-review.yaml}
+  - {kind: Skill, name: evidence-synthesis, version: 1.0.0, path: skills/evidence-synthesis.yaml}
+  - {kind: Skill, name: academic-citation, version: 1.0.0, path: skills/academic-citation.yaml}
+  - {kind: Skill, name: statistical-reasoning, version: 1.0.0, path: skills/statistical-reasoning.yaml}
+  - {kind: Skill, name: prose-craft, version: 1.0.0, path: skills/prose-craft.yaml}
+  - {kind: Skill, name: editing-revision, version: 1.0.0, path: skills/editing-revision.yaml}
+  - {kind: Skill, name: source-integrity, version: 1.0.0, path: skills/source-integrity.yaml}
+  - {kind: Skill, name: meeting-facilitation, version: 1.0.0, path: skills/meeting-facilitation.yaml}
+  - {kind: Skill, name: feedback-coaching, version: 1.0.0, path: skills/feedback-coaching.yaml}
+  - {kind: Skill, name: project-planning, version: 1.0.0, path: skills/project-planning.yaml}
+  - {kind: Skill, name: fitness-programming, version: 1.0.0, path: skills/fitness-programming.yaml}
+  - {kind: Skill, name: exercise-safety, version: 1.0.0, path: skills/exercise-safety.yaml}
+  - {kind: Skill, name: progress-tracking, version: 1.0.0, path: skills/progress-tracking.yaml}
+  - {kind: Skill, name: goal-setting, version: 1.0.0, path: skills/goal-setting.yaml}
+  - {kind: Skill, name: habit-design, version: 1.0.0, path: skills/habit-design.yaml}
+  - {kind: Skill, name: reflective-review, version: 1.0.0, path: skills/reflective-review.yaml}
+  - {kind: Skill, name: nutrition-planning, version: 1.0.0, path: skills/nutrition-planning.yaml}
+  - {kind: Skill, name: nutrition-evidence, version: 1.0.0, path: skills/nutrition-evidence.yaml}
+  - {kind: Skill, name: dietary-tracking, version: 1.0.0, path: skills/dietary-tracking.yaml}
+  - {kind: Skill, name: catholic-catechesis, version: 1.0.0, path: skills/catholic-catechesis.yaml}
+  - {kind: Skill, name: magisterial-source-research, version: 1.0.0, path: skills/magisterial-source-research.yaml}
+  - {kind: Skill, name: pastoral-boundaries, version: 1.0.0, path: skills/pastoral-boundaries.yaml}
+  - {kind: Skill, name: theological-method, version: 1.0.0, path: skills/theological-method.yaml}
+  - {kind: Skill, name: scripture-exegesis, version: 1.0.0, path: skills/scripture-exegesis.yaml}
+  - {kind: Skill, name: lesson-design, version: 1.0.0, path: skills/lesson-design.yaml}
+  - {kind: Skill, name: music-theory, version: 1.0.0, path: skills/music-theory.yaml}
+  - {kind: Skill, name: ear-training, version: 1.0.0, path: skills/ear-training.yaml}
+  - {kind: Skill, name: practice-design, version: 1.0.0, path: skills/practice-design.yaml}
+  - {kind: Skill, name: historical-method, version: 1.0.0, path: skills/historical-method.yaml}
+  - {kind: Skill, name: primary-source-analysis, version: 1.0.0, path: skills/primary-source-analysis.yaml}
+  - {kind: Skill, name: historiography, version: 1.0.0, path: skills/historiography.yaml}
+  - {kind: Skill, name: risk-management, version: 1.0.0, path: skills/risk-management.yaml}
+  - {kind: Skill, name: status-reporting, version: 1.0.0, path: skills/status-reporting.yaml}
+  - {kind: Skill, name: systems-design, version: 1.0.0, path: skills/systems-design.yaml}
+  - {kind: Skill, name: architecture-review, version: 1.0.0, path: skills/architecture-review.yaml}
+  - {kind: Skill, name: technical-documentation, version: 1.0.0, path: skills/technical-documentation.yaml}
+  - {kind: Skill, name: threat-modeling, version: 1.0.0, path: skills/threat-modeling.yaml}
+  - {kind: Skill, name: security-review, version: 1.0.0, path: skills/security-review.yaml}
+  - {kind: Skill, name: incident-triage, version: 1.0.0, path: skills/incident-triage.yaml}
+  - {kind: Skill, name: security-hardening, version: 1.0.0, path: skills/security-hardening.yaml}
   - {kind: Plugin, name: codex, version: 1.0.0, path: plugins/codex.yaml}
   - {kind: Plugin, name: github, version: 1.0.0, path: plugins/github.yaml}
   - {kind: Plugin, name: web, version: 1.0.0, path: plugins/web.yaml}
