@@ -2,7 +2,7 @@ apiVersion: hermes.togarriapa/v1
 kind: Catalog
 metadata:
   name: hermesagent-resources
-  version: 1.8.0
+  version: 1.9.0
 resources:
   - {kind: Profile, name: accountant-international, version: 1.1.0, path: profiles/accountant-international.yaml}
   - {kind: Profile, name: accountant-portugal, version: 1.1.0, path: profiles/accountant-portugal.yaml}
@@ -407,3 +407,19 @@ resources:
   - {kind: Bundle, name: public-markets-team, version: 1.0.0, path: bundles/public-markets-team.yaml}
   - {kind: Bundle, name: digital-assets-team, version: 1.0.0, path: bundles/digital-assets-team.yaml}
   - {kind: Bundle, name: real-assets-team, version: 1.0.0, path: bundles/real-assets-team.yaml}
+  - {kind: Profile, name: financial-data-steward, version: 1.0.0, path: profiles/financial-data-steward.yaml}
+  - {kind: Profile, name: crypto-sandbox-operator, version: 1.0.0, path: profiles/crypto-sandbox-operator.yaml}
+  - {kind: Profile, name: financial-execution-operator, version: 1.0.0, path: profiles/financial-execution-operator.yaml}
+  - {kind: Profile, name: crypto-live-wallet-operator, version: 1.0.0, path: profiles/crypto-live-wallet-operator.yaml}
+  - {kind: Skill, name: financial-data-reconciliation, version: 1.0.0, path: skills/financial-data-reconciliation.yaml}
+  - {kind: Skill, name: financial-connection-governance, version: 1.0.0, path: skills/financial-connection-governance.yaml}
+  - {kind: Skill, name: testnet-wallet-experimentation, version: 1.0.0, path: skills/testnet-wallet-experimentation.yaml}
+  - {kind: Skill, name: explicit-financial-order-execution, version: 1.0.0, path: skills/explicit-financial-order-execution.yaml}
+  - {kind: Skill, name: live-wallet-transaction-control, version: 1.0.0, path: skills/live-wallet-transaction-control.yaml}
+  - {kind: Plugin, name: financial-data-hub, version: 1.0.0, path: plugins/financial-data-hub.yaml}
+  - {kind: Plugin, name: financial-execution-gateway, version: 1.0.0, path: plugins/financial-execution-gateway.yaml}
+  - {kind: Plugin, name: agent-sandbox-wallet, version: 1.0.0, path: plugins/agent-sandbox-wallet.yaml}
+  - {kind: Plugin, name: agent-live-wallet, version: 1.0.0, path: plugins/agent-live-wallet.yaml}
+  - {kind: Bundle, name: financial-data-team, version: 1.0.0, path: bundles/financial-data-team.yaml}
+  - {kind: Bundle, name: crypto-sandbox-team, version: 1.0.0, path: bundles/crypto-sandbox-team.yaml}
+  - {kind: Bundle, name: financial-execution-team, version: 1.0.0, path: bundles/financial-execution-team.yaml}
