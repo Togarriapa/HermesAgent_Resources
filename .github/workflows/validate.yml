@@ -8,15 +8,38 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: registry-validation-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   validate:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - name: Checkout registry
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - run: python -m pip install --disable-pip-version-check pyyaml
-      - run: python scripts/validate_registry.py
-      - run: python scripts/validate_deliberation.py
-      - run: python scripts/validate_expansion_v21.py
+          cache: pip
+
+      - name: Install validator dependency
+        run: python -m pip install --disable-pip-version-check pyyaml
+
+      - name: Compile validation scripts
+        run: python -m compileall -q scripts
+
+      - name: Validate registry envelope and topology
+        run: python scripts/validate_registry.py
+
+      - name: Validate deliberation and Hermes response contract
+        run: python scripts/validate_deliberation.py
+
+      - name: Validate v2.1 specialist expansion invariants
+        run: python scripts/validate_expansion_v21.py
+
+      - name: Validate every effective resource against v2.2 quality policy
+        run: python scripts/validate_quality_v22.py
