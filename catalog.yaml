@@ -2,7 +2,7 @@ apiVersion: hermes.togarriapa/v1
 kind: Catalog
 metadata:
   name: hermesagent-resources
-  version: 1.7.0
+  version: 1.8.0
 resources:
   - {kind: Profile, name: accountant-international, version: 1.1.0, path: profiles/accountant-international.yaml}
   - {kind: Profile, name: accountant-portugal, version: 1.1.0, path: profiles/accountant-portugal.yaml}
@@ -362,3 +362,48 @@ resources:
   - {kind: Bundle, name: legal-research-team, version: 1.0.0, path: bundles/legal-research-team.yaml}
   - {kind: Bundle, name: skills-improvement-team, version: 1.0.0, path: bundles/skills-improvement-team.yaml}
   - {kind: Bundle, name: home-farm-management-team, version: 1.0.0, path: bundles/home-farm-management-team.yaml}
+  - {kind: Profile, name: financial-advisor, version: 1.0.0, path: profiles/financial-advisor.yaml}
+  - {kind: Profile, name: portfolio-manager, version: 1.0.0, path: profiles/portfolio-manager.yaml}
+  - {kind: Profile, name: wealth-manager, version: 1.0.0, path: profiles/wealth-manager.yaml}
+  - {kind: Profile, name: asset-manager, version: 1.0.0, path: profiles/asset-manager.yaml}
+  - {kind: Profile, name: cryptocurrency-manager, version: 1.0.0, path: profiles/cryptocurrency-manager.yaml}
+  - {kind: Profile, name: stocks-manager, version: 1.0.0, path: profiles/stocks-manager.yaml}
+  - {kind: Profile, name: real-estate-manager, version: 1.0.0, path: profiles/real-estate-manager.yaml}
+  - {kind: Profile, name: investment-research-analyst, version: 1.0.0, path: profiles/investment-research-analyst.yaml}
+  - {kind: Profile, name: equity-analyst, version: 1.0.0, path: profiles/equity-analyst.yaml}
+  - {kind: Profile, name: fixed-income-analyst, version: 1.0.0, path: profiles/fixed-income-analyst.yaml}
+  - {kind: Profile, name: macroeconomic-analyst, version: 1.0.0, path: profiles/macroeconomic-analyst.yaml}
+  - {kind: Profile, name: quantitative-investment-analyst, version: 1.0.0, path: profiles/quantitative-investment-analyst.yaml}
+  - {kind: Profile, name: investment-risk-analyst, version: 1.0.0, path: profiles/investment-risk-analyst.yaml}
+  - {kind: Profile, name: crypto-asset-analyst, version: 1.0.0, path: profiles/crypto-asset-analyst.yaml}
+  - {kind: Profile, name: blockchain-researcher, version: 1.0.0, path: profiles/blockchain-researcher.yaml}
+  - {kind: Profile, name: real-estate-investment-analyst, version: 1.0.0, path: profiles/real-estate-investment-analyst.yaml}
+  - {kind: Skill, name: investment-policy-design, version: 1.0.0, path: skills/investment-policy-design.yaml}
+  - {kind: Skill, name: financial-planning, version: 1.0.0, path: skills/financial-planning.yaml}
+  - {kind: Skill, name: portfolio-construction, version: 1.0.0, path: skills/portfolio-construction.yaml}
+  - {kind: Skill, name: asset-allocation, version: 1.0.0, path: skills/asset-allocation.yaml}
+  - {kind: Skill, name: portfolio-rebalancing, version: 1.0.0, path: skills/portfolio-rebalancing.yaml}
+  - {kind: Skill, name: wealth-planning, version: 1.0.0, path: skills/wealth-planning.yaml}
+  - {kind: Skill, name: investment-due-diligence, version: 1.0.0, path: skills/investment-due-diligence.yaml}
+  - {kind: Skill, name: equity-research, version: 1.0.0, path: skills/equity-research.yaml}
+  - {kind: Skill, name: fundamental-analysis, version: 1.0.0, path: skills/fundamental-analysis.yaml}
+  - {kind: Skill, name: valuation-analysis, version: 1.0.0, path: skills/valuation-analysis.yaml}
+  - {kind: Skill, name: fixed-income-analysis, version: 1.0.0, path: skills/fixed-income-analysis.yaml}
+  - {kind: Skill, name: macroeconomic-analysis, version: 1.0.0, path: skills/macroeconomic-analysis.yaml}
+  - {kind: Skill, name: quantitative-investment-analysis, version: 1.0.0, path: skills/quantitative-investment-analysis.yaml}
+  - {kind: Skill, name: portfolio-risk-analysis, version: 1.0.0, path: skills/portfolio-risk-analysis.yaml}
+  - {kind: Skill, name: performance-attribution, version: 1.0.0, path: skills/performance-attribution.yaml}
+  - {kind: Skill, name: crypto-asset-analysis, version: 1.0.0, path: skills/crypto-asset-analysis.yaml}
+  - {kind: Skill, name: blockchain-protocol-research, version: 1.0.0, path: skills/blockchain-protocol-research.yaml}
+  - {kind: Skill, name: digital-asset-custody-risk, version: 1.0.0, path: skills/digital-asset-custody-risk.yaml}
+  - {kind: Skill, name: real-estate-investment-analysis, version: 1.0.0, path: skills/real-estate-investment-analysis.yaml}
+  - {kind: Skill, name: real-estate-cashflow-modeling, version: 1.0.0, path: skills/real-estate-cashflow-modeling.yaml}
+  - {kind: Skill, name: manager-due-diligence, version: 1.0.0, path: skills/manager-due-diligence.yaml}
+  - {kind: Skill, name: market-structure-analysis, version: 1.0.0, path: skills/market-structure-analysis.yaml}
+  - {kind: Skill, name: tax-aware-investment-planning, version: 1.0.0, path: skills/tax-aware-investment-planning.yaml}
+  - {kind: Skill, name: behavioral-finance, version: 1.0.0, path: skills/behavioral-finance.yaml}
+  - {kind: Skill, name: investment-research-synthesis, version: 1.0.0, path: skills/investment-research-synthesis.yaml}
+  - {kind: Bundle, name: wealth-investment-team, version: 1.0.0, path: bundles/wealth-investment-team.yaml}
+  - {kind: Bundle, name: public-markets-team, version: 1.0.0, path: bundles/public-markets-team.yaml}
+  - {kind: Bundle, name: digital-assets-team, version: 1.0.0, path: bundles/digital-assets-team.yaml}
+  - {kind: Bundle, name: real-assets-team, version: 1.0.0, path: bundles/real-assets-team.yaml}
