@@ -30,15 +30,19 @@ This audit records the intended external-tool posture for every Profile. Composi
 | Researcher | Web + GitHub research; no account-write integration. |
 | Scientific Researcher | Web/evidence tooling; no account-write integration. |
 | Product Research Specialist | Web research; no commerce/account-write integration by default. |
-| Investment Research Analyst | Web/current-source investment research only; no broker, exchange, wallet, bank, property-purchase or custody integration. |
-| Equity Analyst | Web/filings/current market-source research only; no securities-order execution. |
-| Fixed Income Analyst | Web/issuer/central-bank/current-source research only; no bond/fund/derivative execution. |
+| Investment Research Analyst | Web/current-source investment research only; no direct financial-account credentials or execution plugin. |
+| Equity Analyst | Web/filings/current market-source research only; no direct securities-order execution. |
+| Fixed Income Analyst | Web/issuer/central-bank/current-source research only; no direct bond/fund/derivative execution. |
 | Macroeconomic Analyst | Web + official statistical/central-bank sources; no account integration. |
-| Quantitative Investment Analyst | Codex + filesystem + web for models/reproducible research; no live trading connection. |
-| Investment Risk Analyst | Web/current-source independent risk review; no execution authority. |
-| Crypto Asset Analyst | Web/current protocol/market research; no exchange/wallet transaction access and no secrets handling. |
-| Blockchain Researcher | Web + GitHub protocol/source research; no wallet signing, key access, bridging or on-chain execution. |
+| Quantitative Investment Analyst | Codex + filesystem + web for models/reproducible research; no direct live trading connection. |
+| Investment Risk Analyst | Web/current-source independent risk review; no direct execution authority. |
+| Crypto Asset Analyst | Web/current protocol/market research; no exchange/wallet signing credentials. |
+| Blockchain Researcher | Web + GitHub protocol/source research; production signing delegated; may recruit Crypto Sandbox Operator for testnet experiments. |
 | Real Estate Investment Analyst | Web/property-market research; no transaction, title, deposit, financing or payment execution. |
+| Financial Data Steward | `financial-data-hub` read-only aggregation for Revolut/BPI/moey via regulated AISP, Trading 212 read key, Pionex `Read` key, and Ledger `account.list`; raw credentials hidden. |
+| Financial Execution Operator | `financial-execution-gateway` write-capable for supported bank PISP payment initiation, Trading 212 live orders/cancellation, Pionex `Trade` orders/cancellation, and Ledger transaction signing; **explicit user order + fresh one-shot confirmation required for every action**. |
+| Crypto Live Wallet Operator | `agent-live-wallet`; dedicated real-value wallet, host-isolated keys, configured mainnet allowlist; may prepare transactions autonomously but sign/broadcast only from an explicit user order + fresh confirmation. |
+| Crypto Sandbox Operator | `agent-sandbox-wallet`; autonomous Ethereum Sepolia/Solana Devnet testnet execution using faucet/test assets only; mainnet and real-value assets denied. |
 | Writer | Composio Google Docs + Drive; document writes delegated-only. |
 | Project Manager | Composio Calendar, Tasks, Docs, Drive; writes delegated-only, deletes/permission changes denied. |
 | Scrum Master | Facilitation/process skills only; no account integration by default. |
@@ -46,12 +50,12 @@ This audit records the intended external-tool posture for every Profile. Composi
 | CEO | Strategic/organizational profile; no blanket account integrations. |
 | CFO | Composio Google Sheets + Drive with delegated writes, no deletes/permission changes; statutory accounting/tax/legal delegated. |
 | CTO | Technology strategy/governance profile; no blanket execution toolkit. |
-| Financial Advisor | Web/current-source planning research; no broker/product-purchase/account-opening integration; regulated personal advice boundaries remain explicit. |
-| Wealth Manager | Web/current-source wealth planning; no custody, transfer, broker or account-administration execution. |
-| Portfolio Manager | Web/current-source portfolio research; recommendations/rebalancing plans only, no order routing/execution. |
-| Asset Manager | Web/current-source manager/asset oversight; no subscriptions, redemptions, custody, transfers or trading execution. |
-| Stocks Manager | Web/current-source equity research; no securities order placement, modification or cancellation. |
-| Cryptocurrency Manager | Web/current-source digital-asset research; no exchange trading, swaps, staking, bridging, transfer, approval or wallet signing. |
+| Financial Advisor | Web/current-source planning research; may consume normalized financial data through Financial Data Steward; execution must be separately routed through Financial Execution Operator. |
+| Wealth Manager | Web/current-source wealth planning + normalized financial data when recruited; no raw account credentials and no direct transaction plugin. |
+| Portfolio Manager | Web/current-source portfolio research + normalized holdings; may propose orders/rebalancing but execution is isolated to Financial Execution Operator after user authorization. |
+| Asset Manager | Web/current-source manager/asset oversight + normalized financial data; subscriptions/redemptions/custody actions are not direct capabilities. |
+| Stocks Manager | Web/current-source equity research + normalized Trading 212 observations; may propose trades, but live order execution is isolated to Financial Execution Operator. |
+| Cryptocurrency Manager | Web/current-source digital-asset research + normalized Pionex/Ledger/live-wallet observations; may propose actions, but real-value execution is isolated to the execution/live-wallet operators. |
 | Real Estate Manager | Web/current property/market research; no purchase/sale/lease/financing/deposit/title/payment execution. |
 | Accountant — Portugal | Web + Composio Sheets/Drive; controlled writes, no deletes/permission changes; current Portuguese authority verification required. |
 | Accountant — International | Web + Composio Sheets/Drive; controlled writes, no deletes/permission changes; current framework/jurisdiction verification required. |
@@ -84,13 +88,18 @@ This audit records the intended external-tool posture for every Profile. Composi
 | Skills Improver | Codex + GitHub + filesystem for reviewed versioned improvements; private user learning may not be published. |
 | Improvement Manager | Improvement portfolio/governance; no blanket external integration. |
 
-## Investment-domain execution boundary
+## Financial account and execution architecture
 
-The financial/investment profiles are intentionally **research, planning, analysis and recommendation** capabilities. None receives a broker, bank, exchange, wallet-signing, custody, money-transfer, property-closing, financing, or purchase/sale execution integration from this registry version.
+Read and write capabilities are deliberately separated by credential and role.
 
-Future transaction-capable integrations must be introduced as separate reviewed resources with explicit authorization, account scoping, confirmation, audit, limits, rollback/compensation where possible, and jurisdiction/provider review. Adding a market-data or portfolio-data connector must not silently grant trading authority.
+- **Banks (Revolut/BPI/moey):** read through a regulated AISP; payment initiation through a regulated PISP adapter where institution coverage permits. Direct password/PIN/MFA scraping is denied.
+- **Trading 212:** one read-only key plus a separate live execution key with the minimum order permission and IP restriction. Live Market/Limit/Stop/Stop-Limit orders and cancellation are available only behind the explicit-order gateway.
+- **Pionex:** separate `Read` and `Trade` keys; the Trade key is restricted to order placement/cancellation, with withdrawals/transfers denied.
+- **Ledger:** read via `account.list`; write via `transaction.sign`/`transaction.signAndBroadcast`, with both the Hermes authorization envelope and Ledger hardware/on-device confirmation. Arbitrary message signing stays denied by default.
+- **Hermes live wallet:** a separate host-isolated real-value wallet, never derived from the user's Ledger. It may receive assets and prepare transactions, but any mainnet signing/broadcast requires explicit order + fresh confirmation.
+- **Hermes sandbox wallet:** autonomous testnet-only execution using faucet/test assets.
 
-Digital-asset profiles must never request, store, log or transmit private keys, seed phrases, recovery codes, signing secrets or equivalent credentials.
+A recommendation, target allocation, scheduled task, prior order, user preference, or past confirmation never becomes standing transaction authority.
 
 ## User-facing channels
 
@@ -107,6 +116,9 @@ Digital-asset profiles must never request, store, log or transmit private keys, 
 - `epic-kanban` may use GitHub Projects v2 for repository-backed Epics and local ephemeral boards otherwise. It is internal-only and deletes boards only as part of the accepted-Epic lifecycle after archiving a completion summary.
 - `resource-overlay-store` is local/private, owner-only, denies Git sync/network export, and preserves version history for experiential and user-learned overlays.
 - `daily-resource-reconcile` uses the Resource Evolution Manager to retrieve upstream registry changes while preserving local overlay layers.
+- `financial-data-hub` normalizes read-only observations while hiding provider credentials from Profiles.
+- `financial-execution-gateway` exposes write adapters but requires a one-shot explicit user order and fresh confirmation for every real-money action.
+- `agent-live-wallet` is real-value and confirmation-gated; `agent-sandbox-wallet` is autonomous but testnet-only.
 
 ## External-source policy
 
@@ -115,5 +127,5 @@ Digital-asset profiles must never request, store, log or transmit private keys, 
 - **Composio:** managed provider with explicit per-profile/channel toolkit/tool allowlists and pinned production versions.
 - **Agent37:** discovery index only; trace candidates to source and review before adoption.
 - **WhatsApp:** use supported WhatsApp Business integration only; no personal-account automation workaround.
-- **Investment data/execution:** research connectors must be separated from transaction authority; broker/exchange/wallet/custody execution remains absent by default.
+- **Financial integrations:** separate data credentials, execution credentials, decision roles and execution roles; secrets remain host-managed and transactions are explicit-order-only.
 - A popular or listed integration is not automatically trusted; local Hermes policy remains authoritative.
