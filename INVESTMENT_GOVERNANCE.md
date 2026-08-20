@@ -1,8 +1,8 @@
 # Investment and Wealth Governance
 
-The financial/investment domain is an internal decision-support system under the normal Hermes topology:
+The financial/investment domain is an internal decision-support and explicitly authorized execution system under the normal Hermes topology:
 
-`User <-> Hermes <-> Orchestrator <-> Wealth / Investment Profiles`
+`User <-> Hermes <-> Orchestrator <-> Wealth / Investment / Execution Profiles`
 
 ## Role hierarchy
 
@@ -13,10 +13,12 @@ The financial/investment domain is an internal decision-support system under the
 - **Stocks Manager** — public-equity portfolio domain.
 - **Cryptocurrency Manager** — digital-asset portfolio domain.
 - **Real Estate Manager** — real-estate investment portfolio domain.
-- **Financial Data Steward** — read-only bank/broker/exchange/Ledger aggregation, normalization, freshness and reconciliation.
-- **Crypto Sandbox Operator** — agent-owned testnet wallet experimentation only; never production custody.
+- **Financial Data Steward** — bank/broker/exchange/Ledger aggregation, normalization, freshness and reconciliation.
+- **Financial Execution Operator** — executes one exact real-money action only from an explicit user order and fresh confirmation.
+- **Crypto Live Wallet Operator** — operates the dedicated Hermes real-value wallet under the same explicit-order gate.
+- **Crypto Sandbox Operator** — autonomous testnet wallet experimentation only; never production custody.
 
-Analysts/researchers provide independent specialist evidence rather than inheriting manager authority:
+Analysts/researchers provide independent specialist evidence rather than inheriting execution authority:
 
 - Investment Research Analyst
 - Equity Analyst
@@ -36,44 +38,55 @@ Research outputs should preserve source provenance, dates, assumptions, scenario
 
 ## Read-only financial account access
 
-Registry v1.9 may ingest read-only financial observations through `financial-data-hub`:
+`financial-data-hub` may ingest read-only observations from:
 
-- Revolut, Banco BPI and moey through a regulated PSD2 Account Information Service Provider connection, subject to provider/institution coverage and user consent;
-- Trading 212 through a permission-scoped read-only API key with IP restriction where available;
-- Pionex through an API key restricted to `Read` permission;
-- Ledger through Ledger Wallet API `account.list` capability only.
+- Revolut, Banco BPI and moey through regulated PSD2 Account Information Service Provider connections, subject to provider/institution coverage and user consent;
+- Trading 212 through a permission-scoped read key;
+- Pionex through a `Read` key;
+- Ledger through Ledger Wallet API `account.list`.
 
 `financial-data-steward` normalizes those observations for internal finance specialists. Raw passwords, PINs, MFA secrets, API secrets, Ledger private keys, seed phrases, recovery codes and signing secrets remain outside Profile-visible context.
 
-Read access does not include payment initiation, order placement/cancellation, trading, withdrawals, transfers, transaction signing, custody changes or account administration.
+## Explicit-order real-money execution
 
-See `FINANCIAL_ACCESS.md` for the provider-specific contract.
+`financial-execution-gateway@1.0.0` is write-capable for supported providers, but it is not autonomous. Every action requires an explicit user order routed through Hermes plus a fresh confirmation of the exact final payload.
 
-## Execution boundary
+Configured write paths include:
 
-Registry v1.9 does **not** grant financial profiles transaction authority.
+- bank payment initiation through a regulated PISP adapter for supported Revolut/BPI/moey payment flows;
+- Trading 212 live Market, Limit, Stop and Stop-Limit orders plus pending-order cancellation using a separate execution credential;
+- Pionex order placement/cancellation using a separate key with `Trade` permission;
+- Ledger `transaction.sign` / `transaction.signAndBroadcast` with Ledger hardware/on-device confirmation.
 
-Default-denied capabilities include:
+The authorization is one-shot, expires after five minutes, cannot be wildcarded or reused, and is bound to provider, account, operation, recipient/instrument, side, amount/quantity, currency, and price/limit when applicable.
 
-- securities order placement/modification/cancellation;
-- broker or bank account administration;
-- fund subscriptions/redemptions;
-- money transfers;
-- exchange trading;
-- cryptocurrency swaps, staking, bridging or production transfers;
-- production-wallet signing or custody changes;
+The Financial Execution Operator executes exactly the confirmed action. It cannot optimize size, substitute an asset, change a recipient, split an order, retry with changed parameters, create follow-on transactions, or infer permission from a strategy or recommendation.
+
+Still denied without a separate future capability:
+
+- autonomous real-money execution;
+- broker/bank account administration;
+- beneficiary administration;
+- withdrawals or transfers from Pionex;
+- arbitrary Ledger message signing;
 - handling user private keys, seed phrases, recovery codes or signing secrets;
-- property purchases/sales, deposits, financing, leases, title actions or contractual commitments.
+- property purchase/sale/financing/title/contract execution.
 
-`financial-execution-gateway@0.1.0` is a disabled placeholder with zero executable capabilities. A future execution integration must be published as a new reviewed version with explicit authorization, account scoping, confirmation policy, limits, audit trail, credential isolation, provider/jurisdiction review and clear distinction between recommendation and execution.
+See `FINANCIAL_ACCESS.md` for provider-specific details.
 
-## Agent crypto sandbox exception
+## Dedicated Hermes live wallet
 
-The execution boundary above applies to real economic value and production wallets. A separate `agent-sandbox-wallet` may sign and send transactions using faucet/test assets on explicitly approved public test networks only.
+`agent-live-wallet@1.0.0` defines a separate real-value wallet owned for Hermes use. Its key material is generated locally and stays in the host encrypted secret boundary; it is never derived from or mixed with the user's Ledger or other wallets.
 
-The sandbox currently permits Ethereum Sepolia and Solana Devnet. It rejects mainnet, real-value deposits, fiat on-ramps, production exchange funding, mainnet bridges, production wallet connections, and imported user wallet secrets.
+The wallet may receive real assets and may construct, simulate, sign and broadcast transactions on an explicit configured network allowlist. Real-value signing, however, requires an explicit user order plus fresh confirmation for every transaction. The agent may independently research opportunities, monitor state and prepare transaction proposals, but it cannot autonomously commit real economic value.
 
-Sandbox signing authority is not financial authority and must never be reused for the user's Ledger, Pionex, Trading 212, bank accounts, or any mainnet wallet.
+This restriction is intentional and does not apply to the separate testnet sandbox.
+
+## Agent crypto sandbox
+
+`agent-sandbox-wallet` may autonomously sign and send transactions using faucet/test assets on approved public test networks. The sandbox currently permits Ethereum Sepolia and Solana Devnet and rejects mainnet, real-value deposits, fiat on-ramps, production exchange funding, mainnet bridges, production wallet connections, and imported user wallet secrets.
+
+Sandbox authority must never be reused for the user's Ledger, Pionex, Trading 212, bank accounts, or the Hermes live wallet.
 
 ## Professional and jurisdiction boundaries
 
@@ -92,7 +105,8 @@ The appropriate qualified professional should be involved when licensing, fiduci
 - `public-markets-team` — equities, fixed income, macro, quant and risk.
 - `digital-assets-team` — crypto portfolio, protocol, custody and cybersecurity analysis.
 - `real-assets-team` — real estate, asset oversight, property-condition and risk analysis.
-- `financial-data-team` — read-only financial source aggregation plus wealth/portfolio/risk interpretation.
-- `crypto-sandbox-team` — testnet-only wallet and blockchain experimentation.
+- `financial-data-team` — financial source aggregation plus wealth/portfolio/risk interpretation.
+- `financial-execution-team` — explicitly ordered one-shot real-money execution separated from recommendation roles.
+- `crypto-sandbox-team` — autonomous testnet-only wallet and blockchain experimentation.
 
 Bundles are starting compositions, not recruitment ceilings. Orchestrator and Team Leader may create multiple analyst instances for parallel research when useful, subject to host/resource policy.
