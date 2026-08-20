@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: wealth-planning
+  version: 1.0.0
+  description: Coordinate long-horizon wealth objectives, liquidity, investment policy, tax/legal dependencies, and intergenerational planning considerations.
+  tags: [wealth, planning]
+spec:
+  purpose: Integrate planning domains while routing tax, legal, estate, and regulated matters to qualified specialists.

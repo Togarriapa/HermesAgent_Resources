@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: fixed-income-analysis
+  version: 1.0.0
+  description: Analyze sovereign and corporate fixed income using yield, duration, convexity, credit, liquidity, curve, and reinvestment risks.
+  tags: [bonds, fixed-income, credit]
+spec:
+  purpose: Compare fixed-income opportunities and risks without executing transactions.

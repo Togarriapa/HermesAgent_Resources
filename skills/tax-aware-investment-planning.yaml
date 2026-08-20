@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: tax-aware-investment-planning
+  version: 1.0.0
+  description: Identify tax-sensitive investment decisions and coordination points with accountants and jurisdiction-specific advisers.
+  tags: [investment, tax, planning]
+spec:
+  purpose: Surface tax considerations without replacing current jurisdiction-specific professional tax advice.

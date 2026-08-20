@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: digital-asset-custody-risk
+  version: 1.0.0
+  description: Evaluate wallet, exchange, custodian, key-management, smart-contract, counterparty, and recovery risks for digital assets.
+  tags: [crypto, custody, security]
+spec:
+  purpose: Assess custody architecture without requesting or handling private keys or seed phrases.

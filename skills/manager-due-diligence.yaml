@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: manager-due-diligence
+  version: 1.0.0
+  description: Evaluate external asset managers, funds, mandates, process, people, governance, fees, liquidity, controls, and track-record quality.
+  tags: [asset-management, due-diligence]
+spec:
+  purpose: Assess manager/process quality and operational risk without equating historical performance with future results.

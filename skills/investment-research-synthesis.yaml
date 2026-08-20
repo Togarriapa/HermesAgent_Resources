@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: investment-research-synthesis
+  version: 1.0.0
+  description: Synthesize cross-asset research into thesis, evidence, counterarguments, scenarios, catalysts, risks, and monitoring signals.
+  tags: [investment, research, synthesis]
+spec:
+  purpose: Produce decision-ready research with source provenance and uncertainty.

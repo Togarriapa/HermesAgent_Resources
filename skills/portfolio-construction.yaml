@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: portfolio-construction
+  version: 1.0.0
+  description: Construct diversified portfolios from objectives, constraints, asset classes, correlations, liquidity, and implementation risks.
+  tags: [portfolio, allocation, investment]
+spec:
+  purpose: Produce transparent portfolio structures and trade-off analysis without executing transactions.

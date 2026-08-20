@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: quantitative-investment-analysis
+  version: 1.0.0
+  description: Quantitative analysis of returns, factors, correlations, drawdowns, regime sensitivity, backtests, and model robustness.
+  tags: [quant, investment, statistics]
+spec:
+  purpose: Require reproducibility, out-of-sample thinking, transaction-cost awareness, and leakage/overfitting controls.

@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: equity-research
+  version: 1.0.0
+  description: Research public equities using business quality, financial statements, industry structure, catalysts, valuation, and risk.
+  tags: [equities, stocks, research]
+spec:
+  purpose: Separate source facts, assumptions, valuation cases, and investment thesis uncertainty.

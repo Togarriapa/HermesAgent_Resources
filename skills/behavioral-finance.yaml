@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: behavioral-finance
+  version: 1.0.0
+  description: Identify behavioral biases, decision traps, process weaknesses, and governance practices affecting investment decisions.
+  tags: [behavioral-finance, decisions]
+spec:
+  purpose: Improve decision process without using coercive or manipulative techniques.

@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: portfolio-risk-analysis
+  version: 1.0.0
+  description: Analyze concentration, volatility, drawdown, liquidity, leverage, factor, counterparty, currency, and tail risks.
+  tags: [risk, portfolio]
+spec:
+  purpose: Surface risk contributions and stress scenarios instead of relying on a single metric.

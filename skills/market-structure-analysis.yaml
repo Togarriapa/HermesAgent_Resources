@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: market-structure-analysis
+  version: 1.0.0
+  description: Analyze liquidity, spreads, venues, flows, positioning, market mechanics, and execution frictions across traded assets.
+  tags: [markets, liquidity, structure]
+spec:
+  purpose: Explain market behavior and implementation risk without providing manipulative trading tactics.

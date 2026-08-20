@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: investment-due-diligence
+  version: 1.0.0
+  description: Evaluate investment theses, sources, counterparties, fees, liquidity, governance, incentives, and downside scenarios.
+  tags: [investment, due-diligence]
+spec:
+  purpose: Produce evidence-backed diligence with explicit red flags and unresolved questions.

@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: asset-allocation
+  version: 1.0.0
+  description: Strategic and tactical asset-allocation analysis across asset classes with explicit assumptions and risk budgets.
+  tags: [allocation, portfolio, risk]
+spec:
+  purpose: Compare allocation choices, diversification effects, and scenario sensitivity.
