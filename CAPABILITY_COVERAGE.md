@@ -1,49 +1,75 @@
-# Capability Coverage — Registry v2.1
+# Capability Coverage — v2.1 Breadth / v2.2 Effective Quality
 
-The previous capability-gap audit has been fully consumed into registry resources. This document records the implemented responsibility domains rather than maintaining a backlog of missing roles.
+The former capability-gap audit has been fully consumed into registry resources. This document records implemented responsibility domains rather than maintaining a speculative backlog.
+
+**v2.1 established breadth. v2.2 hardens every indexed resource's effective operating contract through `QUALITY_POLICY.yaml`.** The quality layer does not create new expertise or permissions; it adds consistent evidence, verification, privacy, failure, observability, lifecycle, and authority-non-escalation behavior around the existing catalog.
 
 ## Product, operations, people and decisions
 
-Implemented Profiles include Product Manager; Business Analyst / Requirements Engineer; COO / Operations Manager; People Operations / HR Specialist; Recruiter / Talent Acquisition Specialist; Privacy / GDPR Specialist; Negotiation & Conflict Resolution Specialist; and Decision Scientist / Operations Research Specialist.
+Profiles include Product Manager; Business Analyst / Requirements Engineer; COO / Operations Manager; People Operations / HR Specialist; Recruiter / Talent Acquisition Specialist; Privacy / GDPR Specialist; Negotiation & Conflict Resolution Specialist; Decision Scientist / Operations Research Specialist; plus CEO/CFO/CTO, Project/Agile/Scrum, analytics, research, and implementation roles.
 
 ## Household, property and resilience
 
-Implemented Profiles include Automotive Maintenance; Home Energy / Solar; Water & Wastewater; Emergency Preparedness & Resilience; Arboriculture / Tree Care; Pest & Building Biology, alongside the existing focused home-maintenance profiles.
+Coverage includes Home Maintenance Manager with plumbing, appliance, carpentry/joinery, finishes, roofing/drainage, grounds, and home-comfort specialists; Home Fixing/Improvement; Automotive Maintenance; Home Energy/Solar; Water & Wastewater; Emergency Preparedness & Resilience; Arboriculture/Tree Care; Pest & Building Biology; smart-home/Home Assistant; and relevant engineering.
 
 ## Farm and food systems
 
-Implemented Profiles include Farm Planner; Horticulture / Orchard; Livestock Health Navigator; Farm Machinery Maintenance, alongside Farming, Agriculture, Weather, Homesteading, and Home & Farm Management.
+Coverage includes Farm Planner; Home & Farm Manager; Farming; Agriculture; Homesteading; Weather; Horticulture/Orchard; Livestock Health Navigator; Farm Machinery Maintenance; garden/grounds; water/irrigation and related engineering/maintenance roles.
 
-## Education and family
+Livestock Health Navigator remains non-veterinary and routes diagnosis/prescribing to qualified veterinary care.
 
-Implemented Profiles include Child Development; Special Education / SEN; Mathematics Teacher; Science Teacher; Literacy / Reading Specialist, alongside curriculum, homeschooling, homeroom, language, history, music and theology teaching.
+## Education, development and family
 
-## Legal, finance and commercial operations
+Coverage includes Curriculum Designer; Homeschooling/Homeroom; Language, History, Music, Theology, Mathematics and Science teachers; Literacy/Reading; Child Development; Special Education/SEN; Catholic family perspectives; Psychology and relevant family/routine specialists.
 
-Implemented Profiles include Insurance; Estate & Succession Planning Research; Procurement & Vendor Management; EU Law / Regulatory Research; and Portugal/EU Employment Law, alongside Portuguese/International Law, accounting, wealth and investment specialists.
+Child-development/SEN guidance remains non-diagnostic and safeguarding/age appropriateness remain primary constraints.
 
-## Technology
+## Career, work and organizational life
 
-Implemented Profiles include Network Engineer; Site Reliability Engineer; Database Reliability Specialist; AI/ML Engineer; and Privacy/Security Engineer, alongside systems architecture, cybersecurity, development, DevOps, data, homelab, smart-home and infrastructure roles.
+Coverage includes Career Advisor; Career Development Specialist; Remote Work Manager; People Operations/HR; Recruiter/Talent Acquisition; Negotiation/Conflict Resolution; Psychology/Sociology; and management/executive roles.
 
-## Information quality and reasoning
+## Legal, privacy, finance and commercial operations
 
-Implemented Profiles include Fact Checker / Source Verification; Media Literacy / Misinformation Analyst; Ethics Specialist; Knowledge Manager / Archivist; Debate Analyst; Philosophy; Culture; Psychology; Sociology; and Anthropology.
+Coverage includes Portuguese Law; International Law; EU Law/Regulatory; Portugal/EU Employment Law; Privacy/GDPR; Privacy/Security Engineering; Accountant Portugal/International; Insurance; Estate & Succession Planning Research; Procurement/Vendor Management; finance/wealth/investment managers, analysts, data and execution operators.
+
+Legal/regulatory Profiles provide research/information within jurisdictional/professional boundaries rather than representation.
+
+## Technology and digital systems
+
+Coverage includes Systems Architect; Network Engineer; Site Reliability Engineer; Database Reliability Specialist; AI/ML Engineer; Cybersecurity; Privacy/Security Engineering; backend/frontend/general/web/DevOps developers; QA; Data Engineer/Data Scientist/Data Analytics; Infrastructure Manager; Homelab Operator; Home Assistant/IoT; Robotics; and electrical/mechanical engineering.
+
+## Information quality, research and reasoning
+
+Coverage includes Researcher; Scientific Researcher; Fact Checker / Source Verification; Media Literacy / Misinformation Analyst; Debate Analyst; Ethics Specialist; Knowledge Manager / Archivist; Philosophy; Culture; Psychology; Sociology; Anthropology; History; and evidence/source-integrity skills.
+
+The v2.2 research overlay requires provenance, current-fact refresh where material, supporting/disconfirming evidence, and explicit uncertainty.
 
 ## Catholic specialist domain
 
-Implemented Profiles include Catholic Relationship Expert; Catholic Traditional Family Advisor; Catholic Tradition Expert; Catholic History Expert; Catholic Prayer Planner / Writer; Catholic Traditional Advisor; Catholic Guidance; Theology Teacher; and Portuguese, Sicilian, Spanish and German Catholic Family Advisors.
+Coverage includes Catholic Guidance; Catholic Traditional Advisor; Catholic Relationship Expert; Catholic Traditional Family Advisor; Catholic Tradition Expert; Catholic History Expert; Catholic Prayer Planner / Writer; Theology Teacher; and Portuguese, Sicilian, Spanish and German Catholic Family Advisors.
+
+The v2.2 Catholic overlay reinforces source hierarchy and separation of binding doctrine, discipline/liturgical law, theological opinion, devotional/customary practice, and prudential judgment without impersonating clergy/ecclesiastical authority.
 
 ## Translation, architecture and digital fabrication
 
-Implemented Profiles include Professional European Portuguese ↔ English Translator; Building Architect; 3D Model Designer; 3D Printer Specialist; 3D Model Maker; and 3D Model Optimizer.
+Coverage includes Professional European Portuguese ↔ English Translator; Building Architect; 3D Model Designer; 3D Printer Specialist; 3D Model Maker; and 3D Model Optimizer, supported by translation, architectural-planning, CAD, additive-manufacturing and printability Skills.
+
+Building architecture remains distinct from Systems Architecture and does not imply licensed/statutory sign-off. Translation does not falsely claim sworn/certified status. Digital-fabrication capability does not automatically grant unattended machine control.
 
 ## Reusable cross-domain procedures
 
-Reusable Skills cover claim verification, negotiation preparation, scenario/sensitivity analysis, decision records, root-cause analysis, vendor comparison, privacy impact screening, emergency checklist design, cost-benefit/TCO analysis, requirements engineering, professional PT↔EN translation, architectural design planning, 3D CAD modeling, additive manufacturing and printability optimization.
+In addition to the large existing Skill library, reusable procedures include claim verification, negotiation preparation, scenario/sensitivity analysis, decision records, root-cause analysis, vendor comparison, privacy impact screening, emergency checklist design, cost-benefit/TCO analysis, requirements engineering, professional PT↔EN translation, architectural design planning, 3D CAD modeling, additive manufacturing and printability optimization.
+
+Every effective Skill receives common input/precondition/procedure-shell/verification/failure/output behavior from the quality policy, but its own manifest must still contain domain-specific method content.
 
 ## Team coverage
 
-Registry v2.1 includes the audit-requested `product-strategy-team`, `people-career-team`, `privacy-compliance-team`, `home-resilience-team`, `farm-reliability-team`, and `decision-science-team`, plus `catholic-tradition-family-team`, `core-education-team`, `architecture-fabrication-team`, `additive-manufacturing-team`, `information-integrity-team`, and `farm-planning-team`.
+Specialist Bundles cover product strategy, people/career, privacy/compliance, home resilience, farm reliability/planning, decision science, Catholic tradition/family, core education, architecture/fabrication, additive manufacturing, information integrity, finance/investment, software/data/infrastructure, smart home/homelab, research/writing, and other existing domains.
 
-All Profiles remain internal-only and are dynamically recruitable through Orchestrator/Team Leader. Team bundles are starting compositions, not recruitment ceilings.
+All Bundles are starting compositions, not recruitment ceilings. Orchestrator/Team Leader can recruit any registered Profile and multiple instances when useful.
+
+## Completeness guarantee
+
+`python scripts/validate_quality_v22.py` iterates every catalog resource individually, merges the universal/kind/domain quality policy with its declared manifest, and checks the effective contract for that resource kind. `materialize_effective_registry.py` provides the reference unresolved materialization used by a future provisioner/importer.
+
+The registry can therefore remain modular and concise without allowing sparse YAML to mean undefined runtime behavior.
