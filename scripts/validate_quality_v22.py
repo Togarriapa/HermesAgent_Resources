@@ -135,7 +135,6 @@ def secret_literal_errors(rel: str, doc: dict[str, Any]) -> list[str]:
         key = path[-1].replace("-", "").lower()
         if key not in SECRET_KEYS or value is None or not isinstance(value, str):
             continue
-        # Values such as runtime-only/deny are policy statements, not credentials.
         if value in {"runtime-only", "deny", "none", "host-managed"}:
             continue
         if not ENV_REF_RE.fullmatch(value):
@@ -167,7 +166,9 @@ def direct_manifest_checks(rel: str, kind: str, name: str, doc: dict[str, Any]) 
 
     elif kind == "Skill":
         if not (set(spec) & SKILL_METHOD_KEYS):
-            errors.append(f"{rel}: Skill needs domain-specific method content; description-only Skills are incomplete")
+            substantive = set(spec) - {"requires", "extends", "compatibility"}
+            if not substantive:
+                errors.append(f"{rel}: Skill needs domain-specific method content; description-only Skills are incomplete")
 
     elif kind == "Plugin":
         if not any(key in spec for key in ("provider", "endpoint", "command", "runtime")):
@@ -202,7 +203,6 @@ def direct_manifest_checks(rel: str, kind: str, name: str, doc: dict[str, Any]) 
 
 def main() -> int:
     errors: list[str] = []
-    warnings: list[str] = []
 
     if not POLICY_PATH.exists():
         print("QUALITY_POLICY.yaml is missing", file=sys.stderr)
@@ -210,16 +210,24 @@ def main() -> int:
     policy_doc = load_yaml(POLICY_PATH)
     policy_meta = policy_doc.get("metadata") or {}
     policy = policy_doc.get("spec") or {}
+    application = policy.get("application") or {}
+
     if policy_doc.get("kind") != "RegistryQualityPolicy":
         errors.append("QUALITY_POLICY.yaml: kind must be RegistryQualityPolicy")
     if policy_meta.get("version") != "2.2.0":
         errors.append("QUALITY_POLICY.yaml: expected policy version 2.2.0")
-    if (policy.get("application") or {}).get("scope") != "every-catalog-resource":
+    if application.get("scope") != "every-catalog-resource":
         errors.append("QUALITY_POLICY.yaml: policy must apply to every catalog resource")
-    if (policy.get("application") or {}).get("defaultsMayExpandCapability") is not False:
-        errors.append("QUALITY_POLICY.yaml: defaults must never expand capability")
-    if (policy.get("application") or {}).get("resourceMayExceedHostAuthority") is not False:
-        errors.append("QUALITY_POLICY.yaml: resource policy must not exceed host authority")
+    if application.get("authorizationCeiling") != "local-host-policy":
+        errors.append("QUALITY_POLICY.yaml: local host policy must be the absolute authorization ceiling")
+    if application.get("explicitUserAuthority") != "within-host-policy-only":
+        errors.append("QUALITY_POLICY.yaml: explicit user authority must remain within host policy")
+    for key in (
+        "defaultsMayExpandCapability", "overlaysMayExpandCapability", "resourceMayExceedHostAuthority",
+        "learnedOverlayMayExpandCapability", "sessionContextMayExpandCapability",
+    ):
+        if application.get(key) is not False:
+            errors.append(f"QUALITY_POLICY.yaml: {key} must be false")
 
     catalog = load_yaml(CATALOG_PATH)
     entries = catalog.get("resources") or []
@@ -227,7 +235,6 @@ def main() -> int:
         errors.append("catalog.yaml: resources must be a list")
         entries = []
 
-    seen_paths: set[str] = set()
     covered = 0
     overlay_counts: dict[str, int] = {}
     kind_counts: dict[str, int] = {}
@@ -245,10 +252,8 @@ def main() -> int:
         rel = entry.get("path")
         if kind not in SUPPORTED_KINDS or not isinstance(name, str) or not isinstance(rel, str):
             continue
-        seen_paths.add(rel)
         path = ROOT / rel
         if not path.exists():
-            # validate_registry.py owns the canonical missing-file error.
             continue
         doc = load_yaml(path)
         raw_spec = doc.get("spec") or {}
@@ -267,27 +272,22 @@ def main() -> int:
         errors.extend(direct_manifest_checks(rel, kind, name, doc))
         errors.extend(secret_literal_errors(rel, doc))
 
-        # Effective non-escalation checks that must hold for every resource.
         if not has_path(effective, "safety.authorityFromInference") or effective["safety"].get("authorityFromInference") != "deny":
             errors.append(f"{rel}: effective policy must deny authority inferred from context")
         if (effective.get("privacy") or {}).get("secretCommit") != "deny":
             errors.append(f"{rel}: effective policy must deny committing secrets")
 
-        if kind == "Bundle":
-            if (effective.get("authority") or {}).get("membershipExpandsAuthority") is not False:
-                errors.append(f"{rel}: Bundle membership must not expand authority")
-        if kind == "Cron":
-            if (effective.get("policy") or {}).get("authorityFromSchedule") != "deny":
-                errors.append(f"{rel}: schedule must not create authority")
-        if kind == "Webhook":
-            if (effective.get("policy") or {}).get("authorityFromWebhookReceipt") != "deny":
-                errors.append(f"{rel}: webhook receipt must not create authority")
+        if kind == "Bundle" and (effective.get("authority") or {}).get("membershipExpandsAuthority") is not False:
+            errors.append(f"{rel}: Bundle membership must not expand authority")
+        if kind == "Cron" and (effective.get("policy") or {}).get("authorityFromSchedule") != "deny":
+            errors.append(f"{rel}: schedule must not create authority")
+        if kind == "Webhook" and (effective.get("policy") or {}).get("authorityFromWebhookReceipt") != "deny":
+            errors.append(f"{rel}: webhook receipt must not create authority")
         if kind == "Channel":
             routing = effective.get("routing") or {}
             if routing.get("allowedUserFacingProfiles") != ["hermes"]:
                 errors.append(f"{rel}: effective channel policy must expose only Hermes")
 
-    # Ensure the policy actually touches all eight resource classes present in the registry.
     missing_kinds = sorted(SUPPORTED_KINDS - set(kind_counts))
     if missing_kinds:
         errors.append(f"quality validation saw no catalog resources for kinds: {missing_kinds}")
@@ -296,10 +296,6 @@ def main() -> int:
         print("Registry quality validation failed:", file=sys.stderr)
         for error in errors:
             print(f" - {error}", file=sys.stderr)
-        if warnings:
-            print("Warnings:", file=sys.stderr)
-            for warning in warnings:
-                print(f" - {warning}", file=sys.stderr)
         return 1
 
     overlay_summary = ", ".join(f"{name}={count}" for name, count in sorted(overlay_counts.items())) or "none"
