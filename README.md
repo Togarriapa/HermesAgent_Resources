@@ -10,9 +10,11 @@ The canonical user-facing topology is:
 
 `User <-> Hermes <-> Orchestrator <-> Specialist profiles / Team bundles`
 
-`hermes` is the **only** profile permitted to communicate directly with the user. The Orchestrator and all specialist profiles are internal-only. User-facing web, Telegram, and Discord channels route exclusively to Hermes and reject direct profile selection.
+`hermes` is the **only** profile permitted to communicate directly with the user. The Orchestrator, Team Leader, and all specialist profiles are internal-only. User-facing web, Telegram, and Discord channels route exclusively to Hermes and reject direct profile selection.
 
 Hermes receives the user's request and sends every work-bearing task to the Orchestrator. The Orchestrator decomposes the request, recruits the best-suited specialist profile or team, gathers and synthesizes the work, and returns the result to Hermes. Hermes then delivers the response to the user.
+
+A recruited Team Leader may still recruit any additional registered profile needed for its delegated objective, but it remains internal and reports back through the orchestration chain rather than becoming a user endpoint.
 
 If clarification is required, the Orchestrator asks Hermes, Hermes asks the user, and the answer returns through the same orchestration flow. User-visible scheduled results, alerts, webhook outcomes, and follow-ups must also surface through Hermes.
 
