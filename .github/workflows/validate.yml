@@ -43,3 +43,6 @@ jobs:
 
       - name: Validate every effective resource against v2.2 quality policy
         run: python scripts/validate_quality_v22.py
+
+      - name: Verify effective registry materialization
+        run: python scripts/materialize_effective_registry.py --check-only
