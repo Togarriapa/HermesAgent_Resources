@@ -37,19 +37,19 @@ Effective quality composition is:
 
 `kind defaults < domain quality overlays < resolved resource manifest < local experience overlay < private user-learned overlay < current session context`
 
-That is a behavior/configuration precedence chain only. **Host/runtime authorization is an absolute ceiling around the entire result.** User confirmation, learned behavior, inheritance, recruitment, scaling, or bundle membership cannot create a permission the host/resource does not already possess.
+That is a behavior/configuration precedence chain only. **Host/runtime authorization is an absolute ceiling around the entire result.** User confirmation, learned behavior, inheritance, recruitment, scaling, or Bundle membership cannot create a permission the host/resource does not already possess.
 
 `QUALITY_POLICY.yaml` is defaulting/restrictive only; it never grants tools, credentials, account access, filesystem roots, network targets, physical control, transaction authority, or user-facing routes.
 
-See `RESOURCE_QUALITY.md` and `SPEC.md`.
+See `RESOURCE_QUALITY.md`, `SPEC.md`, and `SECURITY.md`.
 
 ## Capability coverage
 
-The registry now has specialist coverage across software/infrastructure, data/analytics/AI, product/business/operations/HR, finance/investment/accounting, law/privacy, home/property/resilience, farming/agriculture, education/homeschooling, research/information integrity, humanities/social sciences, career/remote work, Catholic theology/tradition/family guidance, professional PT↔EN translation, building architecture, and 3D/additive manufacturing.
+The registry has specialist coverage across software/infrastructure, data/analytics/AI, product/business/operations/HR, finance/investment/accounting, law/privacy, home/property/resilience, farming/agriculture, education/homeschooling, research/information integrity, humanities/social sciences, career/remote work, Catholic theology/tradition/family guidance, professional PT↔EN translation, building architecture, and 3D/additive manufacturing.
 
 `CAPABILITY_COVERAGE.md` is the concise capability map. `PROFILE_MATRIX.md` / `PROFILE_MATRIX_V21.md` document Profile-to-Skill boundaries; `INTEGRATION_MATRIX.md` / `INTEGRATION_MATRIX_V21.md` document external-tool posture.
 
-Bundles are **starting compositions**, never closed rosters. Orchestrator and Team Leader may recruit outside the active bundle whenever a different specialist is needed.
+Bundles are **starting compositions**, never closed rosters. Orchestrator and Team Leader may recruit outside the active Bundle whenever a different specialist is needed.
 
 ## Financial and crypto separation
 
@@ -94,7 +94,7 @@ WhatsApp support is **WhatsApp Business only** through its scoped integration. E
 
 ## Canonical import/materialization
 
-A provisioner should fetch a pinned Git ref, validate the registry, resolve catalog selectors/dependencies/inheritance, apply `QUALITY_POLICY.yaml`, preserve secret placeholders, apply permitted local/private overlays, enforce host authorization, and only then instantiate resources.
+A provisioner should fetch a pinned Git ref, validate the registry, resolve catalog selectors/dependencies/inheritance, apply `QUALITY_POLICY.yaml`, preserve secret placeholders, apply permitted local/private overlays, intersect capabilities with host authorization, and only then instantiate resources.
 
 ```yaml
 resourceSource:
@@ -103,6 +103,8 @@ resourceSource:
 imports:
   - bundles/hermes-runtime.yaml
 ```
+
+`RUNTIME_IMPORT.md` defines the fail-closed reference import pipeline, including isolation, credential injection, health acceptance, dynamic recruitment, atomic generation activation/rollback, and shared host-managed Codex authentication.
 
 A reference quality-policy materializer is provided:
 
@@ -123,10 +125,11 @@ python scripts/validate_registry.py
 python scripts/validate_deliberation.py
 python scripts/validate_expansion_v21.py
 python scripts/validate_quality_v22.py
+python scripts/validate_quality_overlays_v22.py
 python scripts/materialize_effective_registry.py --check-only
 ```
 
-The quality validator iterates every catalog resource individually and verifies its **effective** contract plus direct domain content that defaults cannot invent.
+The main quality validator iterates every catalog resource individually and verifies its **effective** contract plus direct domain content that defaults cannot invent. The overlay regression validator checks representative cross-domain resources so broad matching rules cannot silently attach inappropriate quality policies.
 
 ## Safety model
 
@@ -139,4 +142,4 @@ The quality validator iterates every catalog resource individually and verifies 
 - Licensed/regulated/legal/medical/veterinary/engineering/physical-safety boundaries are identified and escalated.
 - Deliberation cannot vote away safety, privacy, authorization, or professional boundaries.
 
-For contribution rules and templates, see `CONTRIBUTING.md` and `templates/README.md`.
+For contribution rules and templates, see `CONTRIBUTING.md` and `templates/README.md`. For runtime/security boundaries, see `RUNTIME_IMPORT.md` and `SECURITY.md`.
