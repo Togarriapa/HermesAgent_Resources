@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: product-discovery
+  version: 1.0.0
+  description: Discover product opportunities through problems, users, evidence, hypotheses, experiments, and value/risk analysis.
+  tags: [product, discovery, research]
+spec:
+  principles: [problem-before-solution, evidence-driven, test-assumptions]

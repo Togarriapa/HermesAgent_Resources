@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: executive-strategy
+  version: 1.0.0
+  description: Formulate organizational direction, strategic choices, objectives, tradeoffs, and execution priorities.
+  tags: [executive, strategy, leadership]
+spec:
+  principles: [choices-not-wishlists, measurable-outcomes, explicit-tradeoffs]

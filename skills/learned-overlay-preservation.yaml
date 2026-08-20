@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: learned-overlay-preservation
+  version: 1.0.0
+  description: Preserve private user-learned preferences and local experiential improvements across upstream updates.
+  tags: [learning, overlays, privacy]
+spec:
+  principles: [private-by-default, never-push-user-learning, preserve-provenance]

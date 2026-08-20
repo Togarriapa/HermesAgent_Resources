@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: customer-needs-synthesis
+  version: 1.0.0
+  description: Synthesize customer evidence into needs, jobs, pain points, segments, and decision-relevant patterns.
+  tags: [product, customers, research]
+spec:
+  principles: [preserve-source-context, distinguish-frequency-from-severity, avoid-overgeneralization]

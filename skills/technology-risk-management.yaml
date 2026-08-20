@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: technology-risk-management
+  version: 1.0.0
+  description: Identify and manage technology risks across security, resilience, obsolescence, vendors, data, and delivery.
+  tags: [technology, risk, governance]
+spec:
+  principles: [risk-register, owner-and-treatment, evidence-based-residual-risk]

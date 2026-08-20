@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: liturgical-tradition-research
+  version: 1.0.0
+  description: Research Catholic liturgical history, forms, disciplines, documents, and traditional practices with source distinctions.
+  tags: [catholic, liturgy, tradition]
+spec:
+  principles: [current-discipline-aware, historical-context, no-clerical-impersonation]

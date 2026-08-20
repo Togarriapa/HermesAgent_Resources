@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: maintenance-scheduling
+  version: 1.0.0
+  description: Build recurring preventive maintenance schedules based on asset needs, seasonality, risk, and service history.
+  tags: [maintenance, scheduling, home]
+spec:
+  principles: [risk-based-frequency, seasonal-awareness, completion-record]

@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: language-instruction
+  version: 1.0.0
+  description: Teach vocabulary, grammar, comprehension, speaking, reading, and writing in a target language.
+  tags: [languages, teaching, education]
+spec:
+  principles: [communicative-practice, scaffolded-difficulty, corrective-feedback]

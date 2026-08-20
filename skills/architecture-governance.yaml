@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: architecture-governance
+  version: 1.0.0
+  description: Govern architecture decisions, standards, exceptions, reviews, and long-term coherence without blocking delivery unnecessarily.
+  tags: [architecture, governance, technology]
+spec:
+  principles: [decision-records, lightweight-guardrails, explicit-exceptions]

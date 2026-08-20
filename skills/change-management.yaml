@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: change-management
+  version: 1.0.0
+  description: Plan controlled operational change with impact analysis, approvals, communication, validation, and rollback.
+  tags: [change, operations, governance]
+spec:
+  principles: [small-batches, rollback-ready, verify-after-change]

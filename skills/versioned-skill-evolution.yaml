@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: versioned-skill-evolution
+  version: 1.0.0
+  description: Evolve skills through versioned, reviewable changes with provenance, compatibility notes, and rollback.
+  tags: [skills, versioning, improvement]
+spec:
+  principles: [no-silent-mutation, semver, rollback-path]

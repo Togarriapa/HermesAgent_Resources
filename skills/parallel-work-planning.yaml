@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: parallel-work-planning
+  version: 1.0.0
+  description: Identify independent work packages and schedule them concurrently while respecting shared constraints.
+  tags: [orchestration, parallelism, planning]
+spec:
+  principles: [dependency-aware, isolate-conflicting-writes, maximize-safe-concurrency]

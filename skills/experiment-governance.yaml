@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: experiment-governance
+  version: 1.0.0
+  description: Govern improvement experiments with hypotheses, scope, risk controls, success criteria, observation, and rollback.
+  tags: [improvement, experiments, governance]
+spec:
+  principles: [bounded-experiment, explicit-success, reversible-default]

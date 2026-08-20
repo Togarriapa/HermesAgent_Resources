@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: infrastructure-capacity-management
+  version: 1.0.0
+  description: Plan infrastructure capacity, utilization, headroom, growth, constraints, and cost.
+  tags: [infrastructure, capacity, operations]
+spec:
+  principles: [measure-first, headroom-explicit, forecast-demand]

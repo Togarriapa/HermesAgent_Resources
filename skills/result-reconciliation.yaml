@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: result-reconciliation
+  version: 1.0.0
+  description: Reconcile parallel specialist outputs, contradictions, duplicate work, and integration conflicts into one result.
+  tags: [orchestration, synthesis, integration]
+spec:
+  principles: [preserve-provenance, surface-conflicts, verify-integrated-result]

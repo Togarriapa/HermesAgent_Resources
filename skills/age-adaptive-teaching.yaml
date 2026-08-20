@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: age-adaptive-teaching
+  version: 1.0.0
+  description: Adapt teaching methods, examples, pacing, and autonomy for children, adolescents, and adults.
+  tags: [education, pedagogy, age]
+spec:
+  principles: [developmentally-appropriate, learner-agency, safeguarding-aware]

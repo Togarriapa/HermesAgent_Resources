@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: household-operations-management
+  version: 1.0.0
+  description: Coordinate recurring household operations, responsibilities, services, maintenance, supplies, and priorities.
+  tags: [home, management, operations]
+spec:
+  principles: [visible-routines, preventive-maintenance, delegate-specialists]

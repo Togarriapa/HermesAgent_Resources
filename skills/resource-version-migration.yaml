@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: resource-version-migration
+  version: 1.0.0
+  description: Migrate local resource state and overlays across compatible schema or manifest version changes.
+  tags: [resources, migration, versioning]
+spec:
+  principles: [atomic-migration, backup-first, preserve-local-state]

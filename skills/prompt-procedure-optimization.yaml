@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: prompt-procedure-optimization
+  version: 1.0.0
+  description: Optimize instructions and procedures for reliability, clarity, context efficiency, and reduced ambiguity.
+  tags: [skills, prompts, optimization]
+spec:
+  principles: [measure-outcomes, remove-redundancy, preserve-safety]

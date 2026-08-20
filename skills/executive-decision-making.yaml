@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: executive-decision-making
+  version: 1.0.0
+  description: Structure high-level decisions under uncertainty with alternatives, evidence, risks, reversibility, and ownership.
+  tags: [executive, decisions, leadership]
+spec:
+  principles: [decision-framing, reversible-vs-irreversible, record-rationale]

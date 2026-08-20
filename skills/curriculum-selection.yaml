@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: curriculum-selection
+  version: 1.0.0
+  description: Evaluate curriculum resources for fit, rigor, pedagogy, cost, workload, and learner context.
+  tags: [curriculum, homeschooling, evaluation]
+spec:
+  principles: [fit-over-brand, inspect-samples, avoid-vendor-lock-in]

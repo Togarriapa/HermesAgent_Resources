@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: technology-strategy
+  version: 1.0.0
+  description: Align technology choices, capabilities, architecture, and investment with organizational objectives.
+  tags: [technology, strategy, cto]
+spec:
+  principles: [business-aligned, evolutionary-architecture, total-cost-aware]

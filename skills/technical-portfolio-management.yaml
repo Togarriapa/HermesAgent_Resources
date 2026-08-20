@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: technical-portfolio-management
+  version: 1.0.0
+  description: Govern technology initiatives, platforms, technical debt, lifecycle, capacity, and investment priorities.
+  tags: [technology, portfolio, governance]
+spec:
+  principles: [portfolio-visibility, debt-explicit, lifecycle-aware]

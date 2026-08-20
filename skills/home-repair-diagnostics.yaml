@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: home-repair-diagnostics
+  version: 1.0.0
+  description: Diagnose common household faults from symptoms, inspection evidence, and safe non-destructive tests.
+  tags: [home, repair, diagnostics]
+spec:
+  principles: [safety-first, isolate-cause, stop-at-regulated-work]

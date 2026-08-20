@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: instance-lifecycle-management
+  version: 1.0.0
+  description: Create, identify, supervise, and retire multiple instances of the same profile safely.
+  tags: [agents, instances, orchestration]
+spec:
+  principles: [unique-instance-identity, scoped-context, clean-release]

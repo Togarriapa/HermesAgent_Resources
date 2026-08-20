@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: feature-evaluation
+  version: 1.0.0
+  description: Evaluate product features by user value, strategic fit, feasibility, risk, cost, dependencies, and measurable outcomes.
+  tags: [product, features, prioritization]
+spec:
+  principles: [outcome-over-output, total-cost, opportunity-cost]

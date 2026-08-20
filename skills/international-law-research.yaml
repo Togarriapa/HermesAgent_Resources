@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: international-law-research
+  version: 1.0.0
+  description: Research public and private international law using treaties, institutions, decisions, and authoritative commentary.
+  tags: [law, international, research]
+spec:
+  principles: [source-hierarchy, jurisdiction-sensitive, distinguish-binding-from-persuasive]

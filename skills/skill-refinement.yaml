@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: skill-refinement
+  version: 1.0.0
+  description: Improve a skill's scope, procedure, checks, outputs, and boundaries based on evidence and review findings.
+  tags: [skills, improvement, refinement]
+spec:
+  principles: [small-measurable-change, preserve-intent, review-before-publish]

@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: infrastructure-governance
+  version: 1.0.0
+  description: Govern infrastructure standards, ownership, environments, exceptions, lifecycle, and change controls.
+  tags: [infrastructure, governance, management]
+spec:
+  principles: [standards-with-exceptions, ownership, auditability]

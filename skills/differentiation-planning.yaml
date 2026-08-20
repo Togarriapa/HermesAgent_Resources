@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: differentiation-planning
+  version: 1.0.0
+  description: Adapt content, process, support, and challenge to varied learner needs without lowering core expectations arbitrarily.
+  tags: [education, differentiation, teaching]
+spec:
+  principles: [evidence-based-adjustment, accessible-entry, appropriate-challenge]

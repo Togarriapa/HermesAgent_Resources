@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: case-law-research
+  version: 1.0.0
+  description: Find and analyze relevant judicial decisions, procedural posture, holdings, and authority weight.
+  tags: [law, cases, research]
+spec:
+  principles: [court-hierarchy-aware, facts-matter, no-invented-precedent]

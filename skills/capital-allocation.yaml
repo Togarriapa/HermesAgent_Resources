@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: capital-allocation
+  version: 1.0.0
+  description: Evaluate competing uses of capital across return, risk, liquidity, strategic value, and constraints.
+  tags: [finance, capital, strategy]
+spec:
+  principles: [risk-adjusted, opportunity-cost, liquidity-aware]

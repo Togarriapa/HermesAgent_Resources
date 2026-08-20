@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: change-adoption
+  version: 1.0.0
+  description: Plan adoption of process or capability changes through communication, enablement, feedback, and follow-through.
+  tags: [improvement, adoption, change]
+spec:
+  principles: [explain-why, feedback-loop, avoid-process-theater]

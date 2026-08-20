@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: financial-planning-analysis
+  version: 1.0.0
+  description: Build management-oriented financial plans, scenarios, variance analyses, and decision support.
+  tags: [finance, fpa, management]
+spec:
+  principles: [driver-based, scenario-aware, reconcile-to-source-data]

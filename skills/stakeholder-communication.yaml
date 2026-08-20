@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: stakeholder-communication
+  version: 1.0.0
+  description: Communicate decisions, status, rationale, risks, and asks clearly to different stakeholder groups.
+  tags: [communication, stakeholders, leadership]
+spec:
+  principles: [audience-aware, decision-relevant, no-false-certainty]

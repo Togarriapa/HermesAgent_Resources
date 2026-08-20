@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: organizational-design
+  version: 1.0.0
+  description: Design roles, accountability, decision rights, interfaces, and operating rhythms for an organization or team.
+  tags: [organization, leadership, design]
+spec:
+  principles: [clear-accountability, minimal-overlap, decision-rights-visible]

@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: outcome-metrics
+  version: 1.0.0
+  description: Define metrics that test whether a process or capability improvement actually produced better outcomes.
+  tags: [improvement, metrics, evaluation]
+spec:
+  principles: [outcomes-not-activity, baseline-first, guardrail-metrics]

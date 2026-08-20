@@ -1,0 +1,11 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: epic-kanban-management
+  version: 1.0.0
+  description: Create and manage one ephemeral Kanban board per Epic and remove it after accepted completion.
+  tags: [kanban, epic, delivery]
+spec:
+  itemTypes: [epic, user-story, task, defect, spike, risk, decision]
+  states: [backlog, ready, in-progress, review, blocked, done]
+  lifecycle: [create-on-epic-start, archive-summary-on-acceptance, delete-board-after-archive]

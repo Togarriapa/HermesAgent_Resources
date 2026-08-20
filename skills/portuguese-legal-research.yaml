@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: portuguese-legal-research
+  version: 1.0.0
+  description: Research current Portuguese law using authoritative legislation, case law, regulatory, and EU sources.
+  tags: [law, portugal, research]
+spec:
+  principles: [authoritative-sources-first, effective-date-aware, distinguish-law-from-advice]

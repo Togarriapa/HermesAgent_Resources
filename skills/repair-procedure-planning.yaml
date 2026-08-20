@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: repair-procedure-planning
+  version: 1.0.0
+  description: Plan household repair steps, materials, checks, rollback, and escalation points.
+  tags: [home, repair, planning]
+spec:
+  principles: [smallest-safe-repair, verify-after-step, protect-utilities-and-structure]

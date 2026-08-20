@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: assessment-design
+  version: 1.0.0
+  description: Design formative and summative assessments aligned to intended learning outcomes.
+  tags: [education, assessment, curriculum]
+spec:
+  principles: [validity, fairness, actionable-feedback]

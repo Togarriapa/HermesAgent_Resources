@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: speech-input-routing
+  version: 1.0.0
+  description: Convert spoken input to text, preserve confidence/context, and route transcripts through Hermes.
+  tags: [voice, stt, routing]
+spec:
+  principles: [local-first, confidence-aware, preserve-audio-privacy]

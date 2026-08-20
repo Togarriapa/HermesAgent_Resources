@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: budgeting-forecasting
+  version: 1.0.0
+  description: Build budgets and rolling forecasts linked to operating assumptions and accountability.
+  tags: [finance, budget, forecast]
+spec:
+  principles: [assumption-driven, variance-loop, avoid-false-precision]

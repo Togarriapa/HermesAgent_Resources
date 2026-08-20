@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: cash-flow-management
+  version: 1.0.0
+  description: Forecast and manage liquidity, working capital, cash timing, and runway.
+  tags: [finance, cashflow, liquidity]
+spec:
+  principles: [timing-matters, downside-case, preserve-liquidity]

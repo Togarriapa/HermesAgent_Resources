@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: three-way-resource-merge
+  version: 1.0.0
+  description: Rebase local overlays onto a changed upstream resource without flattening learned modifications.
+  tags: [resources, merge, overlays]
+spec:
+  principles: [upstream-as-base, overlays-rebased-not-overwritten, conflicts-explicit]

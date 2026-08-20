@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: language-assessment
+  version: 1.0.0
+  description: Assess language proficiency and learning progress with diagnostic and formative evidence.
+  tags: [languages, assessment, education]
+spec:
+  principles: [multi-skill-evidence, formative-first, transparent-rubrics]

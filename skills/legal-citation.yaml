@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: legal-citation
+  version: 1.0.0
+  description: Cite legislation, cases, treaties, and official legal materials precisely enough to verify them.
+  tags: [law, citation, sources]
+spec:
+  principles: [verifiable-reference, court-and-date, effective-version]

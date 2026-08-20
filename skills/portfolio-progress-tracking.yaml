@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: portfolio-progress-tracking
+  version: 1.0.0
+  description: Track learning progress through work samples, observations, assessments, and periodic portfolio reviews.
+  tags: [education, portfolio, progress]
+spec:
+  principles: [evidence-over-impression, longitudinal-view, learner-reflection]
