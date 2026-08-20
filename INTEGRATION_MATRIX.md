@@ -1,58 +1,94 @@
 # Profile Integration Matrix
 
-This audit records the intended external-tool posture for every Profile. `Composio` is default-deny: only the explicitly listed toolkits/tools may be exposed to a profile, connections are user-isolated, and unlisted toolkits remain unavailable. User-visible communication always follows `User <-> Hermes <-> Orchestrator <-> Specialists / Teams`.
+This audit records the intended external-tool posture for every Profile. Composio is default-deny: only explicitly listed toolkits/tools may be exposed, connections are user-isolated, and unlisted toolkits remain unavailable. User-visible communication always follows `User <-> Hermes <-> Orchestrator <-> Specialists / Teams`.
 
 | Profile | Integration posture |
 | --- | --- |
 | Base | No external account integration; internal-only defaults. |
-| Hermes | User-facing gateway only; no specialist/account toolkit expansion. |
-| Orchestrator | Coordination/recruitment only; delegates tool-bearing work to specialists. |
-| Team Leader | Internal leadership/recruitment only; no blanket external-account toolkit. |
-| Personal Assistant | Web + Composio: Google Calendar, Gmail draft/read, Drive read, Google Tasks; sending/deletes denied by default. |
-| Project Manager | Composio: Calendar, Tasks, Docs, Drive; writes delegated-only, deletes/permission changes denied. |
-| Writer | Composio: Google Docs + Drive; document writes delegated-only. |
-| Data Scientist | Codex/filesystem plus Composio Sheets/Drive read-oriented access; writes denied by default. |
-| Data Engineer | Codex/filesystem plus Composio Sheets/Drive; writes delegated-only, deletes denied. |
-| Accountant — Portugal | Web + Composio Sheets/Drive; controlled writes, no deletes/permission changes; authoritative Portuguese source verification remains required. |
-| Accountant — International | Web + Composio Sheets/Drive; controlled writes, no deletes/permission changes; framework/jurisdiction verification remains required. |
-| Homeroom Teacher | Composio Classroom read, Calendar read, Docs drafting; classroom writes and direct family contact denied by default. |
-| Home Assistant Optimizer | Web + official Home Assistant MCP, least-privilege exposed entities. |
+| Hermes | Sole gateway; local voice-pipeline for STT/TTS; no specialist/account-tool expansion. |
+| Orchestrator | Internal coordination + `epic-kanban`; no blanket user-account toolkit. |
+| Team Leader | Internal leadership/recruitment; no blanket external-account toolkit. |
+| Resource Evolution Manager | GitHub read/update discovery plus private local `resource-overlay-store`; private learned overlays never sync/export. |
+| Developer | Codex + GitHub + filesystem/GitHub MCP. |
+| Backend Developer | Scoped technical code toolchain; no generic SaaS expansion. |
+| Frontend Developer | Scoped technical code toolchain; no generic SaaS expansion. |
+| DevOps Developer | Scoped deployment/operations toolchain; no generic SaaS-account expansion. |
+| Website Developer | Codex + GitHub + filesystem; recruit specialist web roles for depth/parallel work. |
+| UX/UI Designer & Developer | Scoped design/development capability; no account toolkit required by default. |
+| QA Developer / Tester | Scoped testing capability; no account toolkit required by default. |
+| Systems Architect | Architecture/research capability; implementation delegated to specialists. |
+| Cybersecurity Analyst | Defensive review on authorized systems only; no broad credential aggregator. |
+| Infrastructure Manager | Management/governance only by default; implementation access delegated to DevOps/Homelab/etc. |
+| Homelab Operator | Filesystem + official Home Assistant MCP with least-privilege entity exposure. |
+| Home Assistant Optimizer | Web + official Home Assistant MCP; safety-sensitive control remains confirmation-gated. |
 | Smart Home & IoT Engineer | Codex/filesystem + official Home Assistant MCP; no generic smart-home cloud marketplace access. |
-| Homelab Operator | Filesystem + official Home Assistant MCP; no Composio expansion. |
-| Weather Analyst | Web + Composio HERE weather only; read-only weather tools, no writes. |
-| Integration Curator | Web + GitHub + official MCP Registry + Agent37 discovery; discovery/review only, no auto-install or auto-execute. |
-| Robotics Engineer | Codex/filesystem + web research; physical execution remains locally authorized and safety bounded. |
-| Electrical Engineer | Web/standards research only; no remote control of electrical equipment by default. |
-| Mechanical Engineer | Web/standards research only; no physical execution integration by default. |
-| Farming Specialist | Web research; recruits Weather/Agronomy specialists rather than receiving broad external account access. |
-| Agricultural Specialist | Web research; no pesticide/vendor marketplace execution integrations. |
-| Homesteading Specialist | Web research; delegates engineering/weather/nutrition tasks to specialists. |
-| Home Improvement Specialist | Web research; delegates regulated engineering/trade questions to specialists. |
-| Developer | Existing scoped code/GitHub/filesystem toolchain; no Composio addition. |
-| Backend Developer | Existing scoped technical toolchain; no Composio addition. |
-| Frontend Developer | Existing scoped technical toolchain; no Composio addition. |
-| DevOps Developer | Existing scoped deployment/operations toolchain; no generic SaaS-account expansion. |
-| UX/UI Designer & Developer | Existing scoped design/development capabilities; no external-account toolkit required by default. |
-| QA Developer / Tester | Existing scoped test toolchain; no external-account toolkit required by default. |
-| Systems Architect | Architecture/research capabilities only; recruits implementation specialists for execution. |
-| Cybersecurity Analyst | Defensive review only on authorized systems; no broad credential aggregator. |
-| Researcher | Web/GitHub research where defined; no account-write integration. |
-| Scientific Researcher | Web/evidence tooling where defined; no account-write integration. |
+| Mechanical Engineer | Web/standards research; no physical-execution integration by default. |
+| Electrical Engineer | Web/standards research; no remote electrical-control capability by default. |
+| Robotics Engineer | Codex/filesystem + web research; physical execution remains host-authorized and safety bounded. |
+| Data Scientist | Codex/filesystem + Composio Sheets/Drive read-oriented access; writes denied by default. |
+| Data Engineer | Codex/filesystem + controlled Composio Sheets/Drive; writes delegated-only, deletes denied. |
+| Researcher | Web + GitHub research; no account-write integration. |
+| Scientific Researcher | Web/evidence tooling; no account-write integration. |
+| Product Research Specialist | Web research; no commerce/account-write integration by default. |
+| Writer | Composio Google Docs + Drive; document writes delegated-only. |
+| Project Manager | Composio Calendar, Tasks, Docs, Drive; writes delegated-only, deletes/permission changes denied. |
 | Scrum Master | Facilitation/process skills only; no account integration by default. |
 | Agile Methodology Master | Method/process analysis only; no account integration by default. |
-| Catholic Guidance | Authoritative-source web research where defined; no external account tools. |
-| Theology Teacher | Authoritative-source web research where defined; no external account tools. |
-| History Teacher | Web/source research where defined; no external account tools. |
+| CEO | Strategic/organizational profile; no blanket account integrations. |
+| CFO | Composio Google Sheets + Drive with delegated writes, no deletes/permission changes; statutory accounting/tax/legal delegated. |
+| CTO | Technology strategy/governance profile; no blanket execution toolkit. |
+| Accountant — Portugal | Web + Composio Sheets/Drive; controlled writes, no deletes/permission changes; current Portuguese authority verification required. |
+| Accountant — International | Web + Composio Sheets/Drive; controlled writes, no deletes/permission changes; current framework/jurisdiction verification required. |
+| Portuguese Law Specialist | Web authoritative legal-source research only; no account writes or legal representation tooling. |
+| International Law Specialist | Web treaty/institution/jurisdiction research only; no account writes or legal representation tooling. |
+| Language Teacher | Local `voice-pipeline` for pronunciation/listening practice; no external learner account integration by default. |
+| Curriculum Designer | No external account integration by default; recruits subject specialists as needed. |
+| Homeschooling Specialist | Web curriculum/resource research; jurisdiction-specific law delegated to Law Specialist. |
+| Homeroom Teacher | Composio Classroom read, Calendar read, Docs drafting; classroom writes/direct family contact denied by default. |
+| History Teacher | Web/source research; no external account tools. |
 | Music Teacher | Teaching skills only; no account integration by default. |
-| Personal Trainer | Training guidance only; no health-account integration by default. |
+| Theology Teacher | Authoritative-source web research; no external account tools. |
+| Catholic Guidance | Authoritative-source web research; no external account tools. |
+| Catholic Traditional Advisor | Authoritative Catholic/liturgical web research; no external account tools. |
+| Personal Trainer | Training guidance only; no health-record integration by default. |
 | Nutritionist | General nutrition guidance only; no health-record integration by default. |
 | Personal Chef | Culinary planning only; no grocery/commerce transaction tools by default. |
 | Life Improvement Coach | Coaching skills only; no behavioral-tracking account integration by default. |
+| Personal Assistant | Web + Composio Calendar, Gmail read/draft, Drive read, Google Tasks; email sending/deletes denied by default. |
+| Farming Specialist | Web research; recruits Weather/Agronomy profiles instead of receiving broad account access. |
+| Agricultural Specialist | Web research; no pesticide/vendor-marketplace execution integration. |
+| Weather Analyst | Web + Composio HERE weather only; read-only weather tools. |
+| Homesteading Specialist | Web research; delegates engineering/weather/nutrition work. |
+| Home Improvement Specialist | Web research; regulated engineering/trade questions delegated. |
+| Home Fixing Specialist | Web manuals/product/repair research; no remote utility-control access. |
+| Home & Farm Manager | Composio Calendar + Tasks with delegated writes; deletes denied; purchasing/external communication not implied. |
+| Integration Curator | Web + GitHub + official MCP Registry + Agent37 discovery; discovery/review only, no auto-install/execute. |
+| Skills Analyser | GitHub + filesystem for registry/task evidence analysis; private user data may not be exported. |
+| Skills Reviewer | GitHub + filesystem for code/resource review; no execution authority implied. |
+| Skills Improver | Codex + GitHub + filesystem for reviewed versioned improvements; private user learning may not be published. |
+| Improvement Manager | Improvement portfolio/governance; no blanket external integration. |
+
+## User-facing channels
+
+| Channel | Integration posture |
+| --- | --- |
+| Web | Hermes-only; upstream authentication required; direct profile selection denied. |
+| Telegram | Hermes-only; allowed-chat list; unknown chats denied. |
+| Discord | Hermes-only; allowed-guild list; unknown guilds denied. |
+| WhatsApp | **WhatsApp Business only** via pinned Composio `whatsapp@20260721_00`; Hermes-only; account/contact administration and destructive tools denied; proactive outbound delegated/template-only. |
+| Voice | Local-first Home Assistant/Wyoming pipeline: Speech-to-Phrase for constrained home control, Whisper for general STT, Piper for TTS, optional openWakeWord; Hermes-only; no cloud fallback or raw-audio retention by default. |
+
+## Runtime-only infrastructure integrations
+
+- `epic-kanban` may use GitHub Projects v2 for repository-backed Epics and local ephemeral boards otherwise. It is internal-only and deletes boards only as part of the accepted-Epic lifecycle after archiving a completion summary.
+- `resource-overlay-store` is local/private, owner-only, denies Git sync/network export, and preserves version history for experiential and user-learned overlays.
+- `daily-resource-reconcile` uses the Resource Evolution Manager to retrieve upstream registry changes while preserving local overlay layers.
 
 ## External-source policy
 
-- **Home Assistant:** use the official first-party MCP Server integration.
+- **Home Assistant:** prefer official first-party MCP and Wyoming integrations.
 - **MCP:** use the official MCP Registry for discovery, then review source and permissions before approval.
-- **Composio:** useful managed provider, but profile sessions must use explicit toolkit/tool allowlists and pinned production versions.
-- **Agent37:** discovery index only. Every candidate skill must be traced to its source and reviewed before adoption.
-- A popular integration is not automatically a trusted integration; local Hermes policy remains authoritative.
+- **Composio:** managed provider with explicit per-profile/channel toolkit/tool allowlists and pinned production versions.
+- **Agent37:** discovery index only; trace candidates to source and review before adoption.
+- **WhatsApp:** use supported WhatsApp Business integration only; no personal-account automation workaround.
+- A popular or listed integration is not automatically trusted; local Hermes policy remains authoritative.
