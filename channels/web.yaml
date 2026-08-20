@@ -2,9 +2,9 @@ apiVersion: hermes.togarriapa/v1
 kind: Channel
 metadata:
   name: web
-  version: 1.0.0
-  description: Web chat/API channel intended to sit behind the deployment's existing authentication boundary.
-  tags: [channel, web, http]
+  version: 1.1.0
+  description: Web chat/API channel routed exclusively through the sole user-facing Hermes profile.
+  tags: [channel, web, http, hermes]
 spec:
   adapter: http
   listen:
@@ -12,6 +12,14 @@ spec:
     port: ${HERMES_CHANNEL_PORT}
   proxy:
     trustForwardedHeaders: true
+  routing:
+    inboundProfile: hermes
+    outboundProfile: hermes
+    allowDirectProfileSelection: false
+    allowedUserFacingProfiles:
+      - hermes
   policy:
     requireUpstreamAuthentication: true
     exposeDirectlyToInternet: false
+    requireHermesGateway: true
+    rejectNonHermesProfileTarget: true
