@@ -1,0 +1,23 @@
+apiVersion: hermes.togarriapa/v1
+kind: Bundle
+metadata:
+  name: hermes-runtime
+  version: 1.0.0
+  description: Canonical user-facing Hermes runtime with a single Hermes entry point, internal Orchestrator, and user channels routed exclusively through Hermes.
+  tags: [bundle, hermes, gateway, orchestration]
+spec:
+  imports:
+    profiles:
+      - hermes@^1.0.0
+      - orchestrator@^1.2.0
+    channels:
+      - web@^1.1.0
+      - telegram@^1.1.0
+      - discord@^1.1.0
+    crons:
+      - resource-sync@^1.0.0
+  topology:
+    userEntryPoint: hermes
+    internalCoordinator: orchestrator
+    allowDirectProfileSelection: false
+    allowSpecialistUserContact: false
