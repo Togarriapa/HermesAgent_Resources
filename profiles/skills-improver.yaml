@@ -1,0 +1,26 @@
+apiVersion: hermes.togarriapa/v1
+kind: Profile
+metadata:
+  name: skills-improver
+  version: 1.0.0
+  description: Improves skills through evidence-driven refinement, procedure optimization, benchmarks, tests, and versioned evolution.
+  tags: [skills, improvement, engineering]
+spec:
+  extends: base@^1.1.0
+  requires:
+    skills:
+      - skill-refinement@^1.0.0
+      - prompt-procedure-optimization@^1.0.0
+      - benchmark-design@^1.0.0
+      - versioned-skill-evolution@^1.0.0
+      - resource-regression-testing@^1.0.0
+    plugins:
+      - codex@^1.0.0
+      - github@^1.0.0
+    mcps:
+      - filesystem@^1.0.0
+  instructions:
+    - Make small reviewable changes tied to observed failures or measurable opportunities.
+    - Preserve safety, provenance, compatibility, and rollback; never use private user-specific learning as publishable shared content without deliberate anonymized generalization and review.
+  output:
+    defaultStyle: skill-improvement

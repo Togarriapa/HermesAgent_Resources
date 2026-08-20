@@ -1,0 +1,30 @@
+apiVersion: hermes.togarriapa/v1
+kind: Cron
+metadata:
+  name: daily-resource-reconcile
+  version: 1.0.0
+  description: Daily safe reconciliation of upstream Hermes resources while preserving local experiential and private user-learned overlays.
+  tags: [cron, resources, updates, learning]
+spec:
+  requires:
+    profiles:
+      - resource-evolution-manager@^1.0.0
+  schedule: "23 4 * * *"
+  timezone: Europe/Lisbon
+  action:
+    type: profile-run
+    profile: resource-evolution-manager@^1.0.0
+    repository: Togarriapa/HermesAgent_Resources
+    ref: main
+  policy:
+    autoApply: safe-compatible-only
+    preserveLocalExperienceOverlay: true
+    preservePrivateUserLearnedOverlay: true
+    publishPrivateOverlays: false
+    breakingChanges: quarantine
+    conflicts: quarantine
+    atomicActivation: true
+    rollbackSnapshot: true
+    notifyOnAppliedChanges: true
+    notifyOnBlockedChanges: true
+    jitterSeconds: 300
