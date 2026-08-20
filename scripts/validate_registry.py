@@ -35,7 +35,7 @@ DEPENDENCY_KINDS = {
     "channels": "Channel",
     "bundles": "Bundle",
 }
-USER_CHANNELS = {"web", "telegram", "discord"}
+USER_CHANNELS = {"web", "telegram", "discord", "whatsapp", "voice"}
 NAME_RE = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
 SEMVER_RE = re.compile(r"^\d+\.\d+\.\d+(?:[-+][0-9A-Za-z.-]+)?$")
 SELECTOR_RE = re.compile(r"^([a-z0-9]+(?:-[a-z0-9]+)*)@(\^?)(\d+\.\d+\.\d+)$")
@@ -90,10 +90,7 @@ def validate_selector(
         fail(f"{rel}: {field} references missing {kind} {name!r}", errors)
         return
     if not any(selector_matches(candidate, requested, bool(caret_marker)) for candidate in candidates):
-        fail(
-            f"{rel}: {field} selector {selector!r} is not satisfied by catalog versions {sorted(candidates)}",
-            errors,
-        )
+        fail(f"{rel}: {field} selector {selector!r} is not satisfied by {sorted(candidates)}", errors)
 
 
 def validate_dependency_map(
@@ -240,7 +237,6 @@ def main() -> int:
         versions.setdefault((kind, name), set()).add(version)
         docs.append((rel, kind, name, version, doc))
 
-    # Every manifest under a resource directory must be catalogued.
     disk_paths: set[str] = set()
     for directory in RESOURCE_DIRS.values():
         root = ROOT / directory
@@ -253,7 +249,6 @@ def main() -> int:
     for rel in sorted(catalog_paths - disk_paths):
         fail(f"{rel}: catalog path is not a recognized resource manifest", errors)
 
-    # Resolve dependencies only after all catalog versions have been indexed.
     for rel, kind, name, _version, doc in docs:
         spec = doc["spec"]
         validate_dependency_map(rel, "spec.requires", spec.get("requires"), versions, errors)
@@ -300,8 +295,8 @@ def main() -> int:
             if policy.get("rejectNonHermesProfileTarget") is not True:
                 fail(f"{rel}: rejectNonHermesProfileTarget must be true", errors)
 
-    # Provider-specific default-deny invariants.
     by_resource = {(kind, name): doc for _rel, kind, name, _version, doc in docs}
+
     composio = by_resource.get(("Plugin", "composio"), {}).get("spec", {})
     if composio:
         policy = composio.get("policy") or {}
@@ -327,6 +322,96 @@ def main() -> int:
             fail("mcps/home-assistant.yaml: canonical endpoint must be ${HOME_ASSISTANT_URL}/api/mcp", errors)
         if (home_assistant.get("provenance") or {}).get("officialIntegration") != "mcp_server":
             fail("mcps/home-assistant.yaml: official Home Assistant MCP provenance is required", errors)
+
+    orchestrator = by_resource.get(("Profile", "orchestrator"), {}).get("spec", {})
+    if orchestrator:
+        orchestration = orchestrator.get("orchestration") or {}
+        recruitment = orchestrator.get("recruitment") or {}
+        kanban = orchestrator.get("kanban") or {}
+        if orchestration.get("parallelExecution") is not True or orchestration.get("hierarchicalDelegation") is not True:
+            fail("profiles/orchestrator.yaml: parallel and hierarchical orchestration must stay enabled", errors)
+        if orchestration.get("executionModel") != "dependency-dag":
+            fail("profiles/orchestrator.yaml: executionModel must remain dependency-dag", errors)
+        if recruitment.get("allowMultipleInstancesPerProfile") is not True:
+            fail("profiles/orchestrator.yaml: multiple instances per profile must be allowed", errors)
+        if recruitment.get("registryMaxInstancesPerProfile") != "none":
+            fail("profiles/orchestrator.yaml: registry must not impose a numeric per-profile instance ceiling", errors)
+        if recruitment.get("effectiveInstanceLimit") != "host-policy":
+            fail("profiles/orchestrator.yaml: effective instance limit must remain host-policy", errors)
+        if kanban.get("oneBoardPerEpic") is not True or kanban.get("deleteOnAcceptedDone") is not True:
+            fail("profiles/orchestrator.yaml: one ephemeral board per Epic is required", errors)
+
+    team_leader = by_resource.get(("Profile", "team-leader"), {}).get("spec", {})
+    if team_leader:
+        recruitment = team_leader.get("recruitment") or {}
+        orchestration = team_leader.get("orchestration") or {}
+        if recruitment.get("allowMultipleInstancesPerProfile") is not True:
+            fail("profiles/team-leader.yaml: multiple profile instances must be supported", errors)
+        if orchestration.get("parallelSubteams") is not True or orchestration.get("nestedDelegation") is not True:
+            fail("profiles/team-leader.yaml: parallel nested subteams must stay enabled", errors)
+
+    overlay_store = by_resource.get(("Plugin", "resource-overlay-store"), {}).get("spec", {})
+    if overlay_store:
+        policy = overlay_store.get("policy") or {}
+        if policy.get("gitSync") != "deny" or policy.get("networkExport") != "deny":
+            fail("plugins/resource-overlay-store.yaml: private overlays must not sync/export", errors)
+        if policy.get("atomicWrites") is not True or policy.get("versionHistory") is not True:
+            fail("plugins/resource-overlay-store.yaml: atomic writes and version history are required", errors)
+
+    evolution = by_resource.get(("Profile", "resource-evolution-manager"), {}).get("spec", {})
+    if evolution:
+        merge = evolution.get("mergePolicy") or {}
+        apply = evolution.get("applyPolicy") or {}
+        expected_layers = ["local-experience-overlay", "private-user-learned-overlay"]
+        if merge.get("neverOverwriteLayers") != expected_layers:
+            fail("profiles/resource-evolution-manager.yaml: learned/local overlays must be protected", errors)
+        if merge.get("privateLayersMayPublish") is not False:
+            fail("profiles/resource-evolution-manager.yaml: private overlays must never auto-publish", errors)
+        if apply.get("atomicActivation") is not True or apply.get("rollbackSnapshot") is not True:
+            fail("profiles/resource-evolution-manager.yaml: atomic activation and rollback are required", errors)
+
+    reconcile = by_resource.get(("Cron", "daily-resource-reconcile"), {}).get("spec", {})
+    if reconcile:
+        policy = reconcile.get("policy") or {}
+        if policy.get("autoApply") != "safe-compatible-only":
+            fail("crons/daily-resource-reconcile.yaml: only safe compatible changes may auto-apply", errors)
+        if policy.get("preserveLocalExperienceOverlay") is not True or policy.get("preservePrivateUserLearnedOverlay") is not True:
+            fail("crons/daily-resource-reconcile.yaml: both learned overlays must be preserved", errors)
+        if policy.get("publishPrivateOverlays") is not False:
+            fail("crons/daily-resource-reconcile.yaml: private overlays must not publish", errors)
+
+    epic_kanban = by_resource.get(("Plugin", "epic-kanban"), {}).get("spec", {})
+    if epic_kanban:
+        lifecycle = epic_kanban.get("lifecycle") or {}
+        if lifecycle.get("createOnEpicStart") is not True or lifecycle.get("deleteAfterAcceptedDone") is not True:
+            fail("plugins/epic-kanban.yaml: Epic boards must be created and deleted with Epic lifecycle", errors)
+        if lifecycle.get("archiveCompletionSummary") is not True:
+            fail("plugins/epic-kanban.yaml: completion summary must be archived before deletion", errors)
+
+    voice = by_resource.get(("Plugin", "voice-pipeline"), {}).get("spec", {})
+    if voice:
+        policy = voice.get("policy") or {}
+        if policy.get("localFirst") is not True or policy.get("cloudFallback") != "deny":
+            fail("plugins/voice-pipeline.yaml: voice must remain local-first with cloud fallback denied", errors)
+        if policy.get("rawAudioRetention") is not False:
+            fail("plugins/voice-pipeline.yaml: raw audio retention must stay disabled", errors)
+        if (voice.get("textToSpeech") or {}).get("preferred") != "piper":
+            fail("plugins/voice-pipeline.yaml: Piper must remain the preferred local TTS", errors)
+
+    whatsapp = by_resource.get(("Channel", "whatsapp"), {}).get("spec", {})
+    if whatsapp:
+        integration = whatsapp.get("integration") or {}
+        policy = whatsapp.get("policy") or {}
+        if integration.get("toolkit") != "whatsapp":
+            fail("channels/whatsapp.yaml: Composio whatsapp toolkit is required", errors)
+        if not COMPOSIO_VERSION_RE.fullmatch(str(integration.get("version", ""))):
+            fail("channels/whatsapp.yaml: toolkit version must be pinned", errors)
+        if policy.get("businessAccountsOnly") is not True:
+            fail("channels/whatsapp.yaml: personal WhatsApp accounts must not be supported", errors)
+        if policy.get("proactiveOutbound") != "delegated-template-only":
+            fail("channels/whatsapp.yaml: proactive outbound must remain delegated-template-only", errors)
+        if policy.get("accountAdministration") != "deny":
+            fail("channels/whatsapp.yaml: WhatsApp account administration must stay denied", errors)
 
     if errors:
         print("Registry validation failed:", file=sys.stderr)
