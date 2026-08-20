@@ -2,7 +2,7 @@ apiVersion: hermes.togarriapa/v1
 kind: Catalog
 metadata:
   name: hermesagent-resources
-  version: 2.0.0
+  version: 2.1.0
 resources:
   - {kind: Profile, name: accountant-international, version: 1.1.0, path: profiles/accountant-international.yaml}
   - {kind: Profile, name: accountant-portugal, version: 1.1.0, path: profiles/accountant-portugal.yaml}
@@ -489,3 +489,78 @@ resources:
   - {kind: Bundle, name: career-development-team, version: 1.0.0, path: bundles/career-development-team.yaml}
   - {kind: Bundle, name: humanities-social-science-team, version: 1.0.0, path: bundles/humanities-social-science-team.yaml}
   - {kind: Bundle, name: strategic-deliberation-team, version: 1.0.0, path: bundles/strategic-deliberation-team.yaml}
+  - {kind: Profile, name: product-manager, version: 1.0.0, path: profiles/product-manager.yaml}
+  - {kind: Profile, name: business-analyst-requirements-engineer, version: 1.0.0, path: profiles/business-analyst-requirements-engineer.yaml}
+  - {kind: Profile, name: coo-operations-manager, version: 1.0.0, path: profiles/coo-operations-manager.yaml}
+  - {kind: Profile, name: people-operations-hr-specialist, version: 1.0.0, path: profiles/people-operations-hr-specialist.yaml}
+  - {kind: Profile, name: recruiter-talent-acquisition-specialist, version: 1.0.0, path: profiles/recruiter-talent-acquisition-specialist.yaml}
+  - {kind: Profile, name: privacy-gdpr-specialist, version: 1.0.0, path: profiles/privacy-gdpr-specialist.yaml}
+  - {kind: Profile, name: negotiation-conflict-resolution-specialist, version: 1.0.0, path: profiles/negotiation-conflict-resolution-specialist.yaml}
+  - {kind: Profile, name: decision-scientist-operations-research-specialist, version: 1.0.0, path: profiles/decision-scientist-operations-research-specialist.yaml}
+  - {kind: Profile, name: automotive-maintenance-specialist, version: 1.0.0, path: profiles/automotive-maintenance-specialist.yaml}
+  - {kind: Profile, name: home-energy-solar-specialist, version: 1.0.0, path: profiles/home-energy-solar-specialist.yaml}
+  - {kind: Profile, name: water-wastewater-specialist, version: 1.0.0, path: profiles/water-wastewater-specialist.yaml}
+  - {kind: Profile, name: emergency-preparedness-resilience-manager, version: 1.0.0, path: profiles/emergency-preparedness-resilience-manager.yaml}
+  - {kind: Profile, name: arboriculture-tree-care-specialist, version: 1.0.0, path: profiles/arboriculture-tree-care-specialist.yaml}
+  - {kind: Profile, name: pest-building-biology-specialist, version: 1.0.0, path: profiles/pest-building-biology-specialist.yaml}
+  - {kind: Profile, name: horticulture-orchard-specialist, version: 1.0.0, path: profiles/horticulture-orchard-specialist.yaml}
+  - {kind: Profile, name: livestock-health-navigator, version: 1.0.0, path: profiles/livestock-health-navigator.yaml}
+  - {kind: Profile, name: farm-machinery-maintenance-specialist, version: 1.0.0, path: profiles/farm-machinery-maintenance-specialist.yaml}
+  - {kind: Profile, name: child-development-specialist, version: 1.0.0, path: profiles/child-development-specialist.yaml}
+  - {kind: Profile, name: special-education-sen-specialist, version: 1.0.0, path: profiles/special-education-sen-specialist.yaml}
+  - {kind: Profile, name: mathematics-teacher, version: 1.0.0, path: profiles/mathematics-teacher.yaml}
+  - {kind: Profile, name: science-teacher, version: 1.0.0, path: profiles/science-teacher.yaml}
+  - {kind: Profile, name: literacy-reading-specialist, version: 1.0.0, path: profiles/literacy-reading-specialist.yaml}
+  - {kind: Profile, name: insurance-specialist, version: 1.0.0, path: profiles/insurance-specialist.yaml}
+  - {kind: Profile, name: estate-succession-planning-research-specialist, version: 1.0.0, path: profiles/estate-succession-planning-research-specialist.yaml}
+  - {kind: Profile, name: procurement-vendor-manager, version: 1.0.0, path: profiles/procurement-vendor-manager.yaml}
+  - {kind: Profile, name: eu-law-regulatory-specialist, version: 1.0.0, path: profiles/eu-law-regulatory-specialist.yaml}
+  - {kind: Profile, name: employment-law-portugal-eu-specialist, version: 1.0.0, path: profiles/employment-law-portugal-eu-specialist.yaml}
+  - {kind: Profile, name: network-engineer, version: 1.0.0, path: profiles/network-engineer.yaml}
+  - {kind: Profile, name: site-reliability-engineer, version: 1.0.0, path: profiles/site-reliability-engineer.yaml}
+  - {kind: Profile, name: database-reliability-specialist, version: 1.0.0, path: profiles/database-reliability-specialist.yaml}
+  - {kind: Profile, name: ai-ml-engineer, version: 1.0.0, path: profiles/ai-ml-engineer.yaml}
+  - {kind: Profile, name: privacy-security-engineer, version: 1.0.0, path: profiles/privacy-security-engineer.yaml}
+  - {kind: Profile, name: fact-checker-source-verification-specialist, version: 1.0.0, path: profiles/fact-checker-source-verification-specialist.yaml}
+  - {kind: Profile, name: media-literacy-misinformation-analyst, version: 1.0.0, path: profiles/media-literacy-misinformation-analyst.yaml}
+  - {kind: Profile, name: ethics-specialist, version: 1.0.0, path: profiles/ethics-specialist.yaml}
+  - {kind: Profile, name: knowledge-manager-archivist, version: 1.0.0, path: profiles/knowledge-manager-archivist.yaml}
+  - {kind: Profile, name: catholic-relationship-expert, version: 1.0.0, path: profiles/catholic-relationship-expert.yaml}
+  - {kind: Profile, name: catholic-traditional-family-advisor, version: 1.0.0, path: profiles/catholic-traditional-family-advisor.yaml}
+  - {kind: Profile, name: catholic-tradition-expert, version: 1.0.0, path: profiles/catholic-tradition-expert.yaml}
+  - {kind: Profile, name: catholic-history-expert, version: 1.0.0, path: profiles/catholic-history-expert.yaml}
+  - {kind: Profile, name: catholic-prayer-planner-writer, version: 1.0.0, path: profiles/catholic-prayer-planner-writer.yaml}
+  - {kind: Profile, name: portuguese-english-translator, version: 1.0.0, path: profiles/portuguese-english-translator.yaml}
+  - {kind: Profile, name: building-architect, version: 1.0.0, path: profiles/building-architect.yaml}
+  - {kind: Profile, name: farm-planner, version: 1.0.0, path: profiles/farm-planner.yaml}
+  - {kind: Profile, name: 3d-model-designer, version: 1.0.0, path: profiles/3d-model-designer.yaml}
+  - {kind: Profile, name: 3d-printer-specialist, version: 1.0.0, path: profiles/3d-printer-specialist.yaml}
+  - {kind: Profile, name: 3d-model-maker, version: 1.0.0, path: profiles/3d-model-maker.yaml}
+  - {kind: Profile, name: 3d-model-optimizer, version: 1.0.0, path: profiles/3d-model-optimizer.yaml}
+  - {kind: Skill, name: claim-verification, version: 1.0.0, path: skills/claim-verification.yaml}
+  - {kind: Skill, name: negotiation-preparation, version: 1.0.0, path: skills/negotiation-preparation.yaml}
+  - {kind: Skill, name: scenario-sensitivity-analysis, version: 1.0.0, path: skills/scenario-sensitivity-analysis.yaml}
+  - {kind: Skill, name: decision-recording, version: 1.0.0, path: skills/decision-recording.yaml}
+  - {kind: Skill, name: root-cause-analysis, version: 1.0.0, path: skills/root-cause-analysis.yaml}
+  - {kind: Skill, name: vendor-comparison, version: 1.0.0, path: skills/vendor-comparison.yaml}
+  - {kind: Skill, name: privacy-impact-screening, version: 1.0.0, path: skills/privacy-impact-screening.yaml}
+  - {kind: Skill, name: emergency-checklist-design, version: 1.0.0, path: skills/emergency-checklist-design.yaml}
+  - {kind: Skill, name: cost-benefit-tco-analysis, version: 1.0.0, path: skills/cost-benefit-tco-analysis.yaml}
+  - {kind: Skill, name: requirements-engineering, version: 1.0.0, path: skills/requirements-engineering.yaml}
+  - {kind: Skill, name: professional-translation-portuguese-english, version: 1.0.0, path: skills/professional-translation-portuguese-english.yaml}
+  - {kind: Skill, name: architectural-design-planning, version: 1.0.0, path: skills/architectural-design-planning.yaml}
+  - {kind: Skill, name: 3d-modeling-cad, version: 1.0.0, path: skills/3d-modeling-cad.yaml}
+  - {kind: Skill, name: additive-manufacturing, version: 1.0.0, path: skills/additive-manufacturing.yaml}
+  - {kind: Skill, name: 3d-printability-optimization, version: 1.0.0, path: skills/3d-printability-optimization.yaml}
+  - {kind: Bundle, name: product-strategy-team, version: 1.0.0, path: bundles/product-strategy-team.yaml}
+  - {kind: Bundle, name: people-career-team, version: 1.0.0, path: bundles/people-career-team.yaml}
+  - {kind: Bundle, name: privacy-compliance-team, version: 1.0.0, path: bundles/privacy-compliance-team.yaml}
+  - {kind: Bundle, name: home-resilience-team, version: 1.0.0, path: bundles/home-resilience-team.yaml}
+  - {kind: Bundle, name: farm-reliability-team, version: 1.0.0, path: bundles/farm-reliability-team.yaml}
+  - {kind: Bundle, name: decision-science-team, version: 1.0.0, path: bundles/decision-science-team.yaml}
+  - {kind: Bundle, name: catholic-tradition-family-team, version: 1.0.0, path: bundles/catholic-tradition-family-team.yaml}
+  - {kind: Bundle, name: core-education-team, version: 1.0.0, path: bundles/core-education-team.yaml}
+  - {kind: Bundle, name: architecture-fabrication-team, version: 1.0.0, path: bundles/architecture-fabrication-team.yaml}
+  - {kind: Bundle, name: additive-manufacturing-team, version: 1.0.0, path: bundles/additive-manufacturing-team.yaml}
+  - {kind: Bundle, name: information-integrity-team, version: 1.0.0, path: bundles/information-integrity-team.yaml}
+  - {kind: Bundle, name: farm-planning-team, version: 1.0.0, path: bundles/farm-planning-team.yaml}

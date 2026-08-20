@@ -1,38 +1,26 @@
 # HermesAgent Resources
 
-A shared, versioned resource registry for Hermes agents.
-
-This repository is designed to be consumed by an agent provisioner/importer and improved through normal Git workflows. Resources are declarative YAML manifests: agents may pin them, compose them, extend them, and submit improved versions without embedding credentials in Git.
+A shared, versioned resource registry for Hermes agents. Resources are declarative YAML manifests consumed by a provisioner/importer; credentials and private learned state do not belong in Git.
 
 ## Conversation architecture
 
-The canonical user-facing topology is:
+The canonical topology is:
 
-`User <-> Hermes <-> Orchestrator <-> Specialist profiles / Team bundles`
+`User <-> Hermes <-> Orchestrator <-> Specialist Profiles / Team bundles`
 
-`hermes` is the **only** profile permitted to communicate directly with the user. Web, Telegram, Discord, WhatsApp Business, and voice channels all route exclusively through Hermes and reject direct profile selection.
+`hermes` is the only user-facing Profile. Web, Telegram, Discord, WhatsApp Business, and voice route exclusively through Hermes and reject direct Profile selection. Specialists, execution operators and Team Leaders remain internal-only.
 
-Hermes receives text or speech, sends work-bearing requests to the Orchestrator, handles clarification, and returns the final text or spoken response. Specialists and Team Leaders remain internal-only regardless of orchestration depth.
+## Parallel, hierarchical and deliberative orchestration
 
-See [`TOPOLOGY.md`](TOPOLOGY.md) for the enforcement contract.
+Orchestrator uses a dependency DAG. Independent work may run in parallel, nested Team Leaders may coordinate subteams, and multiple instances of the same Profile are permitted subject to host/runtime policy. Scaling increases capacity, not authority.
 
-## Parallel, hierarchical, and deliberative orchestration
+For material, ambiguous, strategic or trade-off-heavy work, Orchestrator may run structured multi-agent deliberation: independent first positions, evidence/assumption mapping, cross-critique and steelmanning, position revision, and synthesis by evidence plus user constraints rather than majority vote. Material dissent is preserved. See `ORCHESTRATION.md` and `DELIBERATION.md`.
 
-The Orchestrator uses a dependency DAG rather than a sequential-only queue. Independent work packages run in parallel. Work may be delegated through multiple levels of Team Leaders and specialist subteams, and the Orchestrator may create multiple instances of the same profile when parallel capacity is useful.
+Every Epic receives one ephemeral Kanban board. A completion summary is archived and the board deleted after accepted completion.
 
-The registry does **not** impose a numeric per-profile instance ceiling. Effective concurrency is governed by host/runtime CPU, RAM, API limits, cost, credentials, authorization, and workspace-isolation policy. Scaling increases capacity, not authority.
+## Hermes response contract
 
-For material, ambiguous, strategic, high-impact, or trade-off-heavy work, Orchestrator can run adaptive multi-agent deliberation. Relevant profiles first form independent positions when practical, then critique and steelman competing analyses, challenge assumptions, revise their approaches, and synthesize by evidence and user constraints rather than majority vote. `debate-analyst` can be recruited when disagreement or argument structure is material. Credible dissent is preserved and surfaced to Hermes rather than erased by consensus pressure.
-
-Simple deterministic tasks may skip debate overhead, and the system must not manufacture disagreement where none is material.
-
-Every Epic receives one ephemeral Kanban board containing Epic/User Story/Task/Defect/Spike/Risk/Decision items. The board is updated throughout execution, a completion summary is archived after acceptance, and the board is then deleted. Repository-bound Epics may use GitHub Projects v2; other work uses a local ephemeral backend.
-
-See [`ORCHESTRATION.md`](ORCHESTRATION.md) and [`DELIBERATION.md`](DELIBERATION.md).
-
-## Hermes user-facing response contract
-
-Every Hermes response is normalized into six sections in this order:
+Every Hermes response renders exactly these six sections:
 
 1. **Initial Question or Request**
 2. **Quick Answer / Result / Action**
@@ -41,85 +29,73 @@ Every Hermes response is normalized into six sections in this order:
 5. **Opinions Against the Final Answer / Solution and Why**
 6. **Permissions Needed to Proceed**
 
-All six sections are rendered. If no material dissent exists, Hermes says `No material dissent.` If no additional authority is required, Hermes says `None.` Internal reasoning/debate remains internal; Hermes reports contributor profile names, evidence-oriented rationale, material dissent, and the permissions required for the next action.
+When appropriate Hermes uses `No material dissent.` and `None.` rather than inventing disagreement or permissions.
 
-See [`DELIBERATION.md`](DELIBERATION.md).
+## Registry v2.1 capability coverage
 
-## Focused specialist domains
+Catalog v2.1 completes the prior capability-gap audit and adds durable Profiles across:
 
-Catalog v2 adds focused profiles and teams for:
+- product management, business analysis/requirements, COO/operations, people operations, recruiting, privacy/GDPR, negotiation and decision science;
+- automotive maintenance, home energy/solar, water/wastewater, emergency preparedness, arboriculture and building biology/pest management;
+- farm planning, horticulture/orchards, livestock health navigation and farm machinery maintenance;
+- child development, SEN/special education, mathematics, science and literacy/reading education;
+- insurance, estate/succession research, procurement/vendor management, EU regulatory law and Portugal/EU employment law;
+- network engineering, SRE, database reliability, AI/ML engineering and privacy/security engineering;
+- fact checking/source verification, misinformation/media literacy, ethics and knowledge management;
+- Catholic relationship guidance, traditional family advice, Catholic Tradition, Catholic history, and prayer/devotional planning;
+- professional European Portuguese ↔ English translation;
+- building architecture, 3D model design, 3D printing, model making and model optimization.
 
-- preventive and corrective home maintenance, including plumbing, appliances, carpentry/joinery, finishes, roofing/drainage, grounds, and home-comfort systems;
-- Portuguese, Sicilian, Spanish, and German Catholic family-life cultural perspectives that distinguish Catholic teaching from regional custom and avoid claiming universal lived experience;
-- remote-work / work-from-home optimization and asynchronous distributed-team practices;
-- business/data analytics, KPI/dashboard design, and analytics storytelling;
-- career advising and long-horizon career development;
-- philosophy, culture, psychology, sociology, anthropology, and structured debate analysis.
+Reusable cross-domain Skills cover claim verification, negotiation preparation, scenario/sensitivity analysis, decision records, root-cause analysis, vendor comparison, privacy screening, emergency checklist design, cost-benefit/TCO analysis, requirements engineering, translation, architectural planning, CAD, additive manufacturing and printability optimization.
 
-These roles remain internal and dynamically recruitable. Cross-domain questions should compose multiple profiles rather than broadening every profile's permissions.
+See `CAPABILITY_COVERAGE.md`, `PROFILE_MATRIX.md`, and `INTEGRATION_MATRIX.md`.
 
-The current registry-wide capability review and prioritized next additions are documented in [`CAPABILITY_GAP_AUDIT.md`](CAPABILITY_GAP_AUDIT.md).
+## Team bundles added in v2.1
+
+The audit-requested teams are implemented:
+
+- `product-strategy-team`
+- `people-career-team`
+- `privacy-compliance-team`
+- `home-resilience-team`
+- `farm-reliability-team`
+- `decision-science-team`
+
+Additional v2.1 teams are:
+
+- `catholic-tradition-family-team`
+- `core-education-team`
+- `architecture-fabrication-team`
+- `additive-manufacturing-team`
+- `information-integrity-team`
+- `farm-planning-team`
+
+Bundles are starting compositions, not recruitment ceilings.
 
 ## Resource evolution without forgetting
 
-Daily resource reconciliation does not overwrite local learning.
+Effective configuration is layered from upstream registry base through local experience and private user-learned overlays to current explicit context. `resource-evolution-manager` rebases compatible upstream changes without overwriting or publishing private learning. See `RESOURCE_EVOLUTION.md`.
 
-Effective resources are layered, low to high precedence:
+## Voice and channels
 
-1. upstream registry base;
-2. local experience improvements;
-3. private user-learned overlay;
-4. current explicit instruction/session context.
+The local-first voice pipeline uses Home Assistant/Wyoming: Speech-to-Phrase where suitable, Whisper for general STT, Piper for TTS, and optional openWakeWord. Raw-audio retention and cloud fallback are disabled by default.
 
-`resource-evolution-manager` checks upstream daily, rebases local overlays onto compatible changes, regression-tests the effective result, and atomically activates safe updates. Breaking or ambiguous changes are quarantined. User-specific learning remains private local state and is never automatically pushed to the shared repository.
-
-See [`RESOURCE_EVOLUTION.md`](RESOURCE_EVOLUTION.md).
-
-## Voice
-
-The local-first voice pipeline uses Home Assistant's Wyoming ecosystem:
-
-- Speech-to-Phrase for fast constrained home-control speech where appropriate;
-- Whisper for general assistant speech-to-text;
-- Piper for local text-to-speech;
-- optional openWakeWord wake-word detection.
-
-Raw audio retention and cloud fallback are disabled by default. Voice traffic still follows `Audio <-> Hermes <-> Orchestrator <-> Specialists`.
-
-## WhatsApp
-
-WhatsApp is supported as a **WhatsApp Business** channel using the scoped Composio WhatsApp toolkit. It does not use unsupported personal-account automation. Inbound/outbound traffic is Hermes-only; account administration and destructive tools are denied, while proactive outbound messages require delegated/template-authorized behavior.
+WhatsApp uses supported WhatsApp Business integration only. All user-visible channels remain Hermes-only.
 
 ## Resource types
 
-- `profiles/` — agent roles, operating principles, defaults, and resource dependencies.
+- `profiles/` — durable internal agent responsibilities and role boundaries.
 - `skills/` — reusable procedures and domain playbooks.
-- `plugins/` — optional runtime integrations exposed to an agent.
-- `mcps/` — Model Context Protocol server definitions.
-- `crons/` — recurring agent jobs.
-- `webhooks/` — event-driven jobs and validation requirements.
-- `channels/` — inbound/outbound communication adapters.
-- `bundles/` — curated sets of resources for common agent roles and teams.
-
-## Contract
-
-Every resource uses:
-
-```yaml
-apiVersion: hermes.togarriapa/v1
-kind: Skill
-metadata:
-  name: example
-  version: 1.0.0
-  description: Example resource
-spec: {}
-```
-
-The canonical index is [`catalog.yaml`](catalog.yaml). See [`SPEC.md`](SPEC.md) for inheritance, dependency, secret, orchestration, integration, and import semantics.
+- `plugins/` — optional runtime integrations.
+- `mcps/` — Model Context Protocol definitions.
+- `crons/` — recurring jobs.
+- `webhooks/` — event-driven jobs.
+- `channels/` — communication adapters.
+- `bundles/` — curated starting teams.
 
 ## Canonical runtime import
 
-A Hermes provisioner can clone or fetch this repository at a pinned Git ref, read `catalog.yaml`, resolve requested resources and dependencies, and materialize the effective configuration into the agent workspace.
+A provisioner can fetch this repository at a pinned Git ref, resolve `catalog.yaml`, dependencies and inheritance, preserve `${ENV_VAR}` placeholders until runtime, and materialize effective resources.
 
 ```yaml
 resourceSource:
@@ -129,20 +105,25 @@ imports:
   - bundles/hermes-runtime.yaml
 ```
 
-`hermes-runtime` supplies Hermes, the internal elastic Orchestrator, web/Telegram/Discord/WhatsApp/voice channels, and daily safe resource reconciliation. Specialist/team bundles remain internal and dynamically recruitable.
-
-The repository defines these contracts declaratively; the live Hermes provisioner/importer must enforce them before they are operational on deployed agents.
+The registry defines contracts declaratively; the deployed Hermes provisioner/runtime must consume and enforce them before the behavior is operational.
 
 ## Safe defaults
 
-- No passwords, API keys, bearer tokens, Cloudflare credentials, bot tokens, private keys, or user-learned private data belong in this repository.
-- Secret values are referenced as `${ENV_VAR}` and injected by the runtime.
-- All profiles are internal-only by default; only `hermes` may be user-facing.
-- External integration access is least-privilege and explicit.
-- Destructive actions require authorization according to local policy.
-- Private learned overlays never auto-publish.
-- Deliberation cannot vote away safety, legal, financial, medical, physical, or permission boundaries.
+- No passwords, API keys, bearer tokens, bot tokens, private keys or private learned data in Git.
+- All non-Hermes Profiles are internal-only.
+- External integrations are least-privilege and explicit.
+- Financial execution retains its explicit-order/confirmation boundaries.
+- Regulated legal, medical/veterinary, architecture/engineering, electrical, gas and other licensed responsibilities are clearly escalated.
+- Deliberation cannot vote away safety, authorization, privacy or professional boundaries.
 
 ## Contributing
 
-Fork/branch, extend an existing resource or add a new version, update `catalog.yaml`, run `python3 scripts/validate_registry.py` and `python3 scripts/validate_deliberation.py`, and open a pull request. See [`CONTRIBUTING.md`](CONTRIBUTING.md).
+Update or add versioned resources, index them in `catalog.yaml`, then run:
+
+```bash
+python3 scripts/validate_registry.py
+python3 scripts/validate_deliberation.py
+python3 scripts/validate_expansion_v21.py
+```
+
+See `CONTRIBUTING.md` and `SPEC.md`.
