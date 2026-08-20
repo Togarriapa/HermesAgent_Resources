@@ -2,16 +2,16 @@ apiVersion: hermes.togarriapa/v1
 kind: Catalog
 metadata:
   name: hermesagent-resources
-  version: 1.1.0
+  version: 1.2.0
 resources:
   - {kind: Profile, name: base, version: 1.0.0, path: profiles/base.yaml}
   - {kind: Profile, name: homelab-operator, version: 1.0.0, path: profiles/homelab-operator.yaml}
   - {kind: Profile, name: developer, version: 1.0.0, path: profiles/developer.yaml}
   - {kind: Profile, name: researcher, version: 1.0.0, path: profiles/researcher.yaml}
-  - {kind: Profile, name: orchestrator, version: 1.0.0, path: profiles/orchestrator.yaml}
+  - {kind: Profile, name: orchestrator, version: 1.1.0, path: profiles/orchestrator.yaml}
   - {kind: Profile, name: scientific-researcher, version: 1.0.0, path: profiles/scientific-researcher.yaml}
   - {kind: Profile, name: writer, version: 1.0.0, path: profiles/writer.yaml}
-  - {kind: Profile, name: team-leader, version: 1.0.0, path: profiles/team-leader.yaml}
+  - {kind: Profile, name: team-leader, version: 1.1.0, path: profiles/team-leader.yaml}
   - {kind: Profile, name: personal-trainer, version: 1.0.0, path: profiles/personal-trainer.yaml}
   - {kind: Profile, name: life-improvement-coach, version: 1.0.0, path: profiles/life-improvement-coach.yaml}
   - {kind: Profile, name: nutritionist, version: 1.0.0, path: profiles/nutritionist.yaml}
@@ -30,6 +30,7 @@ resources:
   - {kind: Skill, name: delegation-coordination, version: 1.0.0, path: skills/delegation-coordination.yaml}
   - {kind: Skill, name: decision-routing, version: 1.0.0, path: skills/decision-routing.yaml}
   - {kind: Skill, name: progress-synthesis, version: 1.0.0, path: skills/progress-synthesis.yaml}
+  - {kind: Skill, name: specialist-recruitment, version: 1.0.0, path: skills/specialist-recruitment.yaml}
   - {kind: Skill, name: scientific-method, version: 1.0.0, path: skills/scientific-method.yaml}
   - {kind: Skill, name: literature-review, version: 1.0.0, path: skills/literature-review.yaml}
   - {kind: Skill, name: evidence-synthesis, version: 1.0.0, path: skills/evidence-synthesis.yaml}
