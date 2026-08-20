@@ -46,6 +46,37 @@ Merge rules:
 
 Manifests may reference environment variables with `${NAME}`. Importers must not resolve secret placeholders while parsing this repository; resolution happens at runtime. Secret-looking literals should be rejected by CI where practical.
 
+## External integration policy
+
+Profiles may narrow a shared integration provider through `spec.integrationPolicy`. The current Composio contract is intentionally allowlist-based:
+
+```yaml
+requires:
+  plugins:
+    - composio@^1.0.0
+integrationPolicy:
+  composio:
+    toolkits:
+      - slug: gmail
+        version: 20260721_00
+        allowedTools:
+          - GMAIL_FETCH_EMAILS
+          - GMAIL_CREATE_EMAIL_DRAFT
+    emailSend: deny
+```
+
+Rules:
+
+1. Declaring `integrationPolicy.composio` requires an explicit `composio` plugin dependency.
+2. Every toolkit must be named explicitly, pin a dated toolkit version for production, and contain a non-empty tool allowlist.
+3. Tools from unlisted toolkits are unavailable even if the provider supports them.
+4. A provider connection grants capability only; it does not make the profile user-facing or expand local Hermes authorization.
+5. Destructive actions, external writes, sends, sharing/permission changes, and other side effects remain subject to the profile policy and local host authorization.
+6. Runtime credentials stay outside Git and must be scoped to the user/account actually delegated to the task.
+7. Marketplaces and indexes are discovery sources, not trust authorities. Source provenance and permissions must be reviewed before adopting executable third-party resources.
+
+See `EXTERNAL_INTEGRATIONS.md` and `INTEGRATION_MATRIX.md` for the registry-wide policy and current assignments.
+
 ## Compatibility
 
 Resources may declare:
