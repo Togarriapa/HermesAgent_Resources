@@ -1,72 +1,129 @@
-# External Integration Sources
+# External Integration Governance
 
-Third-party directories are discovery inputs, not authorization sources. Runtime permissions remain local to Hermes.
+External catalogs/providers are capability sources, **not authorization sources**. A resource can be discoverable, connected, or technically callable and still be unavailable to a Profile because local Hermes policy, account scope, or explicit action authorization denies it.
 
 ## Trust tiers
 
-1. **First-party implementation/documentation** — preferred when available. Examples: Home Assistant MCP/Wyoming integrations and GitHub Projects/GitHub MCP.
-2. **Official protocol registry** — useful for provenance/discovery metadata, followed by source review. Example: the official MCP Registry.
-3. **Managed integration provider** — acceptable with explicit toolkit/credential scoping and version policy. Example: Composio.
-4. **Public skill index or marketplace** — discovery only until the underlying source, license, scripts, dependencies, and permissions are reviewed. Example: Agent37 Skills.
-5. **Unknown source** — do not install or execute without provenance and security review.
+Preferred evidence order for adopting an integration:
+
+1. **First-party implementation/documentation** — preferred when available (for example Home Assistant MCP/Wyoming, GitHub APIs/MCP/Projects).
+2. **Official protocol registry** — useful for provenance/discovery, followed by implementation/source review.
+3. **Managed integration provider** — acceptable with explicit toolkit/tool/credential scoping, isolation, and version policy (for example Composio).
+4. **Public skill/plugin index or marketplace** — discovery only until source, license, dependencies, scripts, maintainership, and requested permissions are reviewed.
+5. **Unknown/unverifiable source** — do not install or execute.
+
+Popularity, stars, listing status, namespace verification, or marketplace presence are supporting metadata—not security approval.
+
+## Admission lifecycle
+
+A new integration should move through explicit states:
+
+`discovered -> provenance-reviewed -> capability/permission-reviewed -> isolated test -> approved/pinned -> deployed -> monitored -> upgraded/revoked`
+
+Before approval, record:
+
+- provider/source and reviewed version/digest;
+- runtime/transport/network destinations;
+- required credentials and account scope;
+- exposed operations/tools and side effects;
+- filesystem/shell/process access;
+- data sent externally and retention expectations;
+- timeout/rate-limit/retry behavior;
+- destructive/financial/communication capabilities;
+- logging/audit/redaction support;
+- rollback/revocation procedure;
+- responsible Profiles/Bundles allowed to request it.
+
+## Runtime integration contract
+
+`QUALITY_POLICY.yaml` supplies conservative defaults to every Plugin/MCP, including default-deny capability exposure, runtime-only credentials, bounded external calls, fail-closed authorization handling, redacted invocation auditing, and explicit side-effect policy.
+
+At runtime:
+
+- connection success does not imply operation permission;
+- requested operation and target/account scope are authorized at call time;
+- unlisted operations are denied;
+- credentials are never returned to Profiles as text;
+- rate limits are honored with bounded backoff rather than hot-loop retries;
+- ambiguous partial failures are reconciled before retrying state-changing calls;
+- provider request/operation IDs are retained when available for audit/idempotency;
+- revoked/expired credentials fail closed and should trigger a scoped reconnection flow rather than credential guessing.
 
 ## Composio policy
 
-The shared `composio` plugin is default-deny. A profile must declare explicit toolkit and tool allowlists. Connections are user-scoped and runtime credentials stay outside Git. Remote workbench, remote bash, arbitrary proxying, and unlisted toolkits are denied.
+The shared `composio` Plugin is default-deny. A Profile must declare explicit toolkit and tool allowlists. Connections are user-scoped; runtime credentials stay outside Git. Remote workbench, remote bash, arbitrary proxying, and unlisted toolkits are denied.
 
-Production toolkit definitions are pinned to reviewed dated versions. Updating a pin is a dependency upgrade and should be reviewed for tool/schema/permission changes.
+Production toolkit definitions are pinned to reviewed dated versions. Updating a pin is a dependency upgrade and should be reviewed for schema, permission, side-effect, and data-flow changes.
 
-A toolkit connection never makes a profile user-facing; all user communication still follows `User <-> Hermes <-> Orchestrator <-> Specialists / Teams`.
+A Composio connection never makes a Profile user-facing or grants it all tools from the connected service.
 
 ## WhatsApp Business
 
-WhatsApp is integrated only through a supported **WhatsApp Business** connection. The registry pins the Composio `whatsapp` toolkit version and exposes only the messaging/history/media subset required by the Hermes channel.
+WhatsApp is supported only through a supported **WhatsApp Business** connection. The registry pins the Composio WhatsApp toolkit version and allows only the messaging/history/media subset required by the Hermes channel.
 
-Policy:
+Constraints:
 
-- personal WhatsApp account automation is unsupported and not used;
-- inbound and outbound routing is Hermes-only;
+- no personal-account automation workaround;
+- inbound/outbound routing is Hermes-only;
 - account/contact administration is denied;
-- destructive tools are denied;
-- replies to an inbound conversation may be permitted by local policy;
-- proactive outbound communication requires delegated/template-authorized behavior;
-- credentials remain runtime-only.
+- destructive/admin tools are denied;
+- sender/chat admission follows explicit channel policy;
+- proactive outbound behavior requires delegated/template-authorized handling;
+- credentials remain runtime-only;
+- provider message IDs should be used to correlate/deduplicate deliveries where available.
 
 ## Local voice / Home Assistant
 
 Voice is standardized on Home Assistant's first-party Wyoming ecosystem and remains local-first:
 
-- Speech-to-Phrase is preferred for constrained Home Assistant control phrases where appropriate;
-- Whisper is preferred for general assistant speech-to-text;
-- Piper is the preferred local text-to-speech engine;
-- openWakeWord may be enabled as an optional wake-word service.
+- Speech-to-Phrase for constrained Home Assistant control language where appropriate;
+- Whisper for general assistant STT;
+- Piper for local TTS;
+- optional openWakeWord for wake-word detection.
 
-Raw audio retention and cloud fallback are denied by default. Transcripts and spoken responses still pass through the Hermes-only conversation topology. Voice capability does not grant additional Home Assistant control authority.
+Raw audio retention and cloud fallback are denied by default. Voice capability does not grant additional Home Assistant control authority. Wake-word activation alone is not privileged-action authorization.
 
 ## Home Assistant MCP
 
-Home Assistant is standardized on its first-party Model Context Protocol Server integration. The canonical endpoint is `${HOME_ASSISTANT_URL}/api/mcp`; `${HOME_ASSISTANT_URL}/api/mcp/assist` is available when the built-in Assist LLM API is explicitly preferred. Entity exposure stays least-privilege and safety-sensitive controls remain confirmation-gated.
+Home Assistant uses its first-party MCP Server integration. Canonical endpoint: `${HOME_ASSISTANT_URL}/api/mcp`; `${HOME_ASSISTANT_URL}/api/mcp/assist` may be used when the built-in Assist LLM API is intentionally preferred.
 
-## Epic Kanban / GitHub Projects
+Entity/tool exposure is least-privilege, credentials are runtime-only, and safety-sensitive controls remain confirmation/host-policy gated. The runtime should audit target entity/tool, requested operation, result, and correlation ID while avoiding secret/raw-sensitive-state logging.
 
-For repository-bound Epics, the internal `epic-kanban` provider may use GitHub Projects v2 to create the temporary Epic board, add/update work items and fields, and delete the project after accepted completion. Non-repository work uses a local ephemeral backend.
+## GitHub and Epic Kanban
 
-Board deletion is lifecycle-authorized only: first archive a concise completion summary, then delete the board after the Epic is accepted done. GitHub credentials remain runtime-only and the board is internal, not a new user-facing channel.
+GitHub access should use the smallest token/repository/tool scope required by the Profile or internal provider. Read-only is the default where practical; writes are explicit per task and destructive repository/project operations retain separate policy.
 
-## Agent37 policy
+For repository-bound Epics, `epic-kanban` may use GitHub Projects v2. Board deletion is lifecycle-authorized only: archive the completion summary, verify Epic acceptance, then delete the ephemeral board. Project lifecycle permission does not imply repository-admin permission.
 
-Agent37 is a searchable index of public skills, but indexing, stars, forks, and activity are not security review. `agent37-discovery` is read-only/discovery-only. Candidate skills must be traced to their source repository and reviewed using `agent-skill-vetting` and `third-party-supply-chain-review` before any concept or executable component is adopted.
+## Agent37 discovery
 
-## MCP policy
+Agent37 remains read-only/discovery-only. Candidate resources must be traced to source and reviewed using `agent-skill-vetting` plus `third-party-supply-chain-review`. Discovery metadata never authorizes automatic installation or execution.
 
-Use the official MCP Registry for discovery when possible, but registry metadata alone is not sufficient to approve execution. The registry is intentionally permissive and may be in preview; review server source, transport, authentication, requested credentials, tools, network destinations, filesystem/shell access, release provenance, maintenance, and rollback path before approval.
+## MCP discovery/admission
 
-Namespace verification is useful provenance evidence, not a guarantee that a server is appropriate or safe for Hermes.
+Prefer the official MCP Registry for discovery where available, then review the actual server implementation/release. Evaluate transport, authentication, credentials, tools, roots, network access, filesystem/shell/process access, version provenance, maintenance status, data handling, and rollback.
+
+An MCP server should expose only explicitly approved roots/tools to the requesting Profile. If a server cannot be meaningfully constrained or audited, do not deploy it merely because it implements MCP.
+
+## Updates and revocation
+
+Integration upgrades should be treated as permission-surface changes, not routine package bumps. Before promotion:
+
+1. compare tool/permission/schema/network changes;
+2. rerun supply-chain/provenance review where material;
+3. test with non-production/least-privilege credentials where possible;
+4. verify timeout/retry/idempotency behavior;
+5. update pins/digests and rollback reference;
+6. activate atomically and monitor initial calls.
+
+On compromise, unexpected permission expansion, ownership change, or unsafe behavior, revoke credentials/connection first, disable the resource, preserve audit evidence, and only then investigate/re-enable.
 
 ## Review workflow
 
-Candidate external resources should flow through the internal `integration-review-team`:
+Candidate external resources flow through the internal integration review chain, typically:
 
-`Integration Curator -> Cybersecurity Analyst -> Systems Architect -> Team Leader`
+`Integration Curator -> Cybersecurity Analyst -> Systems Architect -> relevant domain owner -> Team Leader/Orchestrator`
 
-That team may recommend a resource for registry adoption, but installation/execution still requires the local Hermes provisioner/runtime policy to permit it.
+High-risk integrations may additionally recruit Privacy/GDPR, Privacy/Security Engineer, legal, financial-risk, or other relevant Profiles.
+
+Approval for registry adoption still does not make installation/execution mandatory; the local provisioner/host policy remains authoritative.
