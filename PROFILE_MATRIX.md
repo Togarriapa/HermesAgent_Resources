@@ -39,6 +39,10 @@ Profiles intentionally import only capabilities directly relevant to their role.
 | Crypto Asset Analyst | crypto-asset-analysis, market-structure-analysis, investment-due-diligence, digital-asset-custody-risk |
 | Blockchain Researcher | blockchain-protocol-research, source-integrity, security-review |
 | Real Estate Investment Analyst | real-estate-investment-analysis, real-estate-cashflow-modeling, investment-due-diligence, valuation-analysis |
+| Financial Data Steward | financial-data-reconciliation, financial-connection-governance, reconciliation-controls |
+| Financial Execution Operator | explicit-financial-order-execution, financial-connection-governance, reconciliation-controls |
+| Crypto Live Wallet Operator | live-wallet-transaction-control, digital-asset-custody-risk, blockchain-protocol-research |
+| Crypto Sandbox Operator | testnet-wallet-experimentation, blockchain-protocol-research, digital-asset-custody-risk |
 | Writer | prose-craft, editing-revision, source-integrity |
 | Project Manager | project-planning, risk-management, status-reporting, meeting-facilitation |
 | Scrum Master | scrum-facilitation, backlog-refinement, impediment-management, team-retrospectives |
@@ -120,16 +124,22 @@ The Resource Evolution Manager rebases the two persistent local overlays onto up
 
 See `RESOURCE_EVOLUTION.md`.
 
-## Investment and wealth boundary
+## Investment, financial-data and execution boundary
 
-Investment roles are decision-support and research roles by default. They may analyze objectives, portfolios, securities, funds, digital assets, real estate, managers, risks, scenarios and proposed rebalancing, but they do **not** receive broker/exchange/wallet/property-transaction execution authority from these manifests.
+Investment roles may autonomously research, analyse, model, monitor and recommend. `Financial Data Steward` may read and reconcile configured financial sources. Real-money execution is isolated into `Financial Execution Operator` and `Crypto Live Wallet Operator`.
 
 - Financial Advisor structures planning and investment-policy questions; it does not impersonate a regulated adviser where licensing is required.
 - Wealth Manager coordinates the overall wealth picture; Portfolio Manager manages portfolio design; Asset Manager oversees mandates/managers; asset-class managers own their narrower domains.
 - Investment Risk Analyst is intentionally independent from thesis owners and should be recruited for material portfolio decisions.
-- Cryptocurrency roles never request or handle private keys, seed phrases, recovery codes or signing secrets.
+- Financial Data Steward receives normalized account/portfolio data, not raw financial credentials.
+- Financial Execution Operator may execute bank/broker/exchange/Ledger actions only from a one-shot explicit user order plus fresh confirmation through Hermes.
+- Crypto Live Wallet Operator may prepare mainnet transactions but may sign/broadcast real-value transactions only from a one-shot explicit user order plus fresh confirmation.
+- Crypto Sandbox Operator may act autonomously only on the dedicated testnet sandbox using faucet/test assets.
+- User private keys, seed phrases, recovery codes, PINs, reusable MFA secrets and raw provider credentials remain outside Profile-visible context.
 - Tax and legal implications are routed to the appropriate Accountant and Law Specialist rather than inferred across jurisdictions.
 - Current market, regulatory, issuer, protocol and property facts should be verified from authoritative/current sources before materially relying on them.
+
+See `FINANCIAL_ACCESS.md` and `INVESTMENT_GOVERNANCE.md`.
 
 ## Boundary rule
 
@@ -151,4 +161,4 @@ Examples of intentional boundaries:
 
 Orchestrator and Team Leader may recruit **any current or future registered Profile**. Recruitment is not limited to the active bundle or initial roster. They may request new instances when a needed specialist is absent or when more parallel capacity is useful.
 
-Host policy remains authoritative: recruitment and scaling do not bypass resource limits, permissions, external-integration policy, or safety boundaries. Specialists should be released when their work and handoffs are complete.
+Host policy remains authoritative: recruitment and scaling do not bypass resource limits, permissions, external-integration policy, financial authorization gates, or safety boundaries. Specialists should be released when their work and handoffs are complete.
