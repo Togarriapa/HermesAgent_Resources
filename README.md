@@ -63,6 +63,8 @@ imports:
 
 `hermes-runtime` supplies the sole user-facing Hermes profile, the internal Orchestrator, user channels, and the single-contact routing contract. Specialist and team bundles remain internal resources that the Orchestrator or an authorized Team Leader can recruit when needed.
 
+The repository defines this contract declaratively; the Hermes provisioner/importer still needs to enforce these routing fields at runtime before the architecture is operational on deployed agents.
+
 Agents should pin production imports to a tag or commit SHA. `main` is appropriate for development/test agents.
 
 ## Safe defaults
