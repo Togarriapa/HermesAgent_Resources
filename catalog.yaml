@@ -2,7 +2,7 @@ apiVersion: hermes.togarriapa/v1
 kind: Catalog
 metadata:
   name: hermesagent-resources
-  version: 1.9.0
+  version: 2.0.0
 resources:
   - {kind: Profile, name: accountant-international, version: 1.1.0, path: profiles/accountant-international.yaml}
   - {kind: Profile, name: accountant-portugal, version: 1.1.0, path: profiles/accountant-portugal.yaml}
@@ -19,7 +19,7 @@ resources:
   - {kind: Profile, name: electrical-engineer, version: 1.0.0, path: profiles/electrical-engineer.yaml}
   - {kind: Profile, name: farming-specialist, version: 1.0.0, path: profiles/farming-specialist.yaml}
   - {kind: Profile, name: frontend-developer, version: 1.0.0, path: profiles/frontend-developer.yaml}
-  - {kind: Profile, name: hermes, version: 1.1.0, path: profiles/hermes.yaml}
+  - {kind: Profile, name: hermes, version: 1.2.0, path: profiles/hermes.yaml}
   - {kind: Profile, name: history-teacher, version: 1.0.0, path: profiles/history-teacher.yaml}
   - {kind: Profile, name: home-assistant-optimizer, version: 1.0.0, path: profiles/home-assistant-optimizer.yaml}
   - {kind: Profile, name: home-improvement-specialist, version: 1.0.0, path: profiles/home-improvement-specialist.yaml}
@@ -31,7 +31,7 @@ resources:
   - {kind: Profile, name: mechanical-engineer, version: 1.0.0, path: profiles/mechanical-engineer.yaml}
   - {kind: Profile, name: music-teacher, version: 1.0.0, path: profiles/music-teacher.yaml}
   - {kind: Profile, name: nutritionist, version: 1.0.0, path: profiles/nutritionist.yaml}
-  - {kind: Profile, name: orchestrator, version: 1.3.0, path: profiles/orchestrator.yaml}
+  - {kind: Profile, name: orchestrator, version: 1.4.0, path: profiles/orchestrator.yaml}
   - {kind: Profile, name: personal-assistant, version: 1.1.0, path: profiles/personal-assistant.yaml}
   - {kind: Profile, name: personal-chef, version: 1.0.0, path: profiles/personal-chef.yaml}
   - {kind: Profile, name: personal-trainer, version: 1.0.0, path: profiles/personal-trainer.yaml}
@@ -43,7 +43,7 @@ resources:
   - {kind: Profile, name: scrum-master, version: 1.0.0, path: profiles/scrum-master.yaml}
   - {kind: Profile, name: smart-home-iot-engineer, version: 1.0.0, path: profiles/smart-home-iot-engineer.yaml}
   - {kind: Profile, name: systems-architect, version: 1.0.0, path: profiles/systems-architect.yaml}
-  - {kind: Profile, name: team-leader, version: 1.2.0, path: profiles/team-leader.yaml}
+  - {kind: Profile, name: team-leader, version: 1.3.0, path: profiles/team-leader.yaml}
   - {kind: Profile, name: theology-teacher, version: 1.0.0, path: profiles/theology-teacher.yaml}
   - {kind: Profile, name: ux-ui-designer-developer, version: 1.0.0, path: profiles/ux-ui-designer-developer.yaml}
   - {kind: Profile, name: weather-analyst, version: 1.0.0, path: profiles/weather-analyst.yaml}
@@ -423,3 +423,69 @@ resources:
   - {kind: Bundle, name: financial-data-team, version: 1.0.0, path: bundles/financial-data-team.yaml}
   - {kind: Bundle, name: crypto-sandbox-team, version: 1.0.0, path: bundles/crypto-sandbox-team.yaml}
   - {kind: Bundle, name: financial-execution-team, version: 1.0.0, path: bundles/financial-execution-team.yaml}
+  - {kind: Profile, name: home-maintenance-manager, version: 1.0.0, path: profiles/home-maintenance-manager.yaml}
+  - {kind: Profile, name: plumbing-maintenance-specialist, version: 1.0.0, path: profiles/plumbing-maintenance-specialist.yaml}
+  - {kind: Profile, name: appliance-maintenance-specialist, version: 1.0.0, path: profiles/appliance-maintenance-specialist.yaml}
+  - {kind: Profile, name: carpentry-joinery-specialist, version: 1.0.0, path: profiles/carpentry-joinery-specialist.yaml}
+  - {kind: Profile, name: painting-finishes-specialist, version: 1.0.0, path: profiles/painting-finishes-specialist.yaml}
+  - {kind: Profile, name: roofing-drainage-specialist, version: 1.0.0, path: profiles/roofing-drainage-specialist.yaml}
+  - {kind: Profile, name: garden-grounds-maintenance-specialist, version: 1.0.0, path: profiles/garden-grounds-maintenance-specialist.yaml}
+  - {kind: Profile, name: home-comfort-maintenance-specialist, version: 1.0.0, path: profiles/home-comfort-maintenance-specialist.yaml}
+  - {kind: Profile, name: portuguese-catholic-family-advisor, version: 1.0.0, path: profiles/portuguese-catholic-family-advisor.yaml}
+  - {kind: Profile, name: sicilian-catholic-family-advisor, version: 1.0.0, path: profiles/sicilian-catholic-family-advisor.yaml}
+  - {kind: Profile, name: spanish-catholic-family-advisor, version: 1.0.0, path: profiles/spanish-catholic-family-advisor.yaml}
+  - {kind: Profile, name: german-catholic-family-advisor, version: 1.0.0, path: profiles/german-catholic-family-advisor.yaml}
+  - {kind: Profile, name: remote-work-manager, version: 1.0.0, path: profiles/remote-work-manager.yaml}
+  - {kind: Profile, name: data-analytics-specialist, version: 1.0.0, path: profiles/data-analytics-specialist.yaml}
+  - {kind: Profile, name: career-advisor, version: 1.0.0, path: profiles/career-advisor.yaml}
+  - {kind: Profile, name: career-development-specialist, version: 1.0.0, path: profiles/career-development-specialist.yaml}
+  - {kind: Profile, name: philosophy-specialist, version: 1.0.0, path: profiles/philosophy-specialist.yaml}
+  - {kind: Profile, name: culture-expert, version: 1.0.0, path: profiles/culture-expert.yaml}
+  - {kind: Profile, name: psychology-expert, version: 1.0.0, path: profiles/psychology-expert.yaml}
+  - {kind: Profile, name: sociology-expert, version: 1.0.0, path: profiles/sociology-expert.yaml}
+  - {kind: Profile, name: anthropology-expert, version: 1.0.0, path: profiles/anthropology-expert.yaml}
+  - {kind: Profile, name: debate-analyst, version: 1.0.0, path: profiles/debate-analyst.yaml}
+  - {kind: Skill, name: multi-agent-deliberation, version: 1.0.0, path: skills/multi-agent-deliberation.yaml}
+  - {kind: Skill, name: argument-mapping, version: 1.0.0, path: skills/argument-mapping.yaml}
+  - {kind: Skill, name: dissent-analysis, version: 1.0.0, path: skills/dissent-analysis.yaml}
+  - {kind: Skill, name: assumption-challenge, version: 1.0.0, path: skills/assumption-challenge.yaml}
+  - {kind: Skill, name: strategy-synthesis, version: 1.0.0, path: skills/strategy-synthesis.yaml}
+  - {kind: Skill, name: debate-facilitation, version: 1.0.0, path: skills/debate-facilitation.yaml}
+  - {kind: Skill, name: hermes-response-contract, version: 1.0.0, path: skills/hermes-response-contract.yaml}
+  - {kind: Skill, name: preventive-home-maintenance-planning, version: 1.0.0, path: skills/preventive-home-maintenance-planning.yaml}
+  - {kind: Skill, name: plumbing-home-maintenance, version: 1.0.0, path: skills/plumbing-home-maintenance.yaml}
+  - {kind: Skill, name: appliance-home-maintenance, version: 1.0.0, path: skills/appliance-home-maintenance.yaml}
+  - {kind: Skill, name: carpentry-joinery-maintenance, version: 1.0.0, path: skills/carpentry-joinery-maintenance.yaml}
+  - {kind: Skill, name: painting-finishes-maintenance, version: 1.0.0, path: skills/painting-finishes-maintenance.yaml}
+  - {kind: Skill, name: roofing-drainage-maintenance, version: 1.0.0, path: skills/roofing-drainage-maintenance.yaml}
+  - {kind: Skill, name: garden-grounds-maintenance, version: 1.0.0, path: skills/garden-grounds-maintenance.yaml}
+  - {kind: Skill, name: home-comfort-maintenance, version: 1.0.0, path: skills/home-comfort-maintenance.yaml}
+  - {kind: Skill, name: catholic-family-life-discernment, version: 1.0.0, path: skills/catholic-family-life-discernment.yaml}
+  - {kind: Skill, name: culturally-situated-family-advice, version: 1.0.0, path: skills/culturally-situated-family-advice.yaml}
+  - {kind: Skill, name: household-family-routines, version: 1.0.0, path: skills/household-family-routines.yaml}
+  - {kind: Skill, name: remote-work-optimization, version: 1.0.0, path: skills/remote-work-optimization.yaml}
+  - {kind: Skill, name: home-office-optimization, version: 1.0.0, path: skills/home-office-optimization.yaml}
+  - {kind: Skill, name: async-collaboration-design, version: 1.0.0, path: skills/async-collaboration-design.yaml}
+  - {kind: Skill, name: business-analytics, version: 1.0.0, path: skills/business-analytics.yaml}
+  - {kind: Skill, name: kpi-dashboard-design, version: 1.0.0, path: skills/kpi-dashboard-design.yaml}
+  - {kind: Skill, name: analytics-storytelling, version: 1.0.0, path: skills/analytics-storytelling.yaml}
+  - {kind: Skill, name: career-advising, version: 1.0.0, path: skills/career-advising.yaml}
+  - {kind: Skill, name: career-development-planning, version: 1.0.0, path: skills/career-development-planning.yaml}
+  - {kind: Skill, name: job-market-positioning, version: 1.0.0, path: skills/job-market-positioning.yaml}
+  - {kind: Skill, name: labor-market-research, version: 1.0.0, path: skills/labor-market-research.yaml}
+  - {kind: Skill, name: interview-strategy, version: 1.0.0, path: skills/interview-strategy.yaml}
+  - {kind: Skill, name: philosophical-analysis, version: 1.0.0, path: skills/philosophical-analysis.yaml}
+  - {kind: Skill, name: logic-argument-analysis, version: 1.0.0, path: skills/logic-argument-analysis.yaml}
+  - {kind: Skill, name: cultural-analysis, version: 1.0.0, path: skills/cultural-analysis.yaml}
+  - {kind: Skill, name: psychology-evidence-analysis, version: 1.0.0, path: skills/psychology-evidence-analysis.yaml}
+  - {kind: Skill, name: sociology-analysis, version: 1.0.0, path: skills/sociology-analysis.yaml}
+  - {kind: Skill, name: anthropology-analysis, version: 1.0.0, path: skills/anthropology-analysis.yaml}
+  - {kind: Skill, name: perspective-integration, version: 1.0.0, path: skills/perspective-integration.yaml}
+  - {kind: Skill, name: debate-quality-analysis, version: 1.0.0, path: skills/debate-quality-analysis.yaml}
+  - {kind: Bundle, name: home-maintenance-team, version: 1.0.0, path: bundles/home-maintenance-team.yaml}
+  - {kind: Bundle, name: catholic-family-perspectives-team, version: 1.0.0, path: bundles/catholic-family-perspectives-team.yaml}
+  - {kind: Bundle, name: remote-work-optimization-team, version: 1.0.0, path: bundles/remote-work-optimization-team.yaml}
+  - {kind: Bundle, name: data-analytics-team, version: 1.0.0, path: bundles/data-analytics-team.yaml}
+  - {kind: Bundle, name: career-development-team, version: 1.0.0, path: bundles/career-development-team.yaml}
+  - {kind: Bundle, name: humanities-social-science-team, version: 1.0.0, path: bundles/humanities-social-science-team.yaml}
+  - {kind: Bundle, name: strategic-deliberation-team, version: 1.0.0, path: bundles/strategic-deliberation-team.yaml}
