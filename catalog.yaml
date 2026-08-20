@@ -2,7 +2,7 @@ apiVersion: hermes.togarriapa/v1
 kind: Catalog
 metadata:
   name: hermesagent-resources
-  version: 1.2.0
+  version: 1.3.0
 resources:
   - {kind: Profile, name: base, version: 1.0.0, path: profiles/base.yaml}
   - {kind: Profile, name: homelab-operator, version: 1.0.0, path: profiles/homelab-operator.yaml}
@@ -22,6 +22,10 @@ resources:
   - {kind: Profile, name: project-manager, version: 1.0.0, path: profiles/project-manager.yaml}
   - {kind: Profile, name: systems-architect, version: 1.0.0, path: profiles/systems-architect.yaml}
   - {kind: Profile, name: cybersecurity-analyst, version: 1.0.0, path: profiles/cybersecurity-analyst.yaml}
+  - {kind: Profile, name: data-scientist, version: 1.0.0, path: profiles/data-scientist.yaml}
+  - {kind: Profile, name: data-engineer, version: 1.0.0, path: profiles/data-engineer.yaml}
+  - {kind: Profile, name: accountant-portugal, version: 1.0.0, path: profiles/accountant-portugal.yaml}
+  - {kind: Profile, name: accountant-international, version: 1.0.0, path: profiles/accountant-international.yaml}
   - {kind: Skill, name: docker-ops, version: 1.0.0, path: skills/docker-ops.yaml}
   - {kind: Skill, name: github-maintainer, version: 1.0.0, path: skills/github-maintainer.yaml}
   - {kind: Skill, name: cloudflare-tunnel-ops, version: 1.0.0, path: skills/cloudflare-tunnel-ops.yaml}
@@ -36,6 +40,15 @@ resources:
   - {kind: Skill, name: evidence-synthesis, version: 1.0.0, path: skills/evidence-synthesis.yaml}
   - {kind: Skill, name: academic-citation, version: 1.0.0, path: skills/academic-citation.yaml}
   - {kind: Skill, name: statistical-reasoning, version: 1.0.0, path: skills/statistical-reasoning.yaml}
+  - {kind: Skill, name: exploratory-data-analysis, version: 1.0.0, path: skills/exploratory-data-analysis.yaml}
+  - {kind: Skill, name: statistical-modeling, version: 1.0.0, path: skills/statistical-modeling.yaml}
+  - {kind: Skill, name: machine-learning-workflow, version: 1.0.0, path: skills/machine-learning-workflow.yaml}
+  - {kind: Skill, name: data-visualization, version: 1.0.0, path: skills/data-visualization.yaml}
+  - {kind: Skill, name: data-pipeline-design, version: 1.0.0, path: skills/data-pipeline-design.yaml}
+  - {kind: Skill, name: dimensional-data-modeling, version: 1.0.0, path: skills/dimensional-data-modeling.yaml}
+  - {kind: Skill, name: data-quality-engineering, version: 1.0.0, path: skills/data-quality-engineering.yaml}
+  - {kind: Skill, name: database-sql-engineering, version: 1.0.0, path: skills/database-sql-engineering.yaml}
+  - {kind: Skill, name: data-platform-operations, version: 1.0.0, path: skills/data-platform-operations.yaml}
   - {kind: Skill, name: prose-craft, version: 1.0.0, path: skills/prose-craft.yaml}
   - {kind: Skill, name: editing-revision, version: 1.0.0, path: skills/editing-revision.yaml}
   - {kind: Skill, name: source-integrity, version: 1.0.0, path: skills/source-integrity.yaml}
@@ -72,6 +85,14 @@ resources:
   - {kind: Skill, name: security-review, version: 1.0.0, path: skills/security-review.yaml}
   - {kind: Skill, name: incident-triage, version: 1.0.0, path: skills/incident-triage.yaml}
   - {kind: Skill, name: security-hardening, version: 1.0.0, path: skills/security-hardening.yaml}
+  - {kind: Skill, name: double-entry-bookkeeping, version: 1.0.0, path: skills/double-entry-bookkeeping.yaml}
+  - {kind: Skill, name: financial-reporting, version: 1.0.0, path: skills/financial-reporting.yaml}
+  - {kind: Skill, name: reconciliation-controls, version: 1.0.0, path: skills/reconciliation-controls.yaml}
+  - {kind: Skill, name: portuguese-snc-accounting, version: 1.0.0, path: skills/portuguese-snc-accounting.yaml}
+  - {kind: Skill, name: portuguese-tax-compliance, version: 1.0.0, path: skills/portuguese-tax-compliance.yaml}
+  - {kind: Skill, name: ifrs-reporting, version: 1.0.0, path: skills/ifrs-reporting.yaml}
+  - {kind: Skill, name: consolidation-multicurrency, version: 1.0.0, path: skills/consolidation-multicurrency.yaml}
+  - {kind: Skill, name: cross-border-accounting, version: 1.0.0, path: skills/cross-border-accounting.yaml}
   - {kind: Plugin, name: codex, version: 1.0.0, path: plugins/codex.yaml}
   - {kind: Plugin, name: github, version: 1.0.0, path: plugins/github.yaml}
   - {kind: Plugin, name: web, version: 1.0.0, path: plugins/web.yaml}
