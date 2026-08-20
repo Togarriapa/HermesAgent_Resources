@@ -10,15 +10,51 @@ The canonical user-facing topology is:
 
 `User <-> Hermes <-> Orchestrator <-> Specialist profiles / Team bundles`
 
-`hermes` is the **only** profile permitted to communicate directly with the user. The Orchestrator, Team Leader, and all specialist profiles are internal-only. User-facing web, Telegram, and Discord channels route exclusively to Hermes and reject direct profile selection.
+`hermes` is the **only** profile permitted to communicate directly with the user. Web, Telegram, Discord, WhatsApp Business, and voice channels all route exclusively through Hermes and reject direct profile selection.
 
-Hermes receives the user's request and sends every work-bearing task to the Orchestrator. The Orchestrator decomposes the request, recruits the best-suited specialist profile or team, gathers and synthesizes the work, and returns the result to Hermes. Hermes then delivers the response to the user.
-
-A recruited Team Leader may still recruit any additional registered profile needed for its delegated objective, but it remains internal and reports back through the orchestration chain rather than becoming a user endpoint.
-
-If clarification is required, the Orchestrator asks Hermes, Hermes asks the user, and the answer returns through the same orchestration flow. User-visible scheduled results, alerts, webhook outcomes, and follow-ups must also surface through Hermes.
+Hermes receives text or speech, sends work-bearing requests to the Orchestrator, handles clarification, and returns the final text or spoken response. Specialists and Team Leaders remain internal-only regardless of orchestration depth.
 
 See [`TOPOLOGY.md`](TOPOLOGY.md) for the enforcement contract.
+
+## Parallel and hierarchical orchestration
+
+The Orchestrator uses a dependency DAG rather than a sequential-only queue. Independent work packages run in parallel. Work may be delegated through multiple levels of Team Leaders and specialist subteams, and the Orchestrator may create multiple instances of the same profile when parallel capacity is useful.
+
+The registry does **not** impose a numeric per-profile instance ceiling. Effective concurrency is governed by host/runtime CPU, RAM, API limits, cost, credentials, authorization, and workspace-isolation policy. Scaling increases capacity, not authority.
+
+Every Epic receives one ephemeral Kanban board containing Epic/User Story/Task/Defect/Spike/Risk/Decision items. The board is updated throughout execution, a completion summary is archived after acceptance, and the board is then deleted. Repository-bound Epics may use GitHub Projects v2; other work uses a local ephemeral backend.
+
+See [`ORCHESTRATION.md`](ORCHESTRATION.md).
+
+## Resource evolution without forgetting
+
+Daily resource reconciliation does not overwrite local learning.
+
+Effective resources are layered, low to high precedence:
+
+1. upstream registry base;
+2. local experience improvements;
+3. private user-learned overlay;
+4. current explicit instruction/session context.
+
+`resource-evolution-manager` checks upstream daily, rebases local overlays onto compatible changes, regression-tests the effective result, and atomically activates safe updates. Breaking or ambiguous changes are quarantined. User-specific learning remains private local state and is never automatically pushed to the shared repository.
+
+See [`RESOURCE_EVOLUTION.md`](RESOURCE_EVOLUTION.md).
+
+## Voice
+
+The local-first voice pipeline uses Home Assistant's Wyoming ecosystem:
+
+- Speech-to-Phrase for fast constrained home-control speech where appropriate;
+- Whisper for general assistant speech-to-text;
+- Piper for local text-to-speech;
+- optional openWakeWord wake-word detection.
+
+Raw audio retention and cloud fallback are disabled by default. Voice traffic still follows `Audio <-> Hermes <-> Orchestrator <-> Specialists`.
+
+## WhatsApp
+
+WhatsApp is supported as a **WhatsApp Business** channel using the scoped Composio WhatsApp toolkit. It does not use unsupported personal-account automation. Inbound/outbound traffic is Hermes-only; account administration and destructive tools are denied, while proactive outbound messages require delegated/template-authorized behavior.
 
 ## Resource types
 
@@ -45,13 +81,11 @@ metadata:
 spec: {}
 ```
 
-The canonical index is [`catalog.yaml`](catalog.yaml). See [`SPEC.md`](SPEC.md) for inheritance, dependency, secret, and import semantics.
+The canonical index is [`catalog.yaml`](catalog.yaml). See [`SPEC.md`](SPEC.md) for inheritance, dependency, secret, orchestration, integration, and import semantics.
 
 ## Canonical runtime import
 
-A Hermes provisioner can clone or fetch this repository at a pinned Git ref, read `catalog.yaml`, resolve the requested resource and its dependencies, then materialize the resulting configuration into the agent workspace.
-
-The normal user-facing deployment should import the `hermes-runtime` bundle:
+A Hermes provisioner can clone or fetch this repository at a pinned Git ref, read `catalog.yaml`, resolve requested resources and dependencies, and materialize the effective configuration into the agent workspace.
 
 ```yaml
 resourceSource:
@@ -61,19 +95,18 @@ imports:
   - bundles/hermes-runtime.yaml
 ```
 
-`hermes-runtime` supplies the sole user-facing Hermes profile, the internal Orchestrator, user channels, and the single-contact routing contract. Specialist and team bundles remain internal resources that the Orchestrator or an authorized Team Leader can recruit when needed.
+`hermes-runtime` supplies Hermes, the internal elastic Orchestrator, web/Telegram/Discord/WhatsApp/voice channels, and daily safe resource reconciliation. Specialist/team bundles remain internal and dynamically recruitable.
 
-The repository defines this contract declaratively; the Hermes provisioner/importer still needs to enforce these routing fields at runtime before the architecture is operational on deployed agents.
-
-Agents should pin production imports to a tag or commit SHA. `main` is appropriate for development/test agents.
+The repository defines these contracts declaratively; the live Hermes provisioner/importer must enforce them before they are operational on deployed agents.
 
 ## Safe defaults
 
-- No passwords, API keys, bearer tokens, Cloudflare credentials, bot tokens, or private keys belong in this repository.
+- No passwords, API keys, bearer tokens, Cloudflare credentials, bot tokens, private keys, or user-learned private data belong in this repository.
 - Secret values are referenced as `${ENV_VAR}` and injected by the runtime.
-- All profiles are internal-only by default; only the `hermes` profile explicitly overrides the base interaction policy for user-facing contact.
-- Destructive operations should require explicit authorization unless the local agent policy says otherwise.
-- Network-facing webhooks should validate signatures and reject unsigned traffic by default.
+- All profiles are internal-only by default; only `hermes` may be user-facing.
+- External integration access is least-privilege and explicit.
+- Destructive actions require authorization according to local policy.
+- Private learned overlays never auto-publish.
 
 ## Contributing
 
