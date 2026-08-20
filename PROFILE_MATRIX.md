@@ -4,86 +4,124 @@ Profiles intentionally import only capabilities directly relevant to their role.
 
 | Profile | Skills |
 | --- | --- |
-| Hermes | conversation-gateway |
-| Orchestrator | task-decomposition, delegation-coordination, decision-routing, progress-synthesis, specialist-recruitment |
-| Team Leader | delegation-coordination, meeting-facilitation, feedback-coaching, project-planning, specialist-recruitment |
-| Home Assistant Optimizer | home-assistant-ops, home-assistant-config-audit, automation-optimization, entity-device-hygiene, home-energy-optimization |
-| Farming Specialist | farm-operations-planning, crop-production-planning, soil-health-management, livestock-husbandry-planning, integrated-pest-management |
-| Weather Analyst | meteorological-analysis, forecast-uncertainty, severe-weather-risk, microclimate-analysis |
-| Agricultural Specialist | agronomic-reasoning, soil-health-management, crop-production-planning, irrigation-water-management, integrated-pest-management |
-| Homesteading Specialist | homestead-systems-planning, seasonal-resilience-planning, food-preservation-safety, small-scale-water-systems, farm-operations-planning |
-| Home Improvement Specialist | home-maintenance-assessment, renovation-scope-planning, building-envelope, contractor-scope-review, household-project-safety |
-| Mechanical Engineer | mechanical-design, engineering-calculations, materials-selection, failure-analysis, machine-safety |
-| Robotics Engineer | robotics-system-design, embedded-systems-development, control-systems, sensor-actuator-integration, robot-safety |
-| Electrical Engineer | circuit-analysis, electrical-system-design, engineering-calculations, instrumentation-measurement, power-electrical-safety, electrical-code-awareness |
-| Smart Home & IoT Engineer | home-assistant-ops, smart-home-architecture, mqtt-integration, zigbee-thread-matter, iot-network-security, device-lifecycle-management |
-| Integration Curator | integration-discovery, third-party-supply-chain-review, mcp-server-vetting, agent-skill-vetting |
-| Scientific Researcher | scientific-method, literature-review, evidence-synthesis, academic-citation, statistical-reasoning |
-| Writer | prose-craft, editing-revision, source-integrity |
-| Personal Trainer | fitness-programming, exercise-safety, progress-tracking |
-| Life Improvement Coach | goal-setting, habit-design, reflective-review |
-| Nutritionist | nutrition-planning, nutrition-evidence, dietary-tracking |
-| Catholic Guidance | catholic-catechesis, magisterial-source-research, pastoral-boundaries |
-| Theology Teacher | theological-method, scripture-exegesis, magisterial-source-research, lesson-design |
-| Music Teacher | music-theory, ear-training, practice-design, lesson-design |
-| History Teacher | historical-method, primary-source-analysis, historiography, lesson-design |
-| Project Manager | project-planning, risk-management, status-reporting, meeting-facilitation |
-| Systems Architect | systems-design, architecture-review, technical-documentation, threat-modeling |
-| Cybersecurity Analyst | threat-modeling, security-review, incident-triage, security-hardening |
-| Data Scientist | exploratory-data-analysis, statistical-reasoning, statistical-modeling, machine-learning-workflow, data-visualization |
-| Data Engineer | data-pipeline-design, dimensional-data-modeling, data-quality-engineering, database-sql-engineering, data-platform-operations |
-| Accountant — Portugal | double-entry-bookkeeping, financial-reporting, reconciliation-controls, portuguese-snc-accounting, portuguese-tax-compliance |
-| Accountant — International | double-entry-bookkeeping, financial-reporting, reconciliation-controls, ifrs-reporting, consolidation-multicurrency, cross-border-accounting |
-| UX/UI Designer & Developer | user-experience-research, interaction-design, interface-visual-design, usability-testing, design-systems, web-accessibility |
+| Base | — |
+| Hermes | conversation-gateway, speech-input-routing, spoken-response-delivery |
+| Orchestrator | task-decomposition, delegation-coordination, decision-routing, progress-synthesis, specialist-recruitment, parallel-work-planning, hierarchical-orchestration, elastic-agent-scaling, work-dependency-graph, epic-kanban-management, result-reconciliation, instance-lifecycle-management, parallel-workspace-isolation |
+| Team Leader | delegation-coordination, meeting-facilitation, feedback-coaching, project-planning, specialist-recruitment, parallel-work-planning, work-dependency-graph, work-package-coordination, result-reconciliation |
+| Resource Evolution Manager | upstream-change-analysis, three-way-resource-merge, learned-overlay-preservation, resource-regression-testing, resource-version-migration, agent-skill-vetting, safety-boundary-review |
+| Developer | github-maintainer |
 | Backend Developer | api-contract-design, backend-service-development, database-sql-engineering, secure-application-development, automated-testing |
 | Frontend Developer | frontend-application-development, design-system-implementation, web-accessibility, browser-performance, automated-testing |
 | DevOps Developer | ci-cd-engineering, infrastructure-as-code, container-deployment-operations, observability-engineering, release-engineering, docker-ops |
+| Website Developer | website-architecture, frontend-application-development, backend-service-development, web-accessibility, browser-performance, secure-application-development, automated-testing, seo-technical-basics, web-content-integration |
+| UX/UI Designer & Developer | user-experience-research, interaction-design, interface-visual-design, usability-testing, design-systems, web-accessibility |
+| QA Developer / Tester | test-strategy, automated-testing, exploratory-testing, defect-triage, release-quality |
+| Systems Architect | systems-design, architecture-review, technical-documentation, threat-modeling |
+| Cybersecurity Analyst | threat-modeling, security-review, incident-triage, security-hardening |
+| Infrastructure Manager | infrastructure-capacity-management, service-reliability-management, asset-lifecycle-management, vendor-risk-management, change-management, infrastructure-governance, risk-management |
+| Homelab Operator | docker-ops, cloudflare-tunnel-ops, home-assistant-ops |
+| Home Assistant Optimizer | home-assistant-ops, home-assistant-config-audit, automation-optimization, entity-device-hygiene, home-energy-optimization |
+| Smart Home & IoT Engineer | home-assistant-ops, smart-home-architecture, mqtt-integration, zigbee-thread-matter, iot-network-security, device-lifecycle-management |
+| Mechanical Engineer | mechanical-design, engineering-calculations, materials-selection, failure-analysis, machine-safety |
+| Electrical Engineer | circuit-analysis, electrical-system-design, engineering-calculations, instrumentation-measurement, power-electrical-safety, electrical-code-awareness |
+| Robotics Engineer | robotics-system-design, embedded-systems-development, control-systems, sensor-actuator-integration, robot-safety |
+| Data Scientist | exploratory-data-analysis, statistical-reasoning, statistical-modeling, machine-learning-workflow, data-visualization |
+| Data Engineer | data-pipeline-design, dimensional-data-modeling, data-quality-engineering, database-sql-engineering, data-platform-operations |
+| Researcher | — |
+| Scientific Researcher | scientific-method, literature-review, evidence-synthesis, academic-citation, statistical-reasoning |
+| Product Research Specialist | market-research, competitive-analysis, product-discovery, customer-needs-synthesis, feature-evaluation, source-integrity |
+| Writer | prose-craft, editing-revision, source-integrity |
+| Project Manager | project-planning, risk-management, status-reporting, meeting-facilitation |
 | Scrum Master | scrum-facilitation, backlog-refinement, impediment-management, team-retrospectives |
 | Agile Methodology Master | agile-method-selection, flow-metrics, continuous-improvement, agile-coaching |
-| QA Developer / Tester | test-strategy, automated-testing, exploratory-testing, defect-triage, release-quality |
-| Personal Chef | culinary-menu-planning, cooking-techniques, food-safety, kitchen-workflow |
+| CEO | executive-strategy, organizational-design, portfolio-prioritization, executive-decision-making, stakeholder-communication |
+| CFO | financial-planning-analysis, cash-flow-management, budgeting-forecasting, management-reporting, capital-allocation, risk-management |
+| CTO | technology-strategy, technical-portfolio-management, engineering-organization, architecture-governance, technology-risk-management, portfolio-prioritization |
+| Accountant — Portugal | double-entry-bookkeeping, financial-reporting, reconciliation-controls, portuguese-snc-accounting, portuguese-tax-compliance |
+| Accountant — International | double-entry-bookkeeping, financial-reporting, reconciliation-controls, ifrs-reporting, consolidation-multicurrency, cross-border-accounting |
+| Portuguese Law Specialist | portuguese-legal-research, statutory-interpretation, case-law-research, legal-issue-spotting, legal-citation, jurisdiction-analysis |
+| International Law Specialist | international-law-research, treaty-research, jurisdiction-analysis, cross-border-legal-analysis, legal-issue-spotting, legal-citation |
+| Language Teacher | language-instruction, second-language-pedagogy, pronunciation-coaching, age-adaptive-teaching, language-assessment, lesson-design |
+| Curriculum Designer | curriculum-architecture, learning-objective-design, assessment-design, scope-sequence-design, differentiation-planning, lesson-design |
+| Homeschooling Specialist | homeschooling-planning, family-learning-routines, multi-age-instruction, portfolio-progress-tracking, curriculum-selection, differentiation-planning |
 | Homeroom Teacher | classroom-management, learner-progress-monitoring, family-school-communication, student-safeguarding, lesson-design |
+| History Teacher | historical-method, primary-source-analysis, historiography, lesson-design |
+| Music Teacher | music-theory, ear-training, practice-design, lesson-design |
+| Theology Teacher | theological-method, scripture-exegesis, magisterial-source-research, lesson-design |
+| Catholic Guidance | catholic-catechesis, magisterial-source-research, pastoral-boundaries |
+| Catholic Traditional Advisor | catholic-catechesis, magisterial-source-research, catholic-tradition-discernment, liturgical-tradition-research, pastoral-boundaries |
+| Personal Trainer | fitness-programming, exercise-safety, progress-tracking |
+| Nutritionist | nutrition-planning, nutrition-evidence, dietary-tracking |
+| Personal Chef | culinary-menu-planning, cooking-techniques, food-safety, kitchen-workflow |
+| Life Improvement Coach | goal-setting, habit-design, reflective-review |
 | Personal Assistant | calendar-planning, task-follow-through, correspondence-support, meeting-preparation, travel-logistics, information-organization |
+| Farming Specialist | farm-operations-planning, crop-production-planning, soil-health-management, livestock-husbandry-planning, integrated-pest-management |
+| Agricultural Specialist | agronomic-reasoning, soil-health-management, crop-production-planning, irrigation-water-management, integrated-pest-management |
+| Weather Analyst | meteorological-analysis, forecast-uncertainty, severe-weather-risk, microclimate-analysis |
+| Homesteading Specialist | homestead-systems-planning, seasonal-resilience-planning, food-preservation-safety, small-scale-water-systems, farm-operations-planning |
+| Home Improvement Specialist | home-maintenance-assessment, renovation-scope-planning, building-envelope, contractor-scope-review, household-project-safety |
+| Home Fixing Specialist | home-repair-diagnostics, repair-procedure-planning, tool-selection, maintenance-triage, household-project-safety |
+| Home & Farm Manager | household-operations-management, farm-operations-planning, maintenance-scheduling, inventory-planning, seasonal-resilience-planning, resource-budget-coordination, task-follow-through |
+| Integration Curator | integration-discovery, third-party-supply-chain-review, mcp-server-vetting, agent-skill-vetting |
+| Skills Analyser | skill-gap-analysis, capability-mapping, usage-evidence-analysis |
+| Skills Reviewer | skill-quality-review, safety-boundary-review, regression-review, third-party-supply-chain-review |
+| Skills Improver | skill-refinement, prompt-procedure-optimization, benchmark-design, versioned-skill-evolution, resource-regression-testing |
+| Improvement Manager | continuous-improvement, improvement-backlog-management, outcome-metrics, experiment-governance, change-adoption, risk-management |
 
 ## Conversation topology
 
-The user-facing chain is strictly:
+The user-facing chain remains strictly:
 
-`User <-> Hermes <-> Orchestrator <-> Specialists / Teams`
+`User / Voice / WhatsApp <-> Hermes <-> Orchestrator <-> Specialists / Teams`
 
-Hermes is the only user-facing profile. It owns conversation intake, clarification with the user, and final response delivery. It does not directly recruit specialists; every work-bearing request goes to the Orchestrator.
+Hermes is the only user-facing profile. Web, Telegram, Discord, WhatsApp Business, and voice channels bind only to Hermes. Voice is transcribed before entering Hermes and Hermes output is synthesized to speech after orchestration; neither modality exposes specialists directly.
 
-The Orchestrator is internal-only. It decomposes requests, chooses the best specialist or team, recruits additional registered profiles when necessary, resolves dependencies and conflicts, and synthesizes the result before returning it to Hermes.
+The Orchestrator is internal-only. It decomposes requests, maintains the Epic dependency graph and Kanban, chooses specialists/teams, creates additional instances when capacity is useful, coordinates nested Team Leaders, reconciles parallel outputs, and returns a synthesized result to Hermes.
 
-Team Leader is also internal-only. When recruited by the Orchestrator or used inside a team bundle, it retains `specialist-recruitment` authority and may recruit any registered profile needed for its delegated objective, but it still reports internally and never becomes a direct user endpoint.
+Team Leader is internal-only and may run parallel subteams within delegated scope. It can recruit any registered profile and multiple instances of a profile, but it reports through the orchestration chain rather than becoming a user endpoint.
 
-All other specialist profiles inherit the base profile's default-deny user-contact policy. User-facing web, Telegram, and Discord channels are bound only to Hermes and must reject direct selection of any other profile.
+See `TOPOLOGY.md` and `ORCHESTRATION.md`.
 
-See `TOPOLOGY.md` for the runtime enforcement contract.
+## Parallelism and instance rule
+
+Work is **not sequential by default**. Dependency-independent work packages should execute concurrently when doing so is safe and useful.
+
+There is no registry numeric ceiling on instances of a profile. If an Epic contains twenty genuinely independent development work packages, the Orchestrator may request twenty Developer/Backend/Frontend/etc. instances. Effective concurrency is limited by host/runtime CPU, memory, provider/API limits, credentials, cost policy, authorization, and safe workspace isolation.
+
+Scaling creates capacity, not authority: every instance retains the same profile-specific permissions and safety boundaries. Concurrent writers must use isolated workspaces/branches/worktrees and reconcile through an integration/review gate.
+
+## Epic Kanban rule
+
+Each Epic gets exactly one ephemeral board containing all relevant Epics, User Stories, Tasks, Defects, Spikes, Risks, and Decisions. Work items carry dependencies and state. After the Epic is accepted done, a concise completion record is archived and the board is deleted.
+
+## Resource-evolution rule
+
+Upstream resources are a replaceable base, not the storage location for learned behavior. Effective configuration is composed as:
+
+`upstream base < local experience overlay < private user-learned overlay < current explicit context`
+
+The Resource Evolution Manager rebases the two persistent local overlays onto upstream changes. It must never overwrite or auto-publish them. Compatible changes may auto-apply only after dependency, topology, safety, and regression checks; conflicts and breaking changes are quarantined.
+
+See `RESOURCE_EVOLUTION.md`.
 
 ## Boundary rule
 
-A profile gains a skill only when that skill is part of the profile's normal responsibility, not merely because it might occasionally be useful. Cross-domain work is delegated to another specialist profile or explicitly composed at runtime.
+A profile gains a capability only when it is part of the profile's normal responsibility. Cross-domain work should be delegated or composed rather than solved by giving every profile every skill/tool.
 
-Additional boundaries for the new domains:
+Examples of intentional boundaries:
 
-- Farming Specialist owns practical farm operations; Agricultural Specialist owns deeper agronomic analysis; Weather Analyst owns forecast interpretation.
-- Home Assistant Optimizer improves Home Assistant configuration and automation; Smart Home & IoT Engineer owns the wider protocol/network/device architecture.
-- Home Improvement Specialist scopes and coordinates household projects but does not replace licensed electrical, structural, gas, or other regulated trades.
-- Mechanical, Electrical, and Robotics engineers share calculations and interfaces only where their domains overlap; safety-critical certification stays with competent professionals.
-- Integration Curator discovers and vets third-party resources but cannot auto-install or execute them solely because a marketplace or index lists them.
-- Personal Chef handles culinary execution and food safety; nutritional targets and medical diets should be coordinated with Nutritionist.
-- Scrum Master facilitates Scrum and team improvement; Team Leader retains leadership authority and Agile Methodology Master handles broader method/system design.
-- QA Developer / Tester owns quality evidence and release-risk assessment but does not unilaterally replace the designated release authority.
-- Homeroom Teacher supports learning and safeguarding escalation without diagnosing medical, developmental, or mental-health conditions.
-- Personal Assistant organizes and prepares work but does not claim that a message, booking, or calendar change occurred unless an authorized integration actually performed it.
+- Language Teacher teaches a language; Curriculum Designer designs programs; Homeschooling Specialist coordinates home education; subject expertise remains with subject teachers.
+- Portuguese and International Law profiles provide legal research/information and issue spotting, not legal representation; action-specific or material matters should go to qualified counsel in the relevant jurisdiction.
+- Catholic Traditional Advisor may provide a clearly traditional/conservative Catholic perspective but must distinguish doctrine from discipline, theological opinion, legitimate preference, and prudential judgment and must not impersonate clergy.
+- CEO sets organizational direction; CFO owns management-finance analysis; CTO owns technology strategy. Statutory accounting, legal, security, architecture, and implementation work remains with specialist roles.
+- Website Developer is a useful full-stack generalist; the Orchestrator should recruit dedicated UX/UI, Frontend, Backend, DevOps, QA, or Security profiles when depth or parallel work justifies them.
+- Infrastructure Manager governs capacity/reliability/lifecycle/change; DevOps and Homelab Operator perform scoped implementation work.
+- Skills Analyser finds gaps, Skills Reviewer challenges quality/safety, Skills Improver implements reviewed improvements, and Improvement Manager manages the improvement portfolio. These roles should not collapse into an unreviewed self-modification loop.
+- Home Improvement Specialist scopes larger household projects; Home Fixing Specialist handles practical repairs; regulated electrical/structural/gas work is escalated to the appropriate engineer/trade.
+- Home & Farm Manager coordinates operations and schedules but recruits farming, weather, engineering, accounting, nutrition, or smart-home specialists for domain judgments.
 
 ## Dynamic recruitment rule
 
-Orchestrator and Team Leader are the two general leadership profiles authorized by this registry to use `specialist-recruitment`. They may recruit **any registered Profile** when task requirements justify additional expertise, capacity, independent review, or domain coverage. Recruitment is not limited to profiles already present in the active bundle or initial team.
+Orchestrator and Team Leader may recruit **any current or future registered Profile**. Recruitment is not limited to the active bundle or initial roster. They may request new instances when a needed specialist is absent or when more parallel capacity is useful.
 
-This scope automatically covers every present and future catalogued specialist, so leadership manifests do not need editing each time the registry gains another profile.
-
-When the selected profile is registered but not currently running, these leadership profiles may request that the Hermes provisioner instantiate it. The host remains authoritative: recruitment does not bypass local authorization, resource limits, or policy, and a recruited specialist retains its own profile-specific skills, permissions, and safety boundaries rather than inheriting the recruiter's privileges.
-
-The default preference is the smallest competent team; specialists should be released once their assignment and required handoffs are complete.
+Host policy remains authoritative: recruitment and scaling do not bypass resource limits, permissions, external-integration policy, or safety boundaries. Specialists should be released when their work and handoffs are complete.
