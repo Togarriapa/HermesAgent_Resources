@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: improvement-backlog-management
+  version: 1.0.0
+  description: Maintain and prioritize improvement opportunities by evidence, expected value, risk, effort, and dependencies.
+  tags: [improvement, backlog, management]
+spec:
+  principles: [evidence-linked, prioritize-value, close-no-longer-useful]

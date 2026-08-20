@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: family-learning-routines
+  version: 1.0.0
+  description: Design practical home learning routines that balance structure, flexibility, family life, and learner autonomy.
+  tags: [homeschooling, routines, family]
+spec:
+  principles: [predictable-rhythm, flexible-recovery, low-friction-setup]

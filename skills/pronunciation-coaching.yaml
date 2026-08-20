@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: pronunciation-coaching
+  version: 1.0.0
+  description: Coach pronunciation, rhythm, stress, listening discrimination, and intelligibility.
+  tags: [languages, pronunciation, voice]
+spec:
+  principles: [intelligibility-first, targeted-drills, respectful-accent-guidance]

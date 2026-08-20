@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: parallel-workspace-isolation
+  version: 1.0.0
+  description: Isolate concurrent technical work using separate workspaces, branches, or worktrees before integration.
+  tags: [parallelism, git, isolation]
+spec:
+  principles: [no-shared-uncoordinated-writes, merge-through-integration-gate, cleanup-after-merge]

@@ -1,0 +1,31 @@
+apiVersion: hermes.togarriapa/v1
+kind: Plugin
+metadata:
+  name: epic-kanban
+  version: 1.0.0
+  description: Ephemeral per-Epic Kanban provider with GitHub Projects v2 or local runtime backends.
+  tags: [kanban, projects, orchestration, github]
+spec:
+  provider: hermes-epic-kanban
+  backends:
+    preferredWhenRepositoryBound: github-projects-v2
+    fallback: local-ephemeral
+  githubProjectsV2:
+    credentialRef: GITHUB_TOKEN
+    operations: [create-project, create-view, add-item, update-fields, delete-project]
+  localEphemeral:
+    root: ${HERMES_EPIC_BOARD_DIR}
+  board:
+    itemTypes: [epic, user-story, task, defect, spike, risk, decision]
+    states: [backlog, ready, in-progress, review, blocked, done]
+  lifecycle:
+    createOnEpicStart: true
+    archiveCompletionSummary: true
+    deleteAfterAcceptedDone: true
+  policy:
+    internalOnly: true
+    userFacing: false
+    credentials: runtime-only
+    destructiveBoardDelete: lifecycle-authorized-only
+  provenance:
+    githubProjectsDocs: https://docs.github.com/en/graphql/reference/projects

@@ -1,0 +1,21 @@
+apiVersion: hermes.togarriapa/v1
+kind: Cron
+metadata:
+  name: agent-health-report
+  version: 1.0.0
+  description: Daily non-destructive health summary for an agent runtime.
+  tags: [cron, health, observability]
+spec:
+  schedule: "23 7 * * *"
+  timezone: Europe/Lisbon
+  action:
+    type: health-report
+    checks:
+      - agent-process
+      - container-health
+      - disk-space
+      - recent-errors
+      - resource-version
+  policy:
+    mutate: false
+    notifyOnlyOnProblems: true

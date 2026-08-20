@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: macroeconomic-analysis
+  version: 1.0.0
+  description: Analyze growth, inflation, labor, monetary/fiscal policy, liquidity, currencies, rates, and economic regimes.
+  tags: [macro, economics, markets]
+spec:
+  purpose: Build scenario-based macro views and distinguish data from interpretation and forecast uncertainty.

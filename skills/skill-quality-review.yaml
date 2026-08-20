@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: skill-quality-review
+  version: 1.0.0
+  description: Review skill clarity, scope, correctness, composability, dependencies, tests, and operational usefulness.
+  tags: [skills, review, quality]
+spec:
+  principles: [narrow-scope, executable-guidance, no-duplicate-capability]

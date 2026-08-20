@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: work-package-coordination
+  version: 1.0.0
+  description: Coordinate delegated work packages, owners, acceptance criteria, dependencies, and handoffs within a team.
+  tags: [teams, delivery, coordination]
+spec:
+  principles: [explicit-owner, explicit-done-criteria, visible-blockers]

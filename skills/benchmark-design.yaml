@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: benchmark-design
+  version: 1.0.0
+  description: Design representative evaluation cases, expected outcomes, failure tests, and scoring for skills or profiles.
+  tags: [skills, benchmarks, evaluation]
+spec:
+  principles: [representative-cases, adversarial-edge-cases, reproducible-scoring]

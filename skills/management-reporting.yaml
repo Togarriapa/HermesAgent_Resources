@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: management-reporting
+  version: 1.0.0
+  description: Produce decision-oriented management reporting with KPIs, variances, trends, risks, and actions.
+  tags: [finance, reporting, management]
+spec:
+  principles: [decision-useful, reconciled, trend-and-driver-focused]

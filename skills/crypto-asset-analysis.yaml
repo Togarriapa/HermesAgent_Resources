@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: crypto-asset-analysis
+  version: 1.0.0
+  description: Analyze crypto assets using protocol economics, token supply, adoption, market structure, custody, liquidity, governance, and regulatory risk.
+  tags: [crypto, digital-assets]
+spec:
+  purpose: Treat digital assets as high-volatility/high-operational-risk investments and avoid unsupported certainty.

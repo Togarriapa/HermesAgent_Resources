@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: inventory-planning
+  version: 1.0.0
+  description: Plan household or farm consumables, spare parts, feed, seed, tools, and reorder points without excessive stock.
+  tags: [inventory, home, farm]
+spec:
+  principles: [critical-spares, shelf-life-aware, avoid-overstock]

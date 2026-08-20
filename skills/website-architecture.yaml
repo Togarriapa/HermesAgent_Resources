@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: website-architecture
+  version: 1.0.0
+  description: Design website information architecture, rendering strategy, application boundaries, data flows, and deployment shape.
+  tags: [web, architecture, development]
+spec:
+  principles: [simple-by-default, performance-aware, secure-boundaries]

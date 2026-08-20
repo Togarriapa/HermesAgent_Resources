@@ -1,0 +1,21 @@
+apiVersion: hermes.togarriapa/v1
+kind: Plugin
+metadata:
+  name: resource-overlay-store
+  version: 1.0.0
+  description: Private local store for experiential improvements and user-learned resource overlays that must survive upstream updates.
+  tags: [resources, overlays, learning, privacy]
+spec:
+  provider: hermes-local-overlay-store
+  root: ${HERMES_RESOURCE_OVERLAY_DIR}
+  layers:
+    localExperience: local-experience-overlay
+    userLearned: private-user-learned-overlay
+  policy:
+    ownerOnly: true
+    gitSync: deny
+    networkExport: deny
+    atomicWrites: true
+    versionHistory: true
+    encryptedBackup: host-managed
+    secrets: runtime-only

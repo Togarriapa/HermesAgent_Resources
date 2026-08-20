@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: homeschooling-planning
+  version: 1.0.0
+  description: Plan coherent home education across subjects, routines, resources, goals, and review cycles.
+  tags: [homeschooling, education, planning]
+spec:
+  principles: [family-fit, balanced-curriculum, sustainable-routines]

@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: tool-selection
+  version: 1.0.0
+  description: Select appropriate hand and power tools, consumables, PPE, and safer alternatives for a repair task.
+  tags: [tools, repair, safety]
+spec:
+  principles: [right-tool, ppe, avoid-improvised-hazards]

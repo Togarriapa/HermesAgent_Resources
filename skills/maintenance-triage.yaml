@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: maintenance-triage
+  version: 1.0.0
+  description: Prioritize household maintenance by safety, damage progression, service impact, cost, and urgency.
+  tags: [home, maintenance, triage]
+spec:
+  principles: [safety-before-cosmetics, stop-water-energy-damage, schedule-preventive-work]

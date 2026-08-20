@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: safety-boundary-review
+  version: 1.0.0
+  description: Review skills and profiles for missing authority, privacy, safety, destructive-action, and professional-boundary constraints.
+  tags: [skills, safety, review]
+spec:
+  principles: [fail-closed, authority-explicit, escalation-defined]

@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: legal-issue-spotting
+  version: 1.0.0
+  description: Identify potentially relevant legal issues, factual gaps, jurisdictions, deadlines, and professional escalation points.
+  tags: [law, analysis, triage]
+spec:
+  principles: [issue-not-conclusion, jurisdiction-first, escalate-material-risk]

@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: hierarchical-orchestration
+  version: 1.0.0
+  description: Coordinate nested teams and delegated sub-orchestrations across multiple levels of work.
+  tags: [orchestration, hierarchy, teams]
+spec:
+  principles: [clear-scope-per-level, bounded-authority, upward-result-flow]

@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: regression-review
+  version: 1.0.0
+  description: Review proposed skill changes for lost behavior, changed semantics, new dependencies, and backward-compatibility risks.
+  tags: [skills, regression, review]
+spec:
+  principles: [compare-effective-behavior, preserve-contracts, version-breaking-change]

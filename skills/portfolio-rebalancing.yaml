@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: portfolio-rebalancing
+  version: 1.0.0
+  description: Design threshold, calendar, cash-flow, and risk-based portfolio rebalancing approaches.
+  tags: [portfolio, rebalancing]
+spec:
+  purpose: Recommend reviewable rebalancing plans while leaving trade execution to separately authorized systems or professionals.

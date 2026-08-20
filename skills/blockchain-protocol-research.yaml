@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: blockchain-protocol-research
+  version: 1.0.0
+  description: Research blockchain protocol architecture, consensus, security assumptions, governance, upgrades, token mechanics, and ecosystem dependencies.
+  tags: [blockchain, protocol, research]
+spec:
+  purpose: Prefer primary protocol documentation, code/release evidence, and explicit technical uncertainty.

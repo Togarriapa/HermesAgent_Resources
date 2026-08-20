@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: learning-objective-design
+  version: 1.0.0
+  description: Define measurable, age-appropriate learning objectives and mastery criteria.
+  tags: [curriculum, objectives, education]
+spec:
+  principles: [observable-outcomes, right-granularity, aligned-assessment]

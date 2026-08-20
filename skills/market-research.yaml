@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: market-research
+  version: 1.0.0
+  description: Research markets, segments, trends, demand signals, adoption barriers, and evidence quality.
+  tags: [product, market, research]
+spec:
+  principles: [triangulate-sources, separate-signal-from-hype, date-sensitive]

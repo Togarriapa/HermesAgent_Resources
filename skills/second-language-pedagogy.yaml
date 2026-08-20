@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: second-language-pedagogy
+  version: 1.0.0
+  description: Apply evidence-informed second-language teaching methods and progression.
+  tags: [languages, pedagogy, learning]
+spec:
+  principles: [comprehensible-input, retrieval-practice, meaningful-output]

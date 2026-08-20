@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: fundamental-analysis
+  version: 1.0.0
+  description: Analyze business economics, financial statements, unit economics, competitive position, management, and capital allocation.
+  tags: [fundamentals, analysis]
+spec:
+  purpose: Evaluate economic quality and sustainability from primary evidence where possible.

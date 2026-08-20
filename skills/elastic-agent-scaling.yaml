@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: elastic-agent-scaling
+  version: 1.0.0
+  description: Scale profile instances up or down according to parallel workload, capacity, and host policy.
+  tags: [orchestration, scaling, agents]
+spec:
+  principles: [scale-to-work, host-policy-authoritative, release-idle-instances]

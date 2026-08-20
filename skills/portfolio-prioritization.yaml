@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: portfolio-prioritization
+  version: 1.0.0
+  description: Prioritize initiatives across value, urgency, risk, effort, strategic fit, and capacity.
+  tags: [portfolio, prioritization, executive]
+spec:
+  principles: [capacity-aware, opportunity-cost-visible, stop-low-value-work]

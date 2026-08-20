@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: performance-attribution
+  version: 1.0.0
+  description: Attribute portfolio performance to allocation, selection, factors, fees, currency, timing, and cash flows.
+  tags: [performance, attribution]
+spec:
+  purpose: Explain outcomes without confusing realized performance with future expected returns.

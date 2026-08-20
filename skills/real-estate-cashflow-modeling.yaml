@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: real-estate-cashflow-modeling
+  version: 1.0.0
+  description: Model property NOI, debt service, capex, vacancy, taxes, cash-on-cash returns, IRR, leverage, and sensitivity cases.
+  tags: [real-estate, modeling]
+spec:
+  purpose: Produce scenario-driven property cash-flow models with explicit assumptions.

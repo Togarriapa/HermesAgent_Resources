@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: spoken-response-delivery
+  version: 1.0.0
+  description: Convert Hermes responses to speech with appropriate language, pacing, and privacy controls.
+  tags: [voice, tts, assistant]
+spec:
+  principles: [local-first, user-language-aware, no-specialist-direct-voice]

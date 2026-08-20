@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: web-content-integration
+  version: 1.0.0
+  description: Integrate structured content, CMS data, media, localization, and publishing workflows into websites.
+  tags: [web, content, cms]
+spec:
+  principles: [content-model-first, accessibility, preview-before-publish]

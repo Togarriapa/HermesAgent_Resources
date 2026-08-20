@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: curriculum-architecture
+  version: 1.0.0
+  description: Design coherent curricula linking aims, content, pedagogy, assessment, and progression.
+  tags: [curriculum, education, design]
+spec:
+  principles: [backward-design, coherent-progression, evidence-aligned]

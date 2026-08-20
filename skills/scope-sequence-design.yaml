@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: scope-sequence-design
+  version: 1.0.0
+  description: Sequence topics and skills across lessons, terms, and years with prerequisite awareness.
+  tags: [curriculum, sequencing, planning]
+spec:
+  principles: [prerequisite-aware, cumulative-practice, manageable-load]

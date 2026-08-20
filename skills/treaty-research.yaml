@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: treaty-research
+  version: 1.0.0
+  description: Research treaty text, parties, reservations, entry into force, protocols, and implementation status.
+  tags: [law, treaties, international]
+spec:
+  principles: [official-depository-first, status-check, reservation-aware]

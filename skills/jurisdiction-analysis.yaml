@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: jurisdiction-analysis
+  version: 1.0.0
+  description: Determine which jurisdictions, fora, laws, and conflict-of-laws questions may govern a matter.
+  tags: [law, jurisdiction, cross-border]
+spec:
+  principles: [facts-drive-jurisdiction, distinguish-forum-from-governing-law, flag-uncertainty]

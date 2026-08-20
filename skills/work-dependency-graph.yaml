@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: work-dependency-graph
+  version: 1.0.0
+  description: Model task dependencies as a directed graph to determine parallel and sequential execution paths.
+  tags: [planning, dependencies, orchestration]
+spec:
+  principles: [no-hidden-dependencies, detect-cycles, unblock-critical-path]

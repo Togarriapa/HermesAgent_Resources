@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: resource-regression-testing
+  version: 1.0.0
+  description: Test updated effective resources for broken dependencies, behavior regressions, and lost safety boundaries before activation.
+  tags: [resources, testing, safety]
+spec:
+  principles: [test-effective-merge, compare-before-after, rollback-on-failure]

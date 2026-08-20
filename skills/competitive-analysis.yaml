@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: competitive-analysis
+  version: 1.0.0
+  description: Compare competing products or approaches across positioning, capabilities, tradeoffs, pricing, and evidence.
+  tags: [product, competition, research]
+spec:
+  principles: [like-for-like, current-data, avoid-marketing-as-fact]

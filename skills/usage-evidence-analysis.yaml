@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: usage-evidence-analysis
+  version: 1.0.0
+  description: Analyze task outcomes, failures, user corrections, and usage patterns to identify improvement opportunities without exposing private data.
+  tags: [skills, evidence, improvement]
+spec:
+  principles: [privacy-preserving, outcome-focused, no-user-data-export]

@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: seo-technical-basics
+  version: 1.0.0
+  description: Apply technical SEO fundamentals including crawlability, metadata, structured content, performance, and canonicalization.
+  tags: [web, seo, development]
+spec:
+  principles: [user-first, standards-compliant, no-spam-tactics]

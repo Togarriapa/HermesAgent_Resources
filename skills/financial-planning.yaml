@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: financial-planning
+  version: 1.0.0
+  description: Structure financial goals, cash-flow constraints, time horizons, liquidity needs, and planning assumptions.
+  tags: [finance, planning]
+spec:
+  purpose: Build evidence-based planning scenarios without representing regulated personal financial advice as guaranteed outcomes.

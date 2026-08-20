@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: upstream-change-analysis
+  version: 1.0.0
+  description: Compare an applied resource revision with upstream and classify additions, compatible changes, conflicts, removals, and security-sensitive changes.
+  tags: [resources, updates, diff]
+spec:
+  principles: [classify-before-apply, preserve-provenance, fail-closed-on-ambiguity]

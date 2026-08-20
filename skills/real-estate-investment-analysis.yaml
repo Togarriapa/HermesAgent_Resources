@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: real-estate-investment-analysis
+  version: 1.0.0
+  description: Analyze real-estate investments using location, demand, rents, vacancy, cap rates, financing, taxes, maintenance, regulation, and exit scenarios.
+  tags: [real-estate, investment]
+spec:
+  purpose: Compare property economics and risks while routing legal/tax/title matters to qualified specialists.

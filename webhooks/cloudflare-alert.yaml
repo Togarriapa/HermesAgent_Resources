@@ -1,0 +1,19 @@
+apiVersion: hermes.togarriapa/v1
+kind: Webhook
+metadata:
+  name: cloudflare-alert
+  version: 1.0.0
+  description: Template webhook for Cloudflare-originated operational alerts.
+  tags: [webhook, cloudflare, alerting]
+spec:
+  path: /hooks/cloudflare/alert
+  method: POST
+  authentication:
+    type: bearer
+    token: ${CLOUDFLARE_ALERT_WEBHOOK_TOKEN}
+  action:
+    type: incident-triage
+    mutate: false
+  policy:
+    rejectUnauthenticated: true
+    rateLimitPerMinute: 30

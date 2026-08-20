@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: valuation-analysis
+  version: 1.0.0
+  description: Build and compare DCF, multiples, asset-based, scenario, and sensitivity valuation approaches.
+  tags: [valuation, finance]
+spec:
+  purpose: Express valuation as ranges and assumptions rather than false precision.

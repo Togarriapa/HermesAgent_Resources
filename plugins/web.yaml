@@ -1,0 +1,14 @@
+apiVersion: hermes.togarriapa/v1
+kind: Plugin
+metadata:
+  name: web
+  version: 1.0.0
+  description: Web retrieval/search capability for current documentation and research.
+  tags: [web, search, research]
+spec:
+  provider: web
+  policy:
+    preferPrimarySources: true
+    citeSources: true
+    respectRobotsAndTerms: true
+    secretsInUrls: forbidden

@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: investment-policy-design
+  version: 1.0.0
+  description: Design investment policy statements with objectives, constraints, liquidity, time horizon, risk tolerance, diversification, and governance.
+  tags: [investment, portfolio, policy, governance]
+spec:
+  purpose: Translate goals and constraints into a reviewable investment policy without executing trades.

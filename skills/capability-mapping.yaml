@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: capability-mapping
+  version: 1.0.0
+  description: Map profiles, skills, tools, permissions, dependencies, and task domains into a coherent capability model.
+  tags: [skills, architecture, analysis]
+spec:
+  principles: [traceable-mapping, explicit-overlap, least-capability]

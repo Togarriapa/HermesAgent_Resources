@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: engineering-organization
+  version: 1.0.0
+  description: Design engineering team structures, interfaces, standards, delivery systems, and technical leadership practices.
+  tags: [engineering, organization, leadership]
+spec:
+  principles: [team-boundaries, ownership, sustainable-delivery]

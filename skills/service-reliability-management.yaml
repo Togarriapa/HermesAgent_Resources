@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: service-reliability-management
+  version: 1.0.0
+  description: Manage service reliability objectives, incidents, error budgets, resilience work, and operational follow-through.
+  tags: [infrastructure, reliability, operations]
+spec:
+  principles: [slo-aware, learn-from-incidents, reliability-vs-velocity-tradeoffs]

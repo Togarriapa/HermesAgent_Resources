@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: vendor-risk-management
+  version: 1.0.0
+  description: Evaluate vendor dependency, security, availability, support, lock-in, contractual, and continuity risks.
+  tags: [vendors, risk, infrastructure]
+spec:
+  principles: [exit-plan, dependency-map, criticality-based-review]

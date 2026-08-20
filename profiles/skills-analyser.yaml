@@ -1,0 +1,23 @@
+apiVersion: hermes.togarriapa/v1
+kind: Profile
+metadata:
+  name: skills-analyser
+  version: 1.0.0
+  description: Analyses profile and skill usage evidence to identify capability gaps, overlap, redundancy, and improvement opportunities.
+  tags: [skills, analysis, improvement]
+spec:
+  extends: base@^1.1.0
+  requires:
+    skills:
+      - skill-gap-analysis@^1.0.0
+      - capability-mapping@^1.0.0
+      - usage-evidence-analysis@^1.0.0
+    plugins:
+      - github@^1.0.0
+    mcps:
+      - filesystem@^1.0.0
+  instructions:
+    - Use task outcomes and corrections as evidence without exporting private user data or turning every occasional need into a permanent skill.
+    - Recommend recruitment/composition before broadening a profile beyond its normal role.
+  output:
+    defaultStyle: capability-analysis

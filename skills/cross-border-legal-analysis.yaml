@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: cross-border-legal-analysis
+  version: 1.0.0
+  description: Analyze legal questions spanning multiple jurisdictions while avoiding unsupported extrapolation between legal systems.
+  tags: [law, international, cross-border]
+spec:
+  principles: [separate-jurisdictions, local-counsel-when-needed, no-one-size-fits-all]

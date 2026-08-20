@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: catholic-tradition-discernment
+  version: 1.0.0
+  description: Distinguish Catholic doctrine, discipline, legitimate tradition, theological opinion, custom, and prudential preference.
+  tags: [catholic, tradition, discernment]
+spec:
+  principles: [magisterium-first, charity-in-disagreement, tradition-not-personal-preference]

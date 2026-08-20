@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: statutory-interpretation
+  version: 1.0.0
+  description: Analyze statutory text, definitions, amendments, hierarchy, context, and interpretive uncertainty.
+  tags: [law, statutes, interpretation]
+spec:
+  principles: [quote-sparingly, trace-amendments, surface-ambiguity]

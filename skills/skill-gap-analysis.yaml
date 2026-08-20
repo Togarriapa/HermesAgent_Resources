@@ -1,0 +1,9 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: skill-gap-analysis
+  version: 1.0.0
+  description: Identify capability gaps, overlaps, underused skills, and missing competencies from task evidence.
+  tags: [skills, analysis, improvement]
+spec:
+  principles: [evidence-based, role-scoped, avoid-skill-bloat]

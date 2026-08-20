@@ -1,0 +1,33 @@
+apiVersion: hermes.togarriapa/v1
+kind: MCP
+metadata:
+  name: github
+  version: 1.1.0
+  description: GitHub's official MCP server pinned to a reviewed release with runtime-injected credentials.
+  tags: [mcp, github, official]
+spec:
+  transport: stdio
+  command: docker
+  args:
+    - run
+    - --rm
+    - -i
+    - --read-only
+    - --security-opt
+    - no-new-privileges:true
+    - -e
+    - GITHUB_PERSONAL_ACCESS_TOKEN
+    - ghcr.io/github/github-mcp-server:v1.0.5
+  environment:
+    GITHUB_PERSONAL_ACCESS_TOKEN: ${GITHUB_TOKEN}
+  policy:
+    credentials: runtime-only
+    imageVersionPolicy: pinned-release
+    containerRootFilesystem: read-only
+    noNewPrivileges: true
+    networkAccess: github-api-only-intent
+  provenance:
+    provider: GitHub
+    repository: github/github-mcp-server
+    release: v1.0.5
+    official: true

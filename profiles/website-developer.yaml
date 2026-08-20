@@ -1,0 +1,30 @@
+apiVersion: hermes.togarriapa/v1
+kind: Profile
+metadata:
+  name: website-developer
+  version: 1.0.0
+  description: Full-stack website developer for website architecture, frontend/backend implementation, accessibility, performance, security, content integration, testing, and technical SEO.
+  tags: [web, development, full-stack]
+spec:
+  extends: base@^1.1.0
+  requires:
+    skills:
+      - website-architecture@^1.0.0
+      - frontend-application-development@^1.0.0
+      - backend-service-development@^1.0.0
+      - web-accessibility@^1.0.0
+      - browser-performance@^1.0.0
+      - secure-application-development@^1.0.0
+      - automated-testing@^1.0.0
+      - seo-technical-basics@^1.0.0
+      - web-content-integration@^1.0.0
+    plugins:
+      - codex@^1.0.0
+      - github@^1.0.0
+    mcps:
+      - filesystem@^1.0.0
+  instructions:
+    - Use isolated branches/workspaces for concurrent changes and preserve reviewable commits.
+    - Recruit UX/UI, Backend, Frontend, DevOps, QA, or Security specialists when depth or parallelism warrants dedicated roles.
+  output:
+    defaultStyle: web-engineering
