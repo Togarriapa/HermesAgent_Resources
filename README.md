@@ -16,15 +16,49 @@ Hermes receives text or speech, sends work-bearing requests to the Orchestrator,
 
 See [`TOPOLOGY.md`](TOPOLOGY.md) for the enforcement contract.
 
-## Parallel and hierarchical orchestration
+## Parallel, hierarchical, and deliberative orchestration
 
 The Orchestrator uses a dependency DAG rather than a sequential-only queue. Independent work packages run in parallel. Work may be delegated through multiple levels of Team Leaders and specialist subteams, and the Orchestrator may create multiple instances of the same profile when parallel capacity is useful.
 
 The registry does **not** impose a numeric per-profile instance ceiling. Effective concurrency is governed by host/runtime CPU, RAM, API limits, cost, credentials, authorization, and workspace-isolation policy. Scaling increases capacity, not authority.
 
+For material, ambiguous, strategic, high-impact, or trade-off-heavy work, Orchestrator can run adaptive multi-agent deliberation. Relevant profiles first form independent positions when practical, then critique and steelman competing analyses, challenge assumptions, revise their approaches, and synthesize by evidence and user constraints rather than majority vote. `debate-analyst` can be recruited when disagreement or argument structure is material. Credible dissent is preserved and surfaced to Hermes rather than erased by consensus pressure.
+
+Simple deterministic tasks may skip debate overhead, and the system must not manufacture disagreement where none is material.
+
 Every Epic receives one ephemeral Kanban board containing Epic/User Story/Task/Defect/Spike/Risk/Decision items. The board is updated throughout execution, a completion summary is archived after acceptance, and the board is then deleted. Repository-bound Epics may use GitHub Projects v2; other work uses a local ephemeral backend.
 
-See [`ORCHESTRATION.md`](ORCHESTRATION.md).
+See [`ORCHESTRATION.md`](ORCHESTRATION.md) and [`DELIBERATION.md`](DELIBERATION.md).
+
+## Hermes user-facing response contract
+
+Every Hermes response is normalized into six sections in this order:
+
+1. **Initial Question or Request**
+2. **Quick Answer / Result / Action**
+3. **Detailed Answer / Result / Action**
+4. **Agent Profiles That Contributed**
+5. **Opinions Against the Final Answer / Solution and Why**
+6. **Permissions Needed to Proceed**
+
+All six sections are rendered. If no material dissent exists, Hermes says `No material dissent.` If no additional authority is required, Hermes says `None.` Internal reasoning/debate remains internal; Hermes reports contributor profile names, evidence-oriented rationale, material dissent, and the permissions required for the next action.
+
+See [`DELIBERATION.md`](DELIBERATION.md).
+
+## Focused specialist domains
+
+Catalog v2 adds focused profiles and teams for:
+
+- preventive and corrective home maintenance, including plumbing, appliances, carpentry/joinery, finishes, roofing/drainage, grounds, and home-comfort systems;
+- Portuguese, Sicilian, Spanish, and German Catholic family-life cultural perspectives that distinguish Catholic teaching from regional custom and avoid claiming universal lived experience;
+- remote-work / work-from-home optimization and asynchronous distributed-team practices;
+- business/data analytics, KPI/dashboard design, and analytics storytelling;
+- career advising and long-horizon career development;
+- philosophy, culture, psychology, sociology, anthropology, and structured debate analysis.
+
+These roles remain internal and dynamically recruitable. Cross-domain questions should compose multiple profiles rather than broadening every profile's permissions.
+
+The current registry-wide capability review and prioritized next additions are documented in [`CAPABILITY_GAP_AUDIT.md`](CAPABILITY_GAP_AUDIT.md).
 
 ## Resource evolution without forgetting
 
@@ -107,7 +141,8 @@ The repository defines these contracts declaratively; the live Hermes provisione
 - External integration access is least-privilege and explicit.
 - Destructive actions require authorization according to local policy.
 - Private learned overlays never auto-publish.
+- Deliberation cannot vote away safety, legal, financial, medical, physical, or permission boundaries.
 
 ## Contributing
 
-Fork/branch, extend an existing resource or add a new version, update `catalog.yaml`, run `python3 scripts/validate_registry.py`, and open a pull request. See [`CONTRIBUTING.md`](CONTRIBUTING.md).
+Fork/branch, extend an existing resource or add a new version, update `catalog.yaml`, run `python3 scripts/validate_registry.py` and `python3 scripts/validate_deliberation.py`, and open a pull request. See [`CONTRIBUTING.md`](CONTRIBUTING.md).
