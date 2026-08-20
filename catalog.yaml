@@ -2,7 +2,7 @@ apiVersion: hermes.togarriapa/v1
 kind: Catalog
 metadata:
   name: hermesagent-resources
-  version: 1.6.0
+  version: 1.6.1
 resources:
   - {kind: Profile, name: accountant-international, version: 1.1.0, path: profiles/accountant-international.yaml}
   - {kind: Profile, name: accountant-portugal, version: 1.1.0, path: profiles/accountant-portugal.yaml}
@@ -215,7 +215,7 @@ resources:
   - {kind: Plugin, name: mcp-registry, version: 1.0.0, path: plugins/mcp-registry.yaml}
   - {kind: Plugin, name: web, version: 1.0.0, path: plugins/web.yaml}
   - {kind: MCP, name: filesystem, version: 1.0.0, path: mcps/filesystem.yaml}
-  - {kind: MCP, name: github, version: 1.0.0, path: mcps/github.yaml}
+  - {kind: MCP, name: github, version: 1.1.0, path: mcps/github.yaml}
   - {kind: MCP, name: home-assistant, version: 1.1.0, path: mcps/home-assistant.yaml}
   - {kind: Cron, name: agent-health-report, version: 1.0.0, path: crons/agent-health-report.yaml}
   - {kind: Cron, name: resource-sync, version: 1.0.0, path: crons/resource-sync.yaml}
