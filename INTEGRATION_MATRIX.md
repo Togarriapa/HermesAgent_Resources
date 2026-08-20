@@ -5,9 +5,9 @@ This audit records the intended external-tool posture for every Profile. Composi
 | Profile | Integration posture |
 | --- | --- |
 | Base | No external account integration; internal-only defaults. |
-| Hermes | Sole gateway; local voice-pipeline for STT/TTS; no specialist/account-tool expansion. |
-| Orchestrator | Internal coordination + `epic-kanban`; no blanket user-account toolkit. |
-| Team Leader | Internal leadership/recruitment; no blanket external-account toolkit. |
+| Hermes | Sole gateway; local voice-pipeline for STT/TTS plus six-section response composition; no specialist/account-tool expansion. |
+| Orchestrator | Internal coordination + `epic-kanban` + adaptive internal deliberation; no blanket user-account toolkit. |
+| Team Leader | Internal leadership/recruitment/deliberation; no blanket external-account toolkit. |
 | Resource Evolution Manager | GitHub read/update discovery plus private local `resource-overlay-store`; private learned overlays never sync/export. |
 | Developer | Codex + GitHub + filesystem/GitHub MCP. |
 | Backend Developer | Scoped technical code toolchain; no generic SaaS expansion. |
@@ -27,6 +27,7 @@ This audit records the intended external-tool posture for every Profile. Composi
 | Robotics Engineer | Codex/filesystem + web research; physical execution remains host-authorized and safety bounded. |
 | Data Scientist | Codex/filesystem + Composio Sheets/Drive read-oriented access; writes denied by default. |
 | Data Engineer | Codex/filesystem + controlled Composio Sheets/Drive; writes delegated-only, deletes denied. |
+| Data Analytics Specialist | Codex + filesystem + web for reproducible business analytics; no blanket SaaS write access, and source-system writes remain delegated to Data Engineer/authorized integrations. |
 | Researcher | Web + GitHub research; no account-write integration. |
 | Scientific Researcher | Web/evidence tooling; no account-write integration. |
 | Product Research Specialist | Web research; no commerce/account-write integration by default. |
@@ -47,6 +48,9 @@ This audit records the intended external-tool posture for every Profile. Composi
 | Project Manager | Composio Calendar, Tasks, Docs, Drive; writes delegated-only, deletes/permission changes denied. |
 | Scrum Master | Facilitation/process skills only; no account integration by default. |
 | Agile Methodology Master | Method/process analysis only; no account integration by default. |
+| Remote Work Manager | Web research plus internal productivity/operating-model analysis; no employee-surveillance toolkit and no automatic access to employer systems. |
+| Career Advisor | Web/current labor-market research; no application submission, employer-account, reference-contact, or recruiter impersonation integration by default. |
+| Career Development Specialist | Web/current labor-market and learning research; no employer HR-system or credential-issuing access by default. |
 | CEO | Strategic/organizational profile; no blanket account integrations. |
 | CFO | Composio Google Sheets + Drive with delegated writes, no deletes/permission changes; statutory accounting/tax/legal delegated. |
 | CTO | Technology strategy/governance profile; no blanket execution toolkit. |
@@ -61,6 +65,12 @@ This audit records the intended external-tool posture for every Profile. Composi
 | Accountant — International | Web + Composio Sheets/Drive; controlled writes, no deletes/permission changes; current framework/jurisdiction verification required. |
 | Portuguese Law Specialist | Web authoritative legal-source research only; no account writes or legal representation tooling. |
 | International Law Specialist | Web treaty/institution/jurisdiction research only; no account writes or legal representation tooling. |
+| Philosophy Specialist | Web/source research only; no external-account write capability. |
+| Culture Expert | Web/current and historical cultural-source research; no account-write integration. |
+| Psychology Expert | Web/scientific literature research only; no health-record access, diagnosis tool, clinical-treatment integration, or direct patient-care capability. |
+| Sociology Expert | Web/research-source analysis; no account-write integration. |
+| Anthropology Expert | Web/research-source analysis; no field-subject tracking or personal-data collection integration by default. |
+| Debate Analyst | Internal reasoning/debate role only; no external account integration and no user-facing channel. |
 | Language Teacher | Local `voice-pipeline` for pronunciation/listening practice; no external learner account integration by default. |
 | Curriculum Designer | No external account integration by default; recruits subject specialists as needed. |
 | Homeschooling Specialist | Web curriculum/resource research; jurisdiction-specific law delegated to Law Specialist. |
@@ -70,6 +80,10 @@ This audit records the intended external-tool posture for every Profile. Composi
 | Theology Teacher | Authoritative-source web research; no external account tools. |
 | Catholic Guidance | Authoritative-source web research; no external account tools. |
 | Catholic Traditional Advisor | Authoritative Catholic/liturgical web research; no external account tools. |
+| Portuguese Catholic Family Advisor | Web + authoritative Catholic/Portuguese contextual research; no family-account, communications, or household-control integration. |
+| Sicilian Catholic Family Advisor | Web + authoritative Catholic/Sicilian contextual research; no family-account, communications, or household-control integration. |
+| Spanish Catholic Family Advisor | Web + authoritative Catholic/Spanish contextual research; no family-account, communications, or household-control integration. |
+| German Catholic Family Advisor | Web + authoritative Catholic/German contextual research; no family-account, communications, or household-control integration. |
 | Personal Trainer | Training guidance only; no health-record integration by default. |
 | Nutritionist | General nutrition guidance only; no health-record integration by default. |
 | Personal Chef | Culinary planning only; no grocery/commerce transaction tools by default. |
@@ -81,6 +95,14 @@ This audit records the intended external-tool posture for every Profile. Composi
 | Homesteading Specialist | Web research; delegates engineering/weather/nutrition work. |
 | Home Improvement Specialist | Web research; regulated engineering/trade questions delegated. |
 | Home Fixing Specialist | Web manuals/product/repair research; no remote utility-control access. |
+| Home Maintenance Manager | Web manuals/maintenance research and internal planning; no remote utility-control or contractor-payment authority. |
+| Plumbing Maintenance Specialist | Web/manual research only; no utility-account control or regulated plumbing/gas execution capability. |
+| Appliance Maintenance Specialist | Web/model-manual research only; no remote mains/gas/refrigerant execution capability. |
+| Carpentry & Joinery Specialist | Web/manual/material research; no contractor purchasing or structural execution authority. |
+| Painting & Finishes Specialist | Web/product/manual research; no purchasing or hazardous-material handling authority. |
+| Roofing & Drainage Specialist | Web/building research; no work-at-height execution or contractor-payment authority. |
+| Garden & Grounds Maintenance Specialist | Web/seasonal research; no pesticide purchasing/application or powered-equipment remote control. |
+| Home Comfort Maintenance Specialist | Web/model research; no refrigerant/gas/high-voltage service authority; Home Assistant control remains delegated to HA profiles. |
 | Home & Farm Manager | Composio Calendar + Tasks with delegated writes; deletes denied; purchasing/external communication not implied. |
 | Integration Curator | Web + GitHub + official MCP Registry + Agent37 discovery; discovery/review only, no auto-install/execute. |
 | Skills Analyser | GitHub + filesystem for registry/task evidence analysis; private user data may not be exported. |
@@ -100,6 +122,10 @@ Read and write capabilities are deliberately separated by credential and role.
 - **Hermes sandbox wallet:** autonomous testnet-only execution using faucet/test assets.
 
 A recommendation, target allocation, scheduled task, prior order, user preference, or past confirmation never becomes standing transaction authority.
+
+## Deliberation and response architecture
+
+Deliberation is an internal capability, not an external integration. Orchestrator/Team Leader may recruit multiple independent profiles and Debate Analyst, but no extra user-facing endpoint is created. Contributor profile names, summarized material dissent, and required permissions are returned to Hermes for the canonical six-section response.
 
 ## User-facing channels
 
@@ -128,4 +154,5 @@ A recommendation, target allocation, scheduled task, prior order, user preferenc
 - **Agent37:** discovery index only; trace candidates to source and review before adoption.
 - **WhatsApp:** use supported WhatsApp Business integration only; no personal-account automation workaround.
 - **Financial integrations:** separate data credentials, execution credentials, decision roles and execution roles; secrets remain host-managed and transactions are explicit-order-only.
+- **Focused v2 specialists:** web/tool access stays narrow; cultural, psychological, career, home-maintenance, and deliberation roles do not inherit unrelated account/control permissions.
 - A popular or listed integration is not automatically trusted; local Hermes policy remains authoritative.
