@@ -11,15 +11,20 @@ spec:
     precedenceLowToHigh:
       - kind-defaults
       - matched-domain-overlays
-      - resource-manifest
-      - local-host-policy
-      - current-explicit-user-authority
+      - resolved-resource-manifest
+      - local-experience-overlay
+      - private-user-learned-overlay
+      - current-explicit-session-context
+    authorizationCeiling: local-host-policy
+    explicitUserAuthority: within-host-policy-only
     maps: recursive-merge
     lists: append-deduplicated
     scalars: higher-precedence-replaces
     defaultsMayExpandCapability: false
     overlaysMayExpandCapability: false
     resourceMayExceedHostAuthority: false
+    learnedOverlayMayExpandCapability: false
+    sessionContextMayExpandCapability: false
     missingPolicy: fail-closed
     secretResolution: runtime-only
 
