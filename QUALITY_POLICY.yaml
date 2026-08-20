@@ -418,7 +418,7 @@ spec:
 
     - name: health-psychology-nutrition
       match:
-        nameContains: [psychology, nutrition, trainer, child-development, sen, livestock-health]
+        nameContains: [psychology, nutrition, personal-trainer, child-development, sen, livestock-health]
         tagsAny: [health, psychology, nutrition, fitness, child-development, livestock-health]
       apply:
         evidence:
@@ -444,8 +444,8 @@ spec:
 
     - name: physical-engineering-property-farm
       match:
-        nameContains: [engineer, maintenance, architect, roofing, plumbing, appliance, automotive, energy-solar, water-wastewater, arboriculture, machinery, farm, horticulture, pest-building, 3d-printer]
-        tagsAny: [engineering, maintenance, home, property, farm, agriculture, automotive, solar, water, arboriculture, machinery, architecture, additive-manufacturing]
+        nameContains: [mechanical-engineer, electrical-engineer, robotics-engineer, building-architect, maintenance, roofing, plumbing, appliance, automotive, energy-solar, water-wastewater, arboriculture, machinery, farm, horticulture, pest-building, 3d-printer, 3d-model]
+        tagsAny: [maintenance, home, property, farm, agriculture, automotive, solar, water, arboriculture, machinery, building, additive-manufacturing, physical-safety]
       apply:
         safety:
           lockoutAndIsolationWhenApplicable: true
@@ -482,7 +482,7 @@ spec:
 
     - name: software-data-infrastructure
       match:
-        nameContains: [developer, devops, network, reliability, database, ai-ml, data-engineer, data-scientist, systems-architect, infrastructure, homelab]
+        nameContains: [developer, devops, network-engineer, site-reliability, database, ai-ml, privacy-security-engineer, data-engineer, data-scientist, systems-architect, infrastructure, homelab]
         tagsAny: [software, development, devops, network, sre, database, ai, data, infrastructure, homelab]
       apply:
         execution:
@@ -497,7 +497,7 @@ spec:
     - name: translation
       match:
         nameContains: [translator, translation]
-        tagsAny: [translation, language]
+        tagsAny: [translation]
       apply:
         output:
           preserveMeaningRegisterTerminologyAndFormatting: true
