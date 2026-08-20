@@ -2,7 +2,7 @@ apiVersion: hermes.togarriapa/v1
 kind: Catalog
 metadata:
   name: hermesagent-resources
-  version: 1.6.1
+  version: 1.7.0
 resources:
   - {kind: Profile, name: accountant-international, version: 1.1.0, path: profiles/accountant-international.yaml}
   - {kind: Profile, name: accountant-portugal, version: 1.1.0, path: profiles/accountant-portugal.yaml}
@@ -19,7 +19,7 @@ resources:
   - {kind: Profile, name: electrical-engineer, version: 1.0.0, path: profiles/electrical-engineer.yaml}
   - {kind: Profile, name: farming-specialist, version: 1.0.0, path: profiles/farming-specialist.yaml}
   - {kind: Profile, name: frontend-developer, version: 1.0.0, path: profiles/frontend-developer.yaml}
-  - {kind: Profile, name: hermes, version: 1.0.0, path: profiles/hermes.yaml}
+  - {kind: Profile, name: hermes, version: 1.1.0, path: profiles/hermes.yaml}
   - {kind: Profile, name: history-teacher, version: 1.0.0, path: profiles/history-teacher.yaml}
   - {kind: Profile, name: home-assistant-optimizer, version: 1.0.0, path: profiles/home-assistant-optimizer.yaml}
   - {kind: Profile, name: home-improvement-specialist, version: 1.0.0, path: profiles/home-improvement-specialist.yaml}
@@ -31,7 +31,7 @@ resources:
   - {kind: Profile, name: mechanical-engineer, version: 1.0.0, path: profiles/mechanical-engineer.yaml}
   - {kind: Profile, name: music-teacher, version: 1.0.0, path: profiles/music-teacher.yaml}
   - {kind: Profile, name: nutritionist, version: 1.0.0, path: profiles/nutritionist.yaml}
-  - {kind: Profile, name: orchestrator, version: 1.2.0, path: profiles/orchestrator.yaml}
+  - {kind: Profile, name: orchestrator, version: 1.3.0, path: profiles/orchestrator.yaml}
   - {kind: Profile, name: personal-assistant, version: 1.1.0, path: profiles/personal-assistant.yaml}
   - {kind: Profile, name: personal-chef, version: 1.0.0, path: profiles/personal-chef.yaml}
   - {kind: Profile, name: personal-trainer, version: 1.0.0, path: profiles/personal-trainer.yaml}
@@ -43,7 +43,7 @@ resources:
   - {kind: Profile, name: scrum-master, version: 1.0.0, path: profiles/scrum-master.yaml}
   - {kind: Profile, name: smart-home-iot-engineer, version: 1.0.0, path: profiles/smart-home-iot-engineer.yaml}
   - {kind: Profile, name: systems-architect, version: 1.0.0, path: profiles/systems-architect.yaml}
-  - {kind: Profile, name: team-leader, version: 1.1.0, path: profiles/team-leader.yaml}
+  - {kind: Profile, name: team-leader, version: 1.2.0, path: profiles/team-leader.yaml}
   - {kind: Profile, name: theology-teacher, version: 1.0.0, path: profiles/theology-teacher.yaml}
   - {kind: Profile, name: ux-ui-designer-developer, version: 1.0.0, path: profiles/ux-ui-designer-developer.yaml}
   - {kind: Profile, name: weather-analyst, version: 1.0.0, path: profiles/weather-analyst.yaml}
@@ -228,7 +228,7 @@ resources:
   - {kind: Bundle, name: data-team, version: 1.0.0, path: bundles/data-team.yaml}
   - {kind: Bundle, name: developer-agent, version: 1.0.0, path: bundles/developer-agent.yaml}
   - {kind: Bundle, name: finance-team, version: 1.0.0, path: bundles/finance-team.yaml}
-  - {kind: Bundle, name: hermes-runtime, version: 1.0.0, path: bundles/hermes-runtime.yaml}
+  - {kind: Bundle, name: hermes-runtime, version: 1.1.0, path: bundles/hermes-runtime.yaml}
   - {kind: Bundle, name: homelab-agent, version: 1.0.0, path: bundles/homelab-agent.yaml}
   - {kind: Bundle, name: homestead-agriculture-team, version: 1.0.0, path: bundles/homestead-agriculture-team.yaml}
   - {kind: Bundle, name: integration-review-team, version: 1.0.0, path: bundles/integration-review-team.yaml}
@@ -239,3 +239,126 @@ resources:
   - {kind: Bundle, name: software-product-team, version: 1.0.0, path: bundles/software-product-team.yaml}
   - {kind: Bundle, name: technical-operations-team, version: 1.0.0, path: bundles/technical-operations-team.yaml}
   - {kind: Bundle, name: wellness-team, version: 1.0.0, path: bundles/wellness-team.yaml}
+  - {kind: Profile, name: catholic-traditional-advisor, version: 1.0.0, path: profiles/catholic-traditional-advisor.yaml}
+  - {kind: Profile, name: ceo, version: 1.0.0, path: profiles/ceo.yaml}
+  - {kind: Profile, name: cfo, version: 1.0.0, path: profiles/cfo.yaml}
+  - {kind: Profile, name: cto, version: 1.0.0, path: profiles/cto.yaml}
+  - {kind: Profile, name: curriculum-designer, version: 1.0.0, path: profiles/curriculum-designer.yaml}
+  - {kind: Profile, name: home-farm-manager, version: 1.0.0, path: profiles/home-farm-manager.yaml}
+  - {kind: Profile, name: home-fixing-specialist, version: 1.0.0, path: profiles/home-fixing-specialist.yaml}
+  - {kind: Profile, name: homeschooling-specialist, version: 1.0.0, path: profiles/homeschooling-specialist.yaml}
+  - {kind: Profile, name: improvement-manager, version: 1.0.0, path: profiles/improvement-manager.yaml}
+  - {kind: Profile, name: infrastructure-manager, version: 1.0.0, path: profiles/infrastructure-manager.yaml}
+  - {kind: Profile, name: international-law-specialist, version: 1.0.0, path: profiles/international-law-specialist.yaml}
+  - {kind: Profile, name: language-teacher, version: 1.0.0, path: profiles/language-teacher.yaml}
+  - {kind: Profile, name: portuguese-law-specialist, version: 1.0.0, path: profiles/portuguese-law-specialist.yaml}
+  - {kind: Profile, name: product-research-specialist, version: 1.0.0, path: profiles/product-research-specialist.yaml}
+  - {kind: Profile, name: resource-evolution-manager, version: 1.0.0, path: profiles/resource-evolution-manager.yaml}
+  - {kind: Profile, name: skills-analyser, version: 1.0.0, path: profiles/skills-analyser.yaml}
+  - {kind: Profile, name: skills-improver, version: 1.0.0, path: profiles/skills-improver.yaml}
+  - {kind: Profile, name: skills-reviewer, version: 1.0.0, path: profiles/skills-reviewer.yaml}
+  - {kind: Profile, name: website-developer, version: 1.0.0, path: profiles/website-developer.yaml}
+  - {kind: Skill, name: upstream-change-analysis, version: 1.0.0, path: skills/upstream-change-analysis.yaml}
+  - {kind: Skill, name: three-way-resource-merge, version: 1.0.0, path: skills/three-way-resource-merge.yaml}
+  - {kind: Skill, name: learned-overlay-preservation, version: 1.0.0, path: skills/learned-overlay-preservation.yaml}
+  - {kind: Skill, name: resource-regression-testing, version: 1.0.0, path: skills/resource-regression-testing.yaml}
+  - {kind: Skill, name: resource-version-migration, version: 1.0.0, path: skills/resource-version-migration.yaml}
+  - {kind: Skill, name: parallel-work-planning, version: 1.0.0, path: skills/parallel-work-planning.yaml}
+  - {kind: Skill, name: hierarchical-orchestration, version: 1.0.0, path: skills/hierarchical-orchestration.yaml}
+  - {kind: Skill, name: elastic-agent-scaling, version: 1.0.0, path: skills/elastic-agent-scaling.yaml}
+  - {kind: Skill, name: epic-kanban-management, version: 1.0.0, path: skills/epic-kanban-management.yaml}
+  - {kind: Skill, name: work-dependency-graph, version: 1.0.0, path: skills/work-dependency-graph.yaml}
+  - {kind: Skill, name: result-reconciliation, version: 1.0.0, path: skills/result-reconciliation.yaml}
+  - {kind: Skill, name: instance-lifecycle-management, version: 1.0.0, path: skills/instance-lifecycle-management.yaml}
+  - {kind: Skill, name: parallel-workspace-isolation, version: 1.0.0, path: skills/parallel-workspace-isolation.yaml}
+  - {kind: Skill, name: work-package-coordination, version: 1.0.0, path: skills/work-package-coordination.yaml}
+  - {kind: Skill, name: speech-input-routing, version: 1.0.0, path: skills/speech-input-routing.yaml}
+  - {kind: Skill, name: spoken-response-delivery, version: 1.0.0, path: skills/spoken-response-delivery.yaml}
+  - {kind: Skill, name: language-instruction, version: 1.0.0, path: skills/language-instruction.yaml}
+  - {kind: Skill, name: second-language-pedagogy, version: 1.0.0, path: skills/second-language-pedagogy.yaml}
+  - {kind: Skill, name: pronunciation-coaching, version: 1.0.0, path: skills/pronunciation-coaching.yaml}
+  - {kind: Skill, name: age-adaptive-teaching, version: 1.0.0, path: skills/age-adaptive-teaching.yaml}
+  - {kind: Skill, name: language-assessment, version: 1.0.0, path: skills/language-assessment.yaml}
+  - {kind: Skill, name: curriculum-architecture, version: 1.0.0, path: skills/curriculum-architecture.yaml}
+  - {kind: Skill, name: learning-objective-design, version: 1.0.0, path: skills/learning-objective-design.yaml}
+  - {kind: Skill, name: assessment-design, version: 1.0.0, path: skills/assessment-design.yaml}
+  - {kind: Skill, name: scope-sequence-design, version: 1.0.0, path: skills/scope-sequence-design.yaml}
+  - {kind: Skill, name: differentiation-planning, version: 1.0.0, path: skills/differentiation-planning.yaml}
+  - {kind: Skill, name: homeschooling-planning, version: 1.0.0, path: skills/homeschooling-planning.yaml}
+  - {kind: Skill, name: family-learning-routines, version: 1.0.0, path: skills/family-learning-routines.yaml}
+  - {kind: Skill, name: multi-age-instruction, version: 1.0.0, path: skills/multi-age-instruction.yaml}
+  - {kind: Skill, name: portfolio-progress-tracking, version: 1.0.0, path: skills/portfolio-progress-tracking.yaml}
+  - {kind: Skill, name: curriculum-selection, version: 1.0.0, path: skills/curriculum-selection.yaml}
+  - {kind: Skill, name: portuguese-legal-research, version: 1.0.0, path: skills/portuguese-legal-research.yaml}
+  - {kind: Skill, name: statutory-interpretation, version: 1.0.0, path: skills/statutory-interpretation.yaml}
+  - {kind: Skill, name: case-law-research, version: 1.0.0, path: skills/case-law-research.yaml}
+  - {kind: Skill, name: legal-issue-spotting, version: 1.0.0, path: skills/legal-issue-spotting.yaml}
+  - {kind: Skill, name: legal-citation, version: 1.0.0, path: skills/legal-citation.yaml}
+  - {kind: Skill, name: international-law-research, version: 1.0.0, path: skills/international-law-research.yaml}
+  - {kind: Skill, name: treaty-research, version: 1.0.0, path: skills/treaty-research.yaml}
+  - {kind: Skill, name: jurisdiction-analysis, version: 1.0.0, path: skills/jurisdiction-analysis.yaml}
+  - {kind: Skill, name: cross-border-legal-analysis, version: 1.0.0, path: skills/cross-border-legal-analysis.yaml}
+  - {kind: Skill, name: catholic-tradition-discernment, version: 1.0.0, path: skills/catholic-tradition-discernment.yaml}
+  - {kind: Skill, name: liturgical-tradition-research, version: 1.0.0, path: skills/liturgical-tradition-research.yaml}
+  - {kind: Skill, name: home-repair-diagnostics, version: 1.0.0, path: skills/home-repair-diagnostics.yaml}
+  - {kind: Skill, name: repair-procedure-planning, version: 1.0.0, path: skills/repair-procedure-planning.yaml}
+  - {kind: Skill, name: tool-selection, version: 1.0.0, path: skills/tool-selection.yaml}
+  - {kind: Skill, name: maintenance-triage, version: 1.0.0, path: skills/maintenance-triage.yaml}
+  - {kind: Skill, name: executive-strategy, version: 1.0.0, path: skills/executive-strategy.yaml}
+  - {kind: Skill, name: organizational-design, version: 1.0.0, path: skills/organizational-design.yaml}
+  - {kind: Skill, name: portfolio-prioritization, version: 1.0.0, path: skills/portfolio-prioritization.yaml}
+  - {kind: Skill, name: executive-decision-making, version: 1.0.0, path: skills/executive-decision-making.yaml}
+  - {kind: Skill, name: stakeholder-communication, version: 1.0.0, path: skills/stakeholder-communication.yaml}
+  - {kind: Skill, name: financial-planning-analysis, version: 1.0.0, path: skills/financial-planning-analysis.yaml}
+  - {kind: Skill, name: cash-flow-management, version: 1.0.0, path: skills/cash-flow-management.yaml}
+  - {kind: Skill, name: budgeting-forecasting, version: 1.0.0, path: skills/budgeting-forecasting.yaml}
+  - {kind: Skill, name: management-reporting, version: 1.0.0, path: skills/management-reporting.yaml}
+  - {kind: Skill, name: capital-allocation, version: 1.0.0, path: skills/capital-allocation.yaml}
+  - {kind: Skill, name: technology-strategy, version: 1.0.0, path: skills/technology-strategy.yaml}
+  - {kind: Skill, name: technical-portfolio-management, version: 1.0.0, path: skills/technical-portfolio-management.yaml}
+  - {kind: Skill, name: engineering-organization, version: 1.0.0, path: skills/engineering-organization.yaml}
+  - {kind: Skill, name: architecture-governance, version: 1.0.0, path: skills/architecture-governance.yaml}
+  - {kind: Skill, name: technology-risk-management, version: 1.0.0, path: skills/technology-risk-management.yaml}
+  - {kind: Skill, name: market-research, version: 1.0.0, path: skills/market-research.yaml}
+  - {kind: Skill, name: competitive-analysis, version: 1.0.0, path: skills/competitive-analysis.yaml}
+  - {kind: Skill, name: product-discovery, version: 1.0.0, path: skills/product-discovery.yaml}
+  - {kind: Skill, name: customer-needs-synthesis, version: 1.0.0, path: skills/customer-needs-synthesis.yaml}
+  - {kind: Skill, name: feature-evaluation, version: 1.0.0, path: skills/feature-evaluation.yaml}
+  - {kind: Skill, name: website-architecture, version: 1.0.0, path: skills/website-architecture.yaml}
+  - {kind: Skill, name: seo-technical-basics, version: 1.0.0, path: skills/seo-technical-basics.yaml}
+  - {kind: Skill, name: web-content-integration, version: 1.0.0, path: skills/web-content-integration.yaml}
+  - {kind: Skill, name: infrastructure-capacity-management, version: 1.0.0, path: skills/infrastructure-capacity-management.yaml}
+  - {kind: Skill, name: service-reliability-management, version: 1.0.0, path: skills/service-reliability-management.yaml}
+  - {kind: Skill, name: asset-lifecycle-management, version: 1.0.0, path: skills/asset-lifecycle-management.yaml}
+  - {kind: Skill, name: vendor-risk-management, version: 1.0.0, path: skills/vendor-risk-management.yaml}
+  - {kind: Skill, name: change-management, version: 1.0.0, path: skills/change-management.yaml}
+  - {kind: Skill, name: infrastructure-governance, version: 1.0.0, path: skills/infrastructure-governance.yaml}
+  - {kind: Skill, name: skill-gap-analysis, version: 1.0.0, path: skills/skill-gap-analysis.yaml}
+  - {kind: Skill, name: capability-mapping, version: 1.0.0, path: skills/capability-mapping.yaml}
+  - {kind: Skill, name: usage-evidence-analysis, version: 1.0.0, path: skills/usage-evidence-analysis.yaml}
+  - {kind: Skill, name: skill-quality-review, version: 1.0.0, path: skills/skill-quality-review.yaml}
+  - {kind: Skill, name: safety-boundary-review, version: 1.0.0, path: skills/safety-boundary-review.yaml}
+  - {kind: Skill, name: regression-review, version: 1.0.0, path: skills/regression-review.yaml}
+  - {kind: Skill, name: skill-refinement, version: 1.0.0, path: skills/skill-refinement.yaml}
+  - {kind: Skill, name: prompt-procedure-optimization, version: 1.0.0, path: skills/prompt-procedure-optimization.yaml}
+  - {kind: Skill, name: benchmark-design, version: 1.0.0, path: skills/benchmark-design.yaml}
+  - {kind: Skill, name: versioned-skill-evolution, version: 1.0.0, path: skills/versioned-skill-evolution.yaml}
+  - {kind: Skill, name: improvement-backlog-management, version: 1.0.0, path: skills/improvement-backlog-management.yaml}
+  - {kind: Skill, name: outcome-metrics, version: 1.0.0, path: skills/outcome-metrics.yaml}
+  - {kind: Skill, name: experiment-governance, version: 1.0.0, path: skills/experiment-governance.yaml}
+  - {kind: Skill, name: change-adoption, version: 1.0.0, path: skills/change-adoption.yaml}
+  - {kind: Skill, name: household-operations-management, version: 1.0.0, path: skills/household-operations-management.yaml}
+  - {kind: Skill, name: maintenance-scheduling, version: 1.0.0, path: skills/maintenance-scheduling.yaml}
+  - {kind: Skill, name: inventory-planning, version: 1.0.0, path: skills/inventory-planning.yaml}
+  - {kind: Skill, name: resource-budget-coordination, version: 1.0.0, path: skills/resource-budget-coordination.yaml}
+  - {kind: Plugin, name: resource-overlay-store, version: 1.0.0, path: plugins/resource-overlay-store.yaml}
+  - {kind: Plugin, name: epic-kanban, version: 1.0.0, path: plugins/epic-kanban.yaml}
+  - {kind: Plugin, name: voice-pipeline, version: 1.0.0, path: plugins/voice-pipeline.yaml}
+  - {kind: Cron, name: daily-resource-reconcile, version: 1.0.0, path: crons/daily-resource-reconcile.yaml}
+  - {kind: Channel, name: whatsapp, version: 1.0.0, path: channels/whatsapp.yaml}
+  - {kind: Channel, name: voice, version: 1.0.0, path: channels/voice.yaml}
+  - {kind: Bundle, name: education-team, version: 1.0.0, path: bundles/education-team.yaml}
+  - {kind: Bundle, name: executive-team, version: 1.0.0, path: bundles/executive-team.yaml}
+  - {kind: Bundle, name: legal-research-team, version: 1.0.0, path: bundles/legal-research-team.yaml}
+  - {kind: Bundle, name: skills-improvement-team, version: 1.0.0, path: bundles/skills-improvement-team.yaml}
+  - {kind: Bundle, name: home-farm-management-team, version: 1.0.0, path: bundles/home-farm-management-team.yaml}
