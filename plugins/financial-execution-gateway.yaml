@@ -1,0 +1,29 @@
+apiVersion: hermes.togarriapa/v1
+kind: Plugin
+metadata:
+  name: financial-execution-gateway
+  version: 0.1.0
+  description: Disabled placeholder contract for any future bank, broker, exchange, wallet, or property transaction capability; intentionally provides no execution in registry v1.9.
+  tags: [finance, execution, disabled, future]
+spec:
+  enabled: false
+  mode: disabled-placeholder
+  capabilities: []
+  activationRequirements:
+    - Publish a new reviewed resource version; do not activate this placeholder in place.
+    - Obtain explicit user authorization for the exact provider, account, operation class, and limits.
+    - Require a fresh confirmation for material transactions and preserve an immutable audit record.
+    - Separate recommendation generation from execution approval and execution credentials.
+    - Scope credentials to the minimum provider permissions and specific accounts required.
+    - Define per-transaction and aggregate limits, revocation, timeout, idempotency, and rollback/compensation behavior where applicable.
+    - Complete provider, security, legal, regulatory, and jurisdiction review before production use.
+  policy:
+    autonomousExecution: deny
+    bankPayments: deny
+    bankTransfers: deny
+    securitiesTrading: deny
+    exchangeTrading: deny
+    cryptoTransfers: deny
+    walletSigning: deny
+    propertyTransactions: deny
+    credentialStorage: deny
