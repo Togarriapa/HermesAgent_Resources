@@ -1,0 +1,30 @@
+apiVersion: hermes.togarriapa/v1
+kind: Catalog
+metadata:
+  name: hermesagent-resources
+  version: 1.0.0
+resources:
+  - {kind: Profile, name: base, version: 1.0.0, path: profiles/base.yaml}
+  - {kind: Profile, name: homelab-operator, version: 1.0.0, path: profiles/homelab-operator.yaml}
+  - {kind: Profile, name: developer, version: 1.0.0, path: profiles/developer.yaml}
+  - {kind: Profile, name: researcher, version: 1.0.0, path: profiles/researcher.yaml}
+  - {kind: Skill, name: docker-ops, version: 1.0.0, path: skills/docker-ops.yaml}
+  - {kind: Skill, name: github-maintainer, version: 1.0.0, path: skills/github-maintainer.yaml}
+  - {kind: Skill, name: cloudflare-tunnel-ops, version: 1.0.0, path: skills/cloudflare-tunnel-ops.yaml}
+  - {kind: Skill, name: home-assistant-ops, version: 1.0.0, path: skills/home-assistant-ops.yaml}
+  - {kind: Plugin, name: codex, version: 1.0.0, path: plugins/codex.yaml}
+  - {kind: Plugin, name: github, version: 1.0.0, path: plugins/github.yaml}
+  - {kind: Plugin, name: web, version: 1.0.0, path: plugins/web.yaml}
+  - {kind: MCP, name: filesystem, version: 1.0.0, path: mcps/filesystem.yaml}
+  - {kind: MCP, name: github, version: 1.0.0, path: mcps/github.yaml}
+  - {kind: MCP, name: home-assistant, version: 1.0.0, path: mcps/home-assistant.yaml}
+  - {kind: Cron, name: resource-sync, version: 1.0.0, path: crons/resource-sync.yaml}
+  - {kind: Cron, name: agent-health-report, version: 1.0.0, path: crons/agent-health-report.yaml}
+  - {kind: Webhook, name: github-push, version: 1.0.0, path: webhooks/github-push.yaml}
+  - {kind: Webhook, name: cloudflare-alert, version: 1.0.0, path: webhooks/cloudflare-alert.yaml}
+  - {kind: Channel, name: telegram, version: 1.0.0, path: channels/telegram.yaml}
+  - {kind: Channel, name: discord, version: 1.0.0, path: channels/discord.yaml}
+  - {kind: Channel, name: web, version: 1.0.0, path: channels/web.yaml}
+  - {kind: Bundle, name: homelab-agent, version: 1.0.0, path: bundles/homelab-agent.yaml}
+  - {kind: Bundle, name: developer-agent, version: 1.0.0, path: bundles/developer-agent.yaml}
+  - {kind: Bundle, name: research-agent, version: 1.0.0, path: bundles/research-agent.yaml}

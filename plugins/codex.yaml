@@ -1,0 +1,19 @@
+apiVersion: hermes.togarriapa/v1
+kind: Plugin
+metadata:
+  name: codex
+  version: 1.0.0
+  description: Shared coding-agent integration using host-provided authentication.
+  tags: [codex, coding, development]
+spec:
+  provider: codex
+  auth:
+    mode: host-managed
+    credentialRef: CODEX_AUTH_HOME
+  capabilities:
+    - repository-analysis
+    - code-editing
+    - test-execution
+  policy:
+    inheritHostAuth: true
+    persistCredentialsInAgentWorkspace: false

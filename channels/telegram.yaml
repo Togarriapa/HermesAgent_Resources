@@ -1,0 +1,17 @@
+apiVersion: hermes.togarriapa/v1
+kind: Channel
+metadata:
+  name: telegram
+  version: 1.0.0
+  description: Telegram bot channel with explicit chat allow-listing.
+  tags: [channel, telegram]
+spec:
+  adapter: telegram
+  credentials:
+    botToken: ${TELEGRAM_BOT_TOKEN}
+  inbound:
+    allowedChatIds: ${TELEGRAM_ALLOWED_CHAT_IDS}
+  outbound:
+    parseMode: MarkdownV2
+  policy:
+    denyUnknownChats: true

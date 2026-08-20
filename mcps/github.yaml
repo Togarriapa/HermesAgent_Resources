@@ -1,0 +1,21 @@
+apiVersion: hermes.togarriapa/v1
+kind: MCP
+metadata:
+  name: github
+  version: 1.0.0
+  description: GitHub MCP server with runtime-injected credentials.
+  tags: [mcp, github]
+spec:
+  transport: stdio
+  command: docker
+  args:
+    - run
+    - --rm
+    - -i
+    - -e
+    - GITHUB_PERSONAL_ACCESS_TOKEN
+    - ghcr.io/github/github-mcp-server
+  environment:
+    GITHUB_PERSONAL_ACCESS_TOKEN: ${GITHUB_TOKEN}
+  policy:
+    credentials: runtime-only

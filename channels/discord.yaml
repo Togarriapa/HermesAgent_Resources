@@ -1,0 +1,15 @@
+apiVersion: hermes.togarriapa/v1
+kind: Channel
+metadata:
+  name: discord
+  version: 1.0.0
+  description: Discord bot channel using runtime credentials and guild allow-listing.
+  tags: [channel, discord]
+spec:
+  adapter: discord
+  credentials:
+    botToken: ${DISCORD_BOT_TOKEN}
+  inbound:
+    allowedGuildIds: ${DISCORD_ALLOWED_GUILD_IDS}
+  policy:
+    denyUnknownGuilds: true

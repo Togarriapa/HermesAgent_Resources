@@ -1,0 +1,15 @@
+apiVersion: hermes.togarriapa/v1
+kind: Plugin
+metadata:
+  name: github
+  version: 1.0.0
+  description: GitHub repository, issue, pull request, and workflow integration.
+  tags: [github, git, scm]
+spec:
+  provider: github
+  auth:
+    mode: environment
+    token: ${GITHUB_TOKEN}
+  permissions:
+    default: read
+    write: explicit-per-task

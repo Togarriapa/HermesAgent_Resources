@@ -1,0 +1,18 @@
+apiVersion: hermes.togarriapa/v1
+kind: Cron
+metadata:
+  name: resource-sync
+  version: 1.0.0
+  description: Periodically check the shared resource registry for updates without auto-applying production changes.
+  tags: [cron, registry, maintenance]
+spec:
+  schedule: "17 */6 * * *"
+  timezone: Europe/Lisbon
+  action:
+    type: resource-check
+    repository: Togarriapa/HermesAgent_Resources
+    ref: main
+  policy:
+    autoApply: false
+    notifyOnChange: true
+    jitterSeconds: 300

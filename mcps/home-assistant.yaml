@@ -1,0 +1,17 @@
+apiVersion: hermes.togarriapa/v1
+kind: MCP
+metadata:
+  name: home-assistant
+  version: 1.0.0
+  description: Template for a Home Assistant MCP bridge selected by the local runtime.
+  tags: [mcp, home-assistant]
+spec:
+  transport: stdio
+  command: ${HOME_ASSISTANT_MCP_COMMAND}
+  args: []
+  environment:
+    HOME_ASSISTANT_URL: ${HOME_ASSISTANT_URL}
+    HOME_ASSISTANT_TOKEN: ${HOME_ASSISTANT_TOKEN}
+  policy:
+    credentials: runtime-only
+    note: Set HOME_ASSISTANT_MCP_COMMAND to the locally approved MCP implementation.

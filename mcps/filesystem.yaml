@@ -1,0 +1,19 @@
+apiVersion: hermes.togarriapa/v1
+kind: MCP
+metadata:
+  name: filesystem
+  version: 1.0.0
+  description: Filesystem MCP server scoped to explicitly mounted agent paths.
+  tags: [mcp, filesystem]
+spec:
+  transport: stdio
+  command: npx
+  args:
+    - -y
+    - "@modelcontextprotocol/server-filesystem"
+    - ${HERMES_WORKSPACE}
+  environment:
+    HERMES_WORKSPACE: ${HERMES_WORKSPACE}
+  policy:
+    scope: workspace-only
+    allowAdditionalRoots: false
