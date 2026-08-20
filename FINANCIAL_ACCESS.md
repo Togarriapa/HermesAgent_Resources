@@ -1,18 +1,31 @@
 # Financial Account Access Architecture
 
-Hermes financial integrations are split into three deliberately separate layers:
+Hermes financial integrations are split into four deliberately separate layers:
 
-1. **Read-only personal financial data** — enabled through `financial-data-hub`.
-2. **Future real-money execution** — represented only by the disabled `financial-execution-gateway` contract.
-3. **Agent experimentation wallet** — enabled only through `agent-sandbox-wallet` on approved public test networks.
+1. **Read-only personal financial data** — `financial-data-hub`.
+2. **Real-money execution** — `financial-execution-gateway`, technically write-capable but callable only from a one-shot explicit user order plus fresh confirmation.
+3. **Agent live wallet** — `agent-live-wallet`, a dedicated real-value wallet with the same explicit-order confirmation gate.
+4. **Agent experimentation wallet** — `agent-sandbox-wallet`, autonomous only on approved public test networks and faucet/test assets.
 
-The separation is structural: adding data access must not silently create payment, trading, signing, transfer, or custody authority.
+The separation is structural: analytical Profiles never receive raw credentials or implicit transaction authority, and a recommendation can never self-authorize its own execution.
 
-## Bank data: Revolut, Banco BPI, moey
+## Authorization model for real money
 
-Bank access uses a regulated PSD2 Account Information Service Provider (AISP) integration rather than making the Hermes host behave as an unlicensed TPP.
+Every bank payment, broker/exchange order, Ledger transaction, or dedicated agent-live-wallet mainnet transaction requires:
 
-The initial provider contract is GoCardless Bank Account Data because it operates as an AISP in the EEA and exposes account, balance, and transaction information. Institution coverage is checked during connection because availability can change by institution, account type, country, or provider maintenance.
+- an explicit user order routed through Hermes;
+- a one-shot authorization envelope bound to the exact provider, account, operation and economic parameters;
+- a fresh confirmation of the final normalized action payload;
+- revalidation of current account/balance/position state before execution;
+- simulation/fee/slippage estimation where supported;
+- duplicate/replay protection;
+- reconciliation and an immutable audit event after execution.
+
+Authorization expires after five minutes and cannot be wildcarded, reused, inferred from a strategy, converted from a recommendation, or delegated as standing authority.
+
+## Bank data and payments: Revolut, Banco BPI, moey
+
+Read access uses a regulated PSD2 Account Information Service Provider (AISP) connection. Write/payment access uses a regulated Payment Initiation Service Provider (PISP) adapter when provider and institution coverage permit it. Hermes does not scrape banking credentials or impersonate an unlicensed TPP.
 
 Target institutions are:
 
@@ -20,98 +33,96 @@ Target institutions are:
 - Banco BPI
 - moey
 
-BPI and moey expose PSD2/Open-Banking connectivity through the Portuguese/SIBS ecosystem; Revolut also exposes Open Banking to regulated TPPs/partners. If the selected aggregator cannot currently connect a target institution, the connection stays unavailable rather than falling back to credential scraping or browser automation.
+Banco BPI exposes account-information and payment-initiation APIs through SIBS API Market. moey documents PSD2 AIS and PIS/PISP support through the same Portuguese Open Banking ecosystem. Revolut's Open Banking API supports account information and payment initiation for regulated TPPs/approved partners. Actual coverage and available payment types are checked at connection time.
 
-Allowed bank capabilities:
+Read capabilities:
 
-- list connected accounts;
-- account metadata/IBAN where returned by the provider;
+- accounts and metadata;
 - balances;
 - transaction history;
-- freshness/consent status.
+- consent/freshness state.
 
-Denied bank capabilities:
+Write capability:
 
-- payment initiation;
-- transfers;
-- beneficiary management;
-- card/account administration;
-- password/PIN/MFA collection.
+- initiate the exact payment explicitly ordered and confirmed by the user, through the regulated provider's consent/SCA flow.
+
+Not granted:
+
+- autonomous payments or transfers;
+- beneficiary/account/card administration;
+- standing or scheduled authority created by the agent;
+- passwords, PINs or reusable MFA secrets.
 
 ## Trading 212
 
-Trading 212 supports permission-scoped API keys and separate demo/live API environments. Hermes uses a live-account key configured for read-only account/portfolio/history permissions, with provider-side IP restrictions required when available.
+Trading 212's Public API supports live account/portfolio data and live Market, Limit, Stop and Stop-Limit order placement plus cancellation of pending orders. API keys have selectable permissions and can be IP-restricted.
 
-Allowed:
+Hermes therefore uses two separate credentials:
 
-- account summary;
-- positions;
-- dividends/history;
-- cash transactions and portfolio observations.
+- `TRADING212_READONLY_CREDENTIALS` for observation;
+- `TRADING212_EXECUTION_CREDENTIALS` with the minimum order permission required for explicitly ordered trades.
 
-Denied:
+Execution rules:
 
-- order placement;
-- order modification;
-- order cancellation.
-
-Any future trading capability must use a different credential and a new reviewed execution resource. A read-only key must never be upgraded in place.
+- live order endpoints are callable only by `financial-execution-operator` after explicit user order + fresh confirmation;
+- the gateway must add duplicate protection because the beta API warns that some order endpoints are not idempotent;
+- funding/withdrawals and account administration remain denied;
+- IP restriction is required in the Hermes policy.
 
 ## Pionex
 
-Pionex API endpoints declare permissions such as `Read` and `Trade`. Hermes uses a key with `Read` only.
+Pionex separates `Read` and `Trade` permissions. Hermes therefore uses separate keys:
 
-Allowed:
+- `PIONEX_READONLY_API_CREDENTIALS` with `Read` only;
+- `PIONEX_TRADE_API_CREDENTIALS` with the minimum `Trade` permission required for order placement/cancellation.
 
-- balances;
-- open-order observation;
-- order history;
-- fills/history.
-
-Denied:
-
-- `Trade` permission;
-- new orders;
-- cancellations;
-- withdrawals or transfers.
+The Trade key may be invoked only by the execution gateway after explicit user order + fresh confirmation. Withdrawals, transfers and account administration remain denied.
 
 ## Ledger
 
-Ledger access uses the Ledger Wallet API with read-only account-list capability. The integration may learn which accounts/public assets the user has chosen to expose, but it cannot request signatures or receive secret key material.
+Ledger Wallet API permissions are separated by capability. Read observation uses `account.list`. The execution gateway is configured for `transaction.sign` and `transaction.signAndBroadcast`, but each real transaction still requires the Hermes explicit-order gate and the Ledger user's hardware/on-device confirmation.
 
-Allowed:
+Allowed after explicit user order + confirmation:
 
-- `account.list`;
-- public account metadata needed for portfolio observation.
+- sign the exact confirmed transaction;
+- sign and broadcast the exact confirmed transaction.
 
-Denied:
+Still denied:
 
-- transaction signing;
-- message signing;
-- transaction broadcasting;
-- private keys;
-- seed/recovery phrases;
-- production wallet custody changes.
+- arbitrary message signing by default;
+- seed/recovery phrase access;
+- private-key access;
+- production signing without the explicit Hermes authorization envelope and Ledger confirmation.
 
-User Ledger assets are observation-only and are never used as the agent experimentation wallet.
+The user's Ledger is never used as the agent-owned wallet.
 
 ## Normalized financial view
 
-`financial-data-steward` consumes these sources through `financial-data-hub` and exposes a normalized, source-aware internal view to Portfolio Manager, Wealth Manager, Financial Advisor, analysts, accounting, and risk profiles when recruited.
+`financial-data-steward` consumes read sources through `financial-data-hub` and exposes a normalized, source-aware internal view to Portfolio Manager, Wealth Manager, Financial Advisor, analysts, accounting, and risk profiles when recruited.
 
-The normalized data records provider, source-account alias/token, asset/currency, units/balance, valuation currency, observed timestamp, and freshness. Raw provider credentials are never handed to Profiles.
+The normalized data records provider, source-account alias/token, asset/currency, units/balance, valuation currency, observation timestamp, and freshness. Raw provider credentials are never handed to Profiles.
 
-## Future write access
+## Execution operator
 
-`financial-execution-gateway@0.1.0` is deliberately disabled and has zero executable capabilities. Future bank payments, securities orders, crypto transfers, wallet signing, or other real-money actions require a new reviewed version with explicit user authority, account scoping, limits, fresh confirmation, audit trail, credential isolation, idempotency, and provider/jurisdiction review.
+`financial-execution-operator` is separate from advisors/managers/researchers. It executes exactly one confirmed action and may not optimize, resize, substitute, split, retry with changed parameters, or add follow-on actions without a new user order.
 
-Recommendation and execution remain separate responsibilities.
+This preserves the architecture:
+
+`Research/Manager -> recommendation -> Hermes -> explicit user order + confirmation -> Financial Execution Operator -> provider -> reconciliation -> Hermes`
+
+## Dedicated agent live wallet
+
+`agent-live-wallet` is a separate real-value wallet owned for Hermes use. It can receive real assets and is technically able to construct, sign and broadcast mainnet transactions on an explicit configured network allowlist.
+
+Private keys are generated locally and stored in the host encrypted secret boundary. They are never exported to Profiles, logs, the repository, or the user's Ledger.
+
+For real-value use, however, the wallet follows the same execution gate as all other production financial accounts: every transfer, swap, contract call, approval, bridge, staking action or other economic transaction requires a specific user order and fresh confirmation. The agent may autonomously research, monitor, simulate and prepare a proposed transaction, but it cannot autonomously commit real value.
 
 ## Agent-owned cryptocurrency sandbox
 
-`agent-sandbox-wallet` gives Hermes an agent-controlled wallet only on approved public test networks. Initial allowed networks are Ethereum Sepolia and Solana Devnet.
+`agent-sandbox-wallet` remains available for autonomous experimentation on approved public test networks. Initial allowed networks are Ethereum Sepolia and Solana Devnet.
 
-The sandbox may:
+The sandbox may autonomously:
 
 - create resettable testnet accounts;
 - receive faucet/test tokens;
@@ -128,6 +139,6 @@ It must never:
 - receive production exchange withdrawals;
 - bridge value to mainnet;
 - import the user's Ledger/private wallet material;
-- expose its own secret material in logs or user-visible output.
+- expose secret material in logs or user-visible output.
 
-`crypto-sandbox-operator` owns sandbox execution. Cryptocurrency Manager and Blockchain Researcher may recruit it for experiments, but their production/user portfolio permissions do not flow into the sandbox and sandbox signing authority does not flow back into production wallets.
+This gives agents unrestricted operational learning in the sandbox while keeping real economic execution tied to the user's explicit order.
