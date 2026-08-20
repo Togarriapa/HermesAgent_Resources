@@ -4,6 +4,7 @@ Profiles intentionally import only capabilities that are directly relevant to th
 
 | Profile | Skills |
 | --- | --- |
+| Hermes | conversation-gateway |
 | Orchestrator | task-decomposition, delegation-coordination, decision-routing, progress-synthesis, specialist-recruitment |
 | Scientific Researcher | scientific-method, literature-review, evidence-synthesis, academic-citation, statistical-reasoning |
 | Writer | prose-craft, editing-revision, source-integrity |
@@ -32,6 +33,22 @@ Profiles intentionally import only capabilities that are directly relevant to th
 | Personal Chef | culinary-menu-planning, cooking-techniques, food-safety, kitchen-workflow |
 | Homeroom Teacher | classroom-management, learner-progress-monitoring, family-school-communication, student-safeguarding, lesson-design |
 | Personal Assistant | calendar-planning, task-follow-through, correspondence-support, meeting-preparation, travel-logistics, information-organization |
+
+## Conversation topology
+
+The user-facing chain is strictly:
+
+`User <-> Hermes <-> Orchestrator <-> Specialists / Teams`
+
+Hermes is the only user-facing profile. It owns conversation intake, clarification with the user, and final response delivery. It does not directly recruit specialists; every work-bearing request goes to the Orchestrator.
+
+The Orchestrator is internal-only. It decomposes requests, chooses the best specialist or team, recruits additional registered profiles when necessary, resolves dependencies and conflicts, and synthesizes the result before returning it to Hermes.
+
+Team Leader is also internal-only. When recruited by the Orchestrator or used inside a team bundle, it retains `specialist-recruitment` authority and may recruit any registered profile needed for its delegated objective, but it still reports internally and never becomes a direct user endpoint.
+
+All other specialist profiles inherit the base profile's default-deny user-contact policy. User-facing web, Telegram, and Discord channels are bound only to Hermes and must reject direct selection of any other profile.
+
+See `TOPOLOGY.md` for the runtime enforcement contract.
 
 ## Boundary rule
 
