@@ -18,6 +18,10 @@ Profiles intentionally import only capabilities that are directly relevant to th
 | Project Manager | project-planning, risk-management, status-reporting, meeting-facilitation |
 | Systems Architect | systems-design, architecture-review, technical-documentation, threat-modeling |
 | Cybersecurity Analyst | threat-modeling, security-review, incident-triage, security-hardening |
+| Data Scientist | exploratory-data-analysis, statistical-reasoning, statistical-modeling, machine-learning-workflow, data-visualization |
+| Data Engineer | data-pipeline-design, dimensional-data-modeling, data-quality-engineering, database-sql-engineering, data-platform-operations |
+| Accountant — Portugal | double-entry-bookkeeping, financial-reporting, reconciliation-controls, portuguese-snc-accounting, portuguese-tax-compliance |
+| Accountant — International | double-entry-bookkeeping, financial-reporting, reconciliation-controls, ifrs-reporting, consolidation-multicurrency, cross-border-accounting |
 
 ## Boundary rule
 
@@ -26,6 +30,8 @@ A profile should gain a new skill only when that skill is part of the profile's 
 ## Dynamic recruitment rule
 
 Orchestrator and Team Leader are the two general leadership profiles authorized by this registry to use `specialist-recruitment`. They may recruit **any registered Profile** when task requirements justify additional expertise, capacity, independent review, or domain coverage. Recruitment is not limited to profiles already present in the active bundle or initial team.
+
+That scope automatically includes newly registered profiles such as Data Scientist, Data Engineer, Accountant — Portugal, and Accountant — International; leadership manifests do not need to be edited each time the registry gains another specialist.
 
 When the selected profile is registered but not currently running, these leadership profiles may request that the Hermes provisioner instantiate it. The host remains authoritative: recruitment does not bypass local authorization, resource limits, or policy, and a recruited specialist retains its own profile-specific skills, permissions, and safety boundaries rather than inheriting the recruiter's privileges.
 
