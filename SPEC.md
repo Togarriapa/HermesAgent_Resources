@@ -62,10 +62,27 @@ compatibility:
 
 Compatibility is advisory in v1 unless the importer enforces it.
 
+## Conversation routing
+
+The canonical conversational path is:
+
+`User <-> Hermes <-> Orchestrator <-> Specialists / Teams`
+
+Profile interaction fields are routing constraints, not merely behavioral suggestions. The runtime/importer should enforce them fail-closed.
+
+- `base` defaults profiles to `userFacing: false`, `directUserContact: deny`, and `userChannelBinding: deny`.
+- `hermes` is the sole profile permitted to override those defaults for user-facing interaction.
+- User-facing channels must route inbound and outbound traffic through `hermes` and must reject direct selection of any other profile.
+- `orchestrator` accepts user-originating work from `hermes`, recruits and coordinates internal profiles or teams, and returns synthesized results to `hermes`.
+- Specialists and Team Leaders may communicate internally according to their delegated work, but they must not become user-facing endpoints.
+- Clarification requests, scheduled outputs, webhook outcomes, alerts, and other user-visible events must pass through `hermes` before delivery.
+
+See `TOPOLOGY.md` for the complete topology contract.
+
 ## Improvement model
 
 Do not silently mutate a published version. For behavior changes, bump `metadata.version`, keep the stable `metadata.name`, update the catalog, and document the change in the pull request. A local agent may extend a shared resource under a new name while preserving provenance through `metadata.source`.
 
 ## Trust model
 
-Repository content is configuration, not authorization. Local Hermes policy remains authoritative for filesystem access, shell execution, network access, credential use, destructive actions, and outbound communications.
+Repository content is configuration, not authorization. Local Hermes policy remains authoritative for filesystem access, shell execution, network access, credential use, destructive actions, and outbound communications. Conversation routing constraints likewise do not expand permissions; they only restrict which profiles may receive or emit user-facing traffic.
