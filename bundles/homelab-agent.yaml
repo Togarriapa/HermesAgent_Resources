@@ -2,9 +2,9 @@ apiVersion: hermes.togarriapa/v1
 kind: Bundle
 metadata:
   name: homelab-agent
-  version: 1.0.0
-  description: Curated resource set for a homelab operations agent.
-  tags: [bundle, homelab]
+  version: 1.1.0
+  description: Internal curated resource set for a homelab operations specialist; user-facing channels belong only to hermes-runtime.
+  tags: [bundle, homelab, internal]
 spec:
   imports:
     profiles:
@@ -17,5 +17,3 @@ spec:
     crons:
       - agent-health-report@^1.0.0
       - resource-sync@^1.0.0
-    channels:
-      - web@^1.0.0
