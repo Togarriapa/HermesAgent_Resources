@@ -2,13 +2,13 @@ apiVersion: hermes.togarriapa/v1
 kind: Catalog
 metadata:
   name: hermesagent-resources
-  version: 1.4.0
+  version: 1.5.0
 resources:
   - {kind: Profile, name: accountant-international, version: 1.0.0, path: profiles/accountant-international.yaml}
   - {kind: Profile, name: accountant-portugal, version: 1.0.0, path: profiles/accountant-portugal.yaml}
   - {kind: Profile, name: agile-methodology-master, version: 1.0.0, path: profiles/agile-methodology-master.yaml}
   - {kind: Profile, name: backend-developer, version: 1.0.0, path: profiles/backend-developer.yaml}
-  - {kind: Profile, name: base, version: 1.0.0, path: profiles/base.yaml}
+  - {kind: Profile, name: base, version: 1.1.0, path: profiles/base.yaml}
   - {kind: Profile, name: catholic-guidance, version: 1.0.0, path: profiles/catholic-guidance.yaml}
   - {kind: Profile, name: cybersecurity-analyst, version: 1.0.0, path: profiles/cybersecurity-analyst.yaml}
   - {kind: Profile, name: data-engineer, version: 1.0.0, path: profiles/data-engineer.yaml}
@@ -16,13 +16,14 @@ resources:
   - {kind: Profile, name: developer, version: 1.0.0, path: profiles/developer.yaml}
   - {kind: Profile, name: devops-developer, version: 1.0.0, path: profiles/devops-developer.yaml}
   - {kind: Profile, name: frontend-developer, version: 1.0.0, path: profiles/frontend-developer.yaml}
+  - {kind: Profile, name: hermes, version: 1.0.0, path: profiles/hermes.yaml}
   - {kind: Profile, name: history-teacher, version: 1.0.0, path: profiles/history-teacher.yaml}
   - {kind: Profile, name: homelab-operator, version: 1.0.0, path: profiles/homelab-operator.yaml}
   - {kind: Profile, name: homeroom-teacher, version: 1.0.0, path: profiles/homeroom-teacher.yaml}
   - {kind: Profile, name: life-improvement-coach, version: 1.0.0, path: profiles/life-improvement-coach.yaml}
   - {kind: Profile, name: music-teacher, version: 1.0.0, path: profiles/music-teacher.yaml}
   - {kind: Profile, name: nutritionist, version: 1.0.0, path: profiles/nutritionist.yaml}
-  - {kind: Profile, name: orchestrator, version: 1.1.0, path: profiles/orchestrator.yaml}
+  - {kind: Profile, name: orchestrator, version: 1.2.0, path: profiles/orchestrator.yaml}
   - {kind: Profile, name: personal-assistant, version: 1.0.0, path: profiles/personal-assistant.yaml}
   - {kind: Profile, name: personal-chef, version: 1.0.0, path: profiles/personal-chef.yaml}
   - {kind: Profile, name: personal-trainer, version: 1.0.0, path: profiles/personal-trainer.yaml}
@@ -53,6 +54,7 @@ resources:
   - {kind: Skill, name: consolidation-multicurrency, version: 1.0.0, path: skills/consolidation-multicurrency.yaml}
   - {kind: Skill, name: container-deployment-operations, version: 1.0.0, path: skills/container-deployment-operations.yaml}
   - {kind: Skill, name: continuous-improvement, version: 1.0.0, path: skills/continuous-improvement.yaml}
+  - {kind: Skill, name: conversation-gateway, version: 1.0.0, path: skills/conversation-gateway.yaml}
   - {kind: Skill, name: cooking-techniques, version: 1.0.0, path: skills/cooking-techniques.yaml}
   - {kind: Skill, name: correspondence-support, version: 1.0.0, path: skills/correspondence-support.yaml}
   - {kind: Skill, name: cross-border-accounting, version: 1.0.0, path: skills/cross-border-accounting.yaml}
@@ -157,13 +159,14 @@ resources:
   - {kind: Cron, name: resource-sync, version: 1.0.0, path: crons/resource-sync.yaml}
   - {kind: Webhook, name: cloudflare-alert, version: 1.0.0, path: webhooks/cloudflare-alert.yaml}
   - {kind: Webhook, name: github-push, version: 1.0.0, path: webhooks/github-push.yaml}
-  - {kind: Channel, name: discord, version: 1.0.0, path: channels/discord.yaml}
-  - {kind: Channel, name: telegram, version: 1.0.0, path: channels/telegram.yaml}
-  - {kind: Channel, name: web, version: 1.0.0, path: channels/web.yaml}
+  - {kind: Channel, name: discord, version: 1.1.0, path: channels/discord.yaml}
+  - {kind: Channel, name: telegram, version: 1.1.0, path: channels/telegram.yaml}
+  - {kind: Channel, name: web, version: 1.1.0, path: channels/web.yaml}
   - {kind: Bundle, name: catholic-education-team, version: 1.0.0, path: bundles/catholic-education-team.yaml}
   - {kind: Bundle, name: data-team, version: 1.0.0, path: bundles/data-team.yaml}
   - {kind: Bundle, name: developer-agent, version: 1.0.0, path: bundles/developer-agent.yaml}
   - {kind: Bundle, name: finance-team, version: 1.0.0, path: bundles/finance-team.yaml}
+  - {kind: Bundle, name: hermes-runtime, version: 1.0.0, path: bundles/hermes-runtime.yaml}
   - {kind: Bundle, name: homelab-agent, version: 1.0.0, path: bundles/homelab-agent.yaml}
   - {kind: Bundle, name: research-agent, version: 1.0.0, path: bundles/research-agent.yaml}
   - {kind: Bundle, name: research-writing-team, version: 1.0.0, path: bundles/research-writing-team.yaml}
