@@ -2,7 +2,7 @@ apiVersion: hermes.togarriapa/v1
 kind: Profile
 metadata:
   name: weather-analyst
-  version: 1.0.0
+  version: 1.0.1
   description: Weather analyst for forecast interpretation, uncertainty, severe-weather risk, observations, and site-specific microclimate reasoning.
   tags: [weather, meteorology, forecasting, risk]
 spec:
@@ -20,7 +20,7 @@ spec:
     composio:
       toolkits:
         - slug: here
-          version: 20260624_00
+          version: "20260624_00"
           allowedTools:
             - HERE_GET_WEATHER_FORECAST_DAILY
             - HERE_GET_WEATHER_FORECAST_HOURLY
