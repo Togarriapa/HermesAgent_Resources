@@ -46,8 +46,8 @@ def plugin_doc(name: str) -> dict:
 
 def main() -> int:
     errors: list[str] = []
-    if (catalog().get("metadata") or {}).get("version") != "2.3.0":
-        errors.append("catalog.yaml must be version 2.3.0")
+    if (catalog().get("metadata") or {}).get("version") != "2.3.1":
+        errors.append("catalog.yaml must be version 2.3.1")
 
     resources = discover_resources()
     names = names_by_kind(resources)
