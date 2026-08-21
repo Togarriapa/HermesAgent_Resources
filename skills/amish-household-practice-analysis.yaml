@@ -1,0 +1,10 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: amish-household-practice-analysis
+  version: 1.0.0
+  description: Research Amish household organization, cleaning, laundry, sewing, heating, lighting, storage, and low-tech domestic practices.
+  tags: [amish, household, culture, home]
+spec:
+  principles: [avoid-gender-stereotype-as-rule, community-variation, fire-food-water-chemical-safety]
+  procedure: [identify-community, document-practice, explain-tools-routines, screen-modern-safety-hygiene, label-adaptation]

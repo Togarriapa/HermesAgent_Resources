@@ -1,0 +1,10 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: ancient-foodways-analysis
+  version: 1.0.0
+  description: Research ancient ingredients, cooking technologies, recipes, meal patterns, trade, status, and ritual foodways.
+  tags: [ancient-traditions, foodways, cooking, history]
+spec:
+  principles: [source-critical-reconstruction, ingredient-identity-uncertainty, food-safety-over-authenticity]
+  procedure: [identify-culture-period-source, resolve-ingredients-tools, reconstruct-technique, compare-variants, screen-food-safety, label-substitutions]

@@ -1,0 +1,10 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: ancient-domestic-life-research
+  version: 1.0.0
+  description: Research ancient household routines, sanitation, textiles, fuel, lighting, storage, domestic labor, and material culture.
+  tags: [ancient-traditions, domestic-life, history, archaeology]
+spec:
+  principles: [material-textual-evidence, avoid-modern-role-projection, reenactment-safety]
+  procedure: [define-culture-period-household, gather-evidence, reconstruct-workflows, separate-attested-inferred, flag-hazards]

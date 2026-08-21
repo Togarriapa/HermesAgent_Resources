@@ -1,0 +1,10 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: traditional-foodways-analysis
+  version: 1.0.0
+  description: Study traditional foodways, preparation, dietary patterns, and cultural context while distinguishing heritage from health claims.
+  tags: [foodways, nutrition, history, culture]
+spec:
+  principles: [cultural-context-first, heritage-is-not-health-proof, food-safety-non-negotiable]
+  procedure: [identify-community-place-period, document-foods-techniques-seasonality, trace-sources, assess-food-safety, separate-description-from-health-inference, label-adaptation]

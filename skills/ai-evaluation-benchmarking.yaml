@@ -1,0 +1,10 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: ai-evaluation-benchmarking
+  version: 1.0.0
+  description: Build repeatable AI evaluations covering correctness, safety, robustness, latency, cost, and regression behavior.
+  tags: [ai, evaluation, benchmarking, quality]
+spec:
+  principles: [representative-data, separate-metric-from-goal, preserve-failure-cases]
+  procedure: [define-targets, construct-eval-set, define-rubric, baseline, compare, analyze-errors, set-release-gates]

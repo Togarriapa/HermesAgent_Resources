@@ -1,0 +1,10 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: natural-lifestyle-evidence-screening
+  version: 1.0.0
+  description: Evaluate naturalistic lifestyle practices such as sleep, light, movement, diet, outdoor time, and low-tech routines against evidence and risk.
+  tags: [health, lifestyle, naturalistic, evidence]
+spec:
+  principles: [low-risk-basics-first, avoid-detox-pseudoscience, no-medical-replacement-claims]
+  procedure: [define-practice-goal, identify-mechanism, review-evidence, screen-risk-contraindications, propose-low-risk-options, define-referral-boundary]

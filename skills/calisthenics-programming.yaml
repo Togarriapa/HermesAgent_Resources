@@ -1,0 +1,10 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: calisthenics-programming
+  version: 1.0.0
+  description: Program calisthenics using scalable progressions, bodyweight strength, skill practice, joint/tendon tolerance, and movement quality.
+  tags: [fitness, calisthenics, strength, skill]
+spec:
+  principles: [earn-each-progression, joint-tolerance, control-before-leverage]
+  procedure: [assess-baseline, choose-scaled-progressions, separate-skill-and-strength-work, dose-tendon-load, require-clean-repetitions, progress-regress-or-deload]

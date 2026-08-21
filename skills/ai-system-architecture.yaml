@@ -1,0 +1,10 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: ai-system-architecture
+  version: 1.0.0
+  description: Architect AI systems across models, agents, retrieval, data, security, observability, and lifecycle governance.
+  tags: [ai, architecture, llm, systems]
+spec:
+  principles: [clear-trust-boundaries, failure-containment, provider-portability]
+  procedure: [map-requirements, design-trust-data-boundaries, select-patterns, define-evaluation-observability, threat-model, design-fallbacks]

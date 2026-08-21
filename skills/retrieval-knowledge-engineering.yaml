@@ -1,0 +1,10 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: retrieval-knowledge-engineering
+  version: 1.0.0
+  description: Engineer retrieval and knowledge systems with provenance, indexing, freshness, access control, and answer traceability.
+  tags: [ai, retrieval, knowledge, data]
+spec:
+  principles: [source-provenance, access-control-before-retrieval, freshness-aware-indexing]
+  procedure: [inventory-sources, design-ingestion, design-index, define-access-filtering, evaluate-retrieval-grounding, operate-refresh-deletion]

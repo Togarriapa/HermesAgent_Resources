@@ -1,0 +1,10 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: historical-materia-medica-analysis
+  version: 1.0.0
+  description: Analyze historical materia medica with historical, philological, toxicological, and modern-evidence context.
+  tags: [materia-medica, history, health, research]
+spec:
+  principles: [historical-text-is-not-modern-authority, ingredient-identity-can-be-uncertain, description-is-not-endorsement]
+  procedure: [identify-text-place-period, resolve-ingredient-identity, reconstruct-preparation, compare-sources, check-modern-hazards, report-uncertainty]

@@ -1,0 +1,10 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: endurance-conditioning
+  version: 1.0.0
+  description: Program aerobic endurance using sustainable volume, appropriate intensity distribution, quality intervals, recovery, and event-specific progression.
+  tags: [fitness, endurance, conditioning, cardio]
+spec:
+  principles: [build-volume-before-intensity, sustainable-majority, gradual-progression]
+  procedure: [identify-goal-and-event, assess-current-volume-and-intensity, design-weekly-structure, add-quality-work, monitor-recovery-and-injury-signs, progress-or-taper]

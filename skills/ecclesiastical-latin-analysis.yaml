@@ -1,0 +1,10 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: ecclesiastical-latin-analysis
+  version: 1.0.0
+  description: Analyze and translate Ecclesiastical Latin while preserving theological, canonical, liturgical, historical, and stylistic distinctions.
+  tags: [catholic, latin, language, liturgy]
+spec:
+  principles: [preserve-technical-meaning, distinguish-classical-medieval-ecclesiastical-usage, context-before-translation]
+  procedure: [parse-syntax, identify-technical-terms, produce-literal-rendering, produce-idiomatic-rendering, explain-context-and-variants, flag-ambiguity]
