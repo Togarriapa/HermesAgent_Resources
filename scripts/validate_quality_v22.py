@@ -19,7 +19,26 @@ REQUIRED_EFFECTIVE_PATHS: dict[str, tuple[str, ...]] = {
     "Webhook": ("contract", "safety", "privacy", "reliability", "observability", "replayProtection", "deduplication", "limits", "routing", "validation", "failureHandling", "policy"),
     "Bundle": ("contract", "safety", "privacy", "reliability", "observability", "purpose", "composition", "recruitment", "authority", "deliberation", "lifecycle"),
 }
-SKILL_METHOD_KEYS = {"principles", "procedure", "steps", "method", "checks", "rules", "workflow", "playbook", "guidelines", "process", "criteria", "techniques", "framework", "responsibilities"}
+SKILL_METHOD_KEYS = {
+    "principles",
+    "procedure",
+    "steps",
+    "method",
+    "checks",
+    "rules",
+    "workflow",
+    "playbook",
+    "guidelines",
+    "process",
+    "criteria",
+    "techniques",
+    "framework",
+    "responsibilities",
+    "instructions",
+    "lifecycle",
+    "states",
+    "itemTypes",
+}
 PROFILE_ROLE_KEYS = {"instructions", "responsibilities", "principles", "role", "scope", "workflow", "method"}
 
 
@@ -85,7 +104,7 @@ def direct_manifest_checks(rel: str, kind: str, name: str, doc: dict[str, Any]) 
         if not (set(spec) & SKILL_METHOD_KEYS):
             errors.append(f"{rel}: Skill needs direct domain method content")
     elif kind == "Plugin":
-        if not any(key in spec for key in ("provider", "endpoint", "command", "runtime")):
+        if not any(key in spec for key in ("provider", "endpoint", "command", "runtime", "adapters")):
             errors.append(f"{rel}: Plugin must declare provider/endpoint/runtime surface")
     elif kind == "MCP":
         if not spec.get("transport") or not any(key in spec for key in ("endpoint", "command", "image")):
@@ -169,8 +188,8 @@ def main() -> int:
         print(f"Quality discovery failed: {exc}", file=sys.stderr)
         return 1
 
-    if (cat.get("metadata") or {}).get("version") != "2.3.0":
-        errors.append("catalog.yaml: current quality validation expects catalog version 2.3.0")
+    if (cat.get("metadata") or {}).get("version") != "2.3.1":
+        errors.append("catalog.yaml: current quality validation expects catalog version 2.3.1")
     application = policy.get("application") or {}
     if application.get("scope") != "every-catalog-resource":
         errors.append("QUALITY_POLICY.yaml: policy must apply to every catalog resource")
