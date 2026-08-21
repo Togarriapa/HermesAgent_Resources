@@ -75,6 +75,38 @@ Recruit against the active generation, resolve the recruited Profile's own depen
 
 Before exposing a Plugin/MCP, resolve reviewed source/version, restrict network/process/filesystem scope, inject only required credentials, health-check it, expose only approved operations, enforce timeout/retry/rate policy, audit with redaction and revoke/stop cleanly when no longer needed.
 
+## Authentik-gated homelab operations
+
+The live runtime must implement Authentik as the authoritative identity/group decision point for Hermes-managed infrastructure. The authenticated Hermes session principal is mapped to an active Authentik user; infrastructure-changing calls proceed only when a fresh lookup confirms effective membership in the Authentik group `System`, including indirect membership inherited through group hierarchy.
+
+This check occurs **before the target Plugin/MCP/broker call**. Prompt claims, request parameters, prior Hermes roles, cached membership, static ACL copies, Bundle membership, schedule/webhook context or a previous successful authorization must not satisfy it. Authentik lookup failure, identity mismatch, group ambiguity or unverified membership fails closed.
+
+Infrastructure alarm delivery is a separate authorization path. The runtime resolves the current effective `System` membership at send time and routes the user-visible alarm through Hermes only to those verified users. A scheduled health review may discover incidents but never gains remediation authority from the schedule.
+
+Required runtime references for the new resources are intentionally secret-free in the registry and should be provisioned by the host:
+
+```text
+AUTHENTIK_BASE_URL
+AUTHENTIK_API_TOKEN
+AUTHENTIK_SYSTEM_GROUP_ID
+HOMELAB_OPS_BROKER_URL
+HOMELAB_OPS_BROKER_TOKEN
+HERMES_HOST_TARGET_ID
+NEXTCLOUD_HOST_TARGET_ID
+CLOUDFLARE_API_TOKEN
+CLOUDFLARE_ACCOUNT_ID
+CLOUDFLARE_ZONE_ID
+CLOUDFLARE_TUNNEL_HA_ID
+CLOUDFLARE_TUNNEL_NC_ID
+CLOUDFLARE_TUNNEL_HR_ID
+```
+
+The Authentik credential is read-only and limited to principal/user/group lookup needed for effective membership checks. The homelab broker is an allowlisted operations surface: no raw SSH, arbitrary shell/command, arbitrary `occ`, arbitrary Docker/systemd target or unrestricted filesystem path is exposed. The Cloudflare token is scoped to the required zone/tunnel resources and minimum read/edit permissions needed by the enabled operations.
+
+Home Assistant remains the smart-home/device automation control plane. Hermes may use the existing Home Assistant MCP for authorized context/control, but this homelab operations layer does not duplicate Starlink polling, routine HA device automations or HA-owned backup schedules.
+
+System membership is necessary, not sufficient, for risky work. Existing explicit confirmation, rollback, verification and destructive-action policy still applies after the group check.
+
 ## Crons and Webhooks
 
 The runtime maintains idempotency/dedup/replay stores, overlap/misfire policies, bounded retry, payload validation and exact authority checks. User-visible outcomes route through Hermes.
@@ -121,6 +153,8 @@ Eligible agents reuse the approved host-managed Codex authentication location/re
 
 Do not mark a generation active until requested resources/dependencies resolve, raw/effective validation passes, Hermes-only topology holds, unauthorized capabilities are absent, required providers are healthy, secrets remain protected, needed isolation exists, relevant smoke tests pass and a rollback target is retained.
 
+For the homelab capability specifically, acceptance also requires successful trusted-principal binding, direct and indirect `System` membership tests, negative non-`System` mutation tests, Authentik-failure fail-closed tests, System-only alarm delivery tests, broker operation/target allowlist tests, and Cloudflare scope tests.
+
 ## Audit and rollback
 
-Record source commit/catalog/policy/resource versions, applied overlays, host-policy revision, dependency/provider/credential references, acceptance outcome, activation time and rollback target—without secret values. This allows the Pi runtime to reproduce and diagnose effective behavior rather than relying on undocumented prompt state.
+Record source commit/catalog/policy/resource versions, applied overlays, host-policy revision, dependency/provider/credential references, acceptance outcome, activation time and rollback target—without secret values. Infrastructure audit records additionally include trusted principal ID, fresh authorization decision, target/operation, confirmation reference when applicable, verification result and alarm-delivery authorization outcome without copying secret or unnecessary identity data.
