@@ -1,61 +1,55 @@
-# Capability Coverage — Registry v2.2
+# Capability Coverage
 
-The registry combines the v2.1 breadth expansion with v2.2 effective-quality hardening and specialist additions.
+This is the canonical current capability map. Individual manifest YAML files remain authoritative for exact dependencies, instructions, versions, tools, and permissions. Use `python scripts/render_registry_reference.py` for a live manifest-derived Profile/integration table.
 
 ## HermesAgent, software, data and AI
 
-Coverage includes HermesAgent runtime/provisioner expertise; software development; systems/infrastructure/network/SRE/database/security; data science/engineering/analytics; AI/ML; AI application development; AI architecture; prompt engineering; multi-agent orchestration; evaluation; LLMOps; AI safety/reliability; and knowledge/retrieval engineering.
+HermesAgent runtime/provisioner expertise; general/backend/frontend/web/DevOps development; systems architecture; network/SRE/database/infrastructure; cybersecurity/privacy engineering; data engineering/science/analytics; AI/ML application development; AI systems architecture; prompt engineering; agent orchestration; evaluation; LLMOps; AI safety/reliability; retrieval and knowledge engineering.
 
-## Product, operations, people and decisions
+## Product, operations, people and career
 
-Coverage includes product management, requirements/business analysis, COO/operations, people operations/HR, recruiting, procurement/vendor management, negotiation/conflict resolution, project/agile disciplines, decision science, executive leadership, and improvement management.
+Product management/research, business analysis/requirements, COO/operations, project/agile/scrum, improvement management, HR/people operations, recruiting, procurement/vendor management, negotiation/conflict resolution, remote-work optimization, career advising/development, executive leadership, and decision science.
 
 ## Finance, accounting and investment
 
-Coverage includes Portuguese/international accounting, finance leadership, financial planning, wealth/portfolio/asset/stocks/crypto/real-estate management, specialist investment research, independent risk analysis, read-only financial data stewardship, explicit-order execution, live-wallet control, and autonomous testnet experimentation.
+Portuguese/international accounting, CFO/financial planning, wealth/portfolio/asset/stocks/crypto/real-estate management, investment research and independent risk analysis, normalized financial data stewardship, explicit-order real-money execution, Ledger/live-wallet control, and autonomous testnet experimentation.
 
 ## Law, privacy and governance
 
-Coverage includes Portuguese, EU, international, employment, privacy/GDPR, estate/succession, compliance, ethics, and source-verification roles, with licensed/legal authority boundaries preserved.
+Portuguese, EU, international and employment-law research; GDPR/privacy; estate/succession; insurance; ethics; fact checking/source verification; and privacy/security engineering. Licensed representation or professional sign-off is not implied.
 
 ## Home, property, resilience and fabrication
 
-Coverage includes home maintenance and trades research, energy/solar, water/wastewater, emergency preparedness, building biology/pests, automotive maintenance, architecture, 3D design/printing, robotics/mechatronics, smart-home/IoT, and homelab operation.
+Preventive home maintenance; plumbing/appliances/carpentry/finishes/roofing/drainage/grounds/home comfort; building architecture; energy/solar; water/wastewater; emergency preparedness; arboriculture; building biology/pests; automotive maintenance; Home Assistant/smart-home/IoT; electrical/mechanical/robotics engineering; 3D CAD/modeling/optimization/printing.
 
-## Farm, agriculture and traditional land systems
+## Farm, agriculture, food and traditional living
 
-Coverage includes farming/agronomy, farm planning, horticulture/orchards, livestock husbandry/health navigation, machinery, weather, homesteading, Amish farming systems, and ancient agricultural history.
+Farm planning/management, agriculture/agronomy, horticulture/orchards, livestock navigation, farm machinery, irrigation/water, weather, homesteading, cooking and food preservation. Amish coverage includes lifestyle, remedies, construction, farming, housekeeping, cooking and preservation while preserving community/affiliation/region variation. Ancient-tradition coverage is civilization/place/period/source specific and labels attested, inferred, reconstructed and speculative material.
 
-## Health, food and traditional remedies
+## Health, traditional remedies and fitness
 
-Coverage includes nutrition, general fitness, evidence-aware traditional remedies, herbalism/ethnobotany, historical materia medica, natural lifestyle education, traditional foodways, Amish remedies, and ancient remedy traditions.
+Nutrition; traditional-remedy research; herbalism/ethnobotany; historical materia medica; natural-lifestyle education; traditional foodways; Amish/ancient remedy research; general fitness; bodybuilding/hypertrophy; calisthenics; powerlifting; strength/conditioning; mobility/flexibility; endurance; prenatal/postpartum; senior and youth fitness.
 
-Traditional/natural remedy roles do not diagnose or prescribe, and cultural/historical use is separated from clinical evidence and modern safety.
+Traditional-use claims are separated from modern evidence. Remedy roles do not diagnose/prescribe or advise delaying effective/urgent care. Fitness roles use symptom-aware progression/referral; pregnancy/postpartum clinician restrictions and youth safeguarding are hard boundaries.
 
-## Fitness and physical preparation
+## Education, children, family and social sciences
 
-Coverage includes general fitness, bodybuilding/hypertrophy, calisthenics, powerlifting, strength and conditioning, mobility/flexibility, endurance, prenatal/postpartum fitness, senior fitness, youth fitness, nutrition support, and exercise safety.
-
-## Education, children and family
-
-Coverage includes curriculum/homeschooling, homeroom, mathematics, science, literacy, language, history, music, theology, child development, SEN, safeguarding, and family/school support.
+Curriculum/homeschooling, homeroom, mathematics, science, literacy, languages, history, music, theology, child development, SEN, safeguarding, psychology, sociology, anthropology, culture, philosophy, debate/dissent analysis, Catholic relationship/family guidance, and Portuguese/Sicilian/Spanish/German Catholic family perspectives.
 
 ## Catholic theology, tradition and liturgy
 
-Coverage includes Scripture, theology, Magisterium, Catholic history, traditional family guidance, regional Catholic family perspectives, Catholic relationships, Traditional Latin Mass, Roman Rite history, pre-Vatican-II practice, devotions/sacramentals, Gregorian chant/sacred music, calendar/fasting discipline, Patristics, and Ecclesiastical Latin.
+Scripture, theology, Magisterium, Catholic history, tradition, family guidance, prayer planning/writing, Traditional Latin Mass, Roman Rite liturgical history, pre-Vatican-II practice, devotions/sacramentals, Gregorian chant/sacred music, calendar/fasting/abstinence, Patristics/Church Fathers, and Ecclesiastical Latin. Outputs distinguish doctrine, discipline, liturgical law, historical practice, devotion/custom, opinion and current jurisdiction.
 
-## Amish domestic/cultural systems
+## Research, information and language
 
-Coverage includes Amish lifestyle, remedies, construction, farming, housekeeping, cooking, and food preservation. Affiliation/community/region differences are preserved rather than collapsed into a stereotype.
+General/scientific research, evidence synthesis, misinformation/media literacy, historical method, knowledge management/archive work, professional European Portuguese↔English translation, writing/editing, and source-integrity procedures.
 
-## Ancient traditions and material culture
+## Ebook publishing and Kobo
 
-Coverage includes civilization-specific ancient lifestyle, remedies, construction, agriculture, housekeeping/domestic life, cooking/foodways, preservation, crafts, and material culture. Outputs label what is attested, inferred, reconstructed, or speculative.
+Ebook Planner, Writer, Editor/Publisher, Designer and Converter cover architecture, long-form drafting, editing/proofing, reflowable design, metadata, EPUB/PDF conversion and validation. Kobo Library & Notebook Specialist can ingest **user-exported** notebook files, synthesize them with provenance, and stage validated non-DRM EPUB/PDF files to an approved Dropbox/Google Drive/USB path on explicit request. Model capability is detected rather than assumed; unsupported cloud workflows fall back to USB/manual steps.
 
-## Research, humanities and information integrity
+## Integrations and automation
 
-Coverage includes scientific research, fact checking, misinformation/media literacy, history, philosophy, psychology, sociology, anthropology, culture, debate/dissent analysis, knowledge management, evidence synthesis, and professional PT↔EN translation.
+GitHub, web research, Composio, filesystem/GitHub/Home Assistant MCP, Home Assistant/Wyoming voice, WhatsApp Business, Cloudflare/GitHub webhooks, scheduled resource reconciliation, ebook conversion tools, and Kobo export/sideload bridge are bounded by host policy and per-resource declarations.
 
-## v2.2 expansion details
-
-See `CAPABILITY_EXPANSION_V22.md`, `PROFILE_MATRIX_V22.md`, and `INTEGRATION_MATRIX_V22.md` for the new 47 Profiles, 43 Skills, and 7 Bundles.
+GitHub Actions provide PR validation, semantic-version/catalog consistency checks, weekly maintenance audits, dependency-update PRs, and optional signed notification to Hermes after a validated `main` update.

@@ -21,7 +21,6 @@ spec:
     canonicalIdentity: metadata
   qualityPolicyFiles:
     - QUALITY_POLICY.yaml
-    - QUALITY_POLICY_EXPANSION_V22.yaml
   policy:
     duplicateKindNameVersion: deny
     malformedManifest: fail-closed

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 
-from registry_lib import ROOT, effective_spec, load_quality_policy, load_yaml, resolve_inherited_spec, discover_resources
+from registry_lib import effective_spec, load_quality_policy, resolve_inherited_spec, discover_resources
 
 CASES = {
     "profiles/systems-architect.yaml": {"must": {"software-data-infrastructure"}, "must_not": {"physical-engineering-property-farm", "translation"}},
@@ -24,6 +24,8 @@ CASES = {
     "profiles/traditional-latin-mass-expert.yaml": {"must": {"catholic"}, "must_not": {"health-psychology-nutrition"}},
     "profiles/prenatal-postpartum-fitness-coach.yaml": {"must": {"health-psychology-nutrition", "pregnancy-postpartum-fitness", "specialized-fitness"}, "must_not": {"traditional-remedies"}},
     "profiles/powerlifting-coach.yaml": {"must": {"health-psychology-nutrition", "specialized-fitness"}, "must_not": {"pregnancy-postpartum-fitness"}},
+    "profiles/kobo-library-notebook-specialist.yaml": {"must": {"ebook-kobo"}, "must_not": {"finance-investment", "health-psychology-nutrition"}},
+    "profiles/ebook-converter.yaml": {"must": {"ebook-kobo"}, "must_not": {"finance-investment"}},
 }
 
 
@@ -39,8 +41,8 @@ def main() -> int:
             continue
         doc = item["doc"]
         metadata = doc.get("metadata") or {}
-        tags_raw = metadata.get("tags") or []
-        tags = set(tags_raw) if isinstance(tags_raw, list) else set()
+        raw_tags = metadata.get("tags") or []
+        tags = set(raw_tags) if isinstance(raw_tags, list) else set()
         resolved = resolve_inherited_spec(item, resources)
         _effective, overlays = effective_spec(str(item["kind"]), str(item["name"]), tags, resolved, policy)
         actual = set(overlays)
