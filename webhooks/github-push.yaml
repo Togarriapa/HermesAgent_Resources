@@ -2,8 +2,8 @@ apiVersion: hermes.togarriapa/v1
 kind: Webhook
 metadata:
   name: github-push
-  version: 1.0.0
-  description: Authenticated GitHub push event that asks an agent to inspect relevant repository changes.
+  version: 1.0.1
+  description: Authenticated GitHub push event that requests read-oriented repository-change review without granting deployment or write authority.
   tags: [webhook, github, git]
 spec:
   path: /hooks/github/push
@@ -17,7 +17,15 @@ spec:
     allowed: [push]
   action:
     type: repository-change-review
+    mutate: false
+  replayProtection:
+    deliveryIdHeader: X-GitHub-Delivery
+    duplicateDelivery: reject-or-noop
   policy:
     rejectUnsigned: true
     deduplicateByDeliveryId: true
     deliveryIdHeader: X-GitHub-Delivery
+    authorityFromWebhookReceipt: deny
+    deploymentFromWebhookReceipt: deny
+    repositoryWriteFromWebhookReceipt: deny
+    userVisibleResultsRouteThroughHermes: true
