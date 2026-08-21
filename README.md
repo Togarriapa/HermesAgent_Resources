@@ -15,11 +15,19 @@ A versioned registry of Hermes capabilities and operating contracts. The reposit
 
 See `TOPOLOGY.md`, `ORCHESTRATION.md`, and `DELIBERATION.md`.
 
-## Registry discovery
+## Registry discovery and catalog integrity
 
 `catalog.yaml` declares eight non-recursive manifest roots: Profiles, Skills, Plugins, MCPs, Crons, Webhooks, Channels, and Bundles. Every direct `*.yaml` manifest in those roots is discovered from its own metadata; there is no duplicated hand-maintained resource list.
 
 CI verifies filename/name/kind/version consistency, dependency and inheritance selectors, deterministic catalog digest, topology/security invariants, semantic-version bumps on changed resources, and a catalog-version bump whenever the resource set changes.
+
+`PROFILE_MATRIX.md` and `INTEGRATION_MATRIX.md` remain the canonical human-readable responsibility/integration summaries. Exact current dependency tables are generated from manifests with:
+
+```bash
+python scripts/render_registry_reference.py
+```
+
+Versioned matrix supplements are forbidden.
 
 ## Effective quality
 
@@ -37,15 +45,23 @@ See `RESOURCE_QUALITY.md`, `SPEC.md`, and `SECURITY.md`.
 
 The registry covers software/infrastructure/data/AI; product/operations/people; finance/investment/accounting; law/privacy; home/property/farm; education; research/humanities; Catholic theology/tradition/liturgy; traditional and historical living/remedies; fitness; translation; architecture/fabrication; and ebook/Kobo workflows.
 
-Kobo support is based on user-exported notebooks and approved Dropbox/Google Drive/USB paths. Ebook delivery is explicit-user-order only; Kobo credential scraping, store purchasing, deletion, and DRM circumvention are denied.
+See `CAPABILITY_COVERAGE.md` and `PROFILE_MATRIX.md`.
 
-See `CAPABILITY_COVERAGE.md` for the current domain map. For an always-current Profile/Skill/integration table generated directly from manifests, run:
+## Kobo / ebook workflow
 
-```bash
-python scripts/render_registry_reference.py
-```
+Kobo support is deliberately based on documented/user-controlled transfer paths rather than an invented general Kobo API.
 
-No static versioned matrix supplements are maintained.
+Typical flow:
+
+`Kobo exported notes / Hermes results -> Kobo specialist -> Ebook Planner -> Writer -> Editor/Publisher -> Designer -> Converter -> EPUB validation -> explicit delivery to Kobo`
+
+- `kobo-bridge` handles approved user-authorized Dropbox/Google Drive/USB workflows with device capability detection.
+- `ebook-toolchain` supplies host-managed conversion, packaging and EPUB validation.
+- Notebook ingestion is exported/authorized-file only and preserves notebook/page provenance.
+- Outbound ebook delivery requires an explicit user order and successful artifact validation.
+- Kobo credential scraping, store purchasing, destructive library actions and DRM circumvention are denied.
+
+See `INTEGRATION_MATRIX.md` for the canonical integration boundary.
 
 ## Financial and crypto separation
 
@@ -53,17 +69,20 @@ Research/management Profiles may analyse and recommend. Real-value execution sta
 
 ## Resource evolution and update notifications
 
-GitHub CI validates registry changes. After a successful validation run on `main`, an optional workflow can send a signed `registry-update-available` event to the live Hermes runtime. The event is **notification, not authority**: Resource Evolution Manager must fetch the immutable commit, validate/materialize it, rebase private/local overlays, compare permission surfaces, and classify it as import-ready or quarantined before activation.
+GitHub CI validates registry changes. After a successful validation run on `main`, an optional workflow can send an HMAC-signed `registry-update-available` event to the live Hermes runtime. The event is **notification, not authority**: Resource Evolution Manager must fetch the immutable commit, validate/materialize it, rebase private/local overlays, compare permission surfaces, and classify it as import-ready or quarantined before activation.
 
 See `RESOURCE_EVOLUTION.md` and `RUNTIME_IMPORT.md`.
 
-## Kobo / ebook workflow
+## GitHub quality automation
 
-Typical flow:
+- `.github/workflows/validate.yml` — PR/main quality gate.
+- `.github/workflows/registry-maintenance.yml` — scheduled/manual deep registry audit.
+- `.github/workflows/notify-hermes.yml` — signed update-available notification after validated `main` changes.
+- `.github/dependabot.yml` — weekly GitHub Actions dependency updates.
+- `scripts/check_catalog_consistency.py` — deterministic discovery/count/digest audit.
+- `scripts/check_pr_quality.py` — semantic-versioning, catalog-version, canonical-doc and link hygiene checks.
 
-`Kobo exported notes -> Kobo Library & Notebook Specialist -> Ebook Planner -> Writer -> Editor/Publisher -> Designer -> Converter -> EPUB validation -> explicit delivery to Kobo`
-
-The `kobo-bridge` uses approved user-authorized cloud connections where the configured Kobo model supports them, with USB sideload/export fallback. The `ebook-toolchain` uses host-managed conversion/validation tools and keeps source artifacts intact.
+Repository branch protection should require the validation workflow before merge.
 
 ## Resource layout
 
@@ -82,20 +101,23 @@ The `kobo-bridge` uses approved user-authorized cloud connections where the conf
 
 ## Canonical documentation
 
+Keep these living documents current instead of adding versioned supplements:
+
+- `README.md` — repository overview
 - `SPEC.md` — manifest/discovery/composition contract
 - `TOPOLOGY.md` — user/channel/session routing
 - `ORCHESTRATION.md` — work packaging, teams and execution
 - `DELIBERATION.md` — internal debate and Hermes response contract
+- `PROFILE_MATRIX.md` — Profile responsibility/boundary map
+- `INTEGRATION_MATRIX.md` — integration/authority map
+- `CAPABILITY_COVERAGE.md` — current domain coverage
 - `RESOURCE_QUALITY.md` — completeness requirements
 - `RESOURCE_EVOLUTION.md` — updates and learned overlays
 - `RUNTIME_IMPORT.md` — provisioner/import lifecycle
-- `EXTERNAL_INTEGRATIONS.md` — integration admission and provider rules
+- `EXTERNAL_INTEGRATIONS.md` — integration admission/provider rules
 - `SECURITY.md` — security boundary and secrets
 - `FINANCIAL_ACCESS.md` / `INVESTMENT_GOVERNANCE.md` — financial domain
-- `CAPABILITY_COVERAGE.md` — current capability map
 - `CONTRIBUTING.md` — change and PR rules
-
-Update these canonical files when behavior changes; do not add versioned supplement documents.
 
 ## Validation
 
