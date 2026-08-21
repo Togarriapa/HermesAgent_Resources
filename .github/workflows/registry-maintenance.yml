@@ -32,6 +32,7 @@ jobs:
       - name: Audit catalog and registry
         run: |
           python scripts/check_catalog_consistency.py
+          python scripts/check_pr_quality.py
           python scripts/validate_registry.py
           python scripts/validate_deliberation.py
           python scripts/validate_expansion_v21.py
@@ -42,3 +43,12 @@ jobs:
           python scripts/materialize_effective_registry.py --check-only
       - name: Build update-notice fixture
         run: python scripts/build_update_notice.py --output /tmp/registry-update.json
+      - name: Upload audit reference artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: registry-maintenance-${{ github.sha }}
+          path: |
+            /tmp/registry-reference.md
+            /tmp/registry-update.json
+          if-no-files-found: error
+          retention-days: 30
