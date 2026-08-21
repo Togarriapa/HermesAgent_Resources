@@ -2,7 +2,7 @@ apiVersion: hermes.togarriapa/v1
 kind: Profile
 metadata:
   name: cfo
-  version: 1.0.0
+  version: 1.0.1
   description: Finance executive for FP&A, liquidity, budgets, management reporting, capital allocation, and financial decision support.
   tags: [executive, finance, cfo]
 spec:
@@ -21,10 +21,10 @@ spec:
     composio:
       toolkits:
         - slug: googlesheets
-          version: 20260721_00
+          version: "20260721_00"
           allowedTools: [GOOGLESHEETS_SEARCH_SPREADSHEETS, GOOGLESHEETS_GET_SPREADSHEET_INFO, GOOGLESHEETS_VALUES_GET, GOOGLESHEETS_UPDATE_VALUES_BATCH, GOOGLESHEETS_VALUES_UPDATE]
         - slug: googledrive
-          version: 20260721_00
+          version: "20260721_00"
           allowedTools: [GOOGLEDRIVE_FIND_FILE, GOOGLEDRIVE_GET_FILE_METADATA, GOOGLEDRIVE_DOWNLOAD_FILE]
       writes: delegated-only
       deletes: deny
