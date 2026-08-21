@@ -1,0 +1,10 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: strength-conditioning
+  version: 1.0.0
+  description: Develop strength, power, speed, and conditioning using task-specific programming, progressive loading, and fatigue management.
+  tags: [fitness, strength, conditioning, athletic]
+spec:
+  principles: [goal-specificity, quality-repetitions, progressive-load, energy-system-specificity]
+  procedure: [assess-performance-demands, select-strength-and-power-patterns, prescribe-conditioning, plan-progression, monitor-fatigue, adjust-and-retest]

@@ -1,112 +1,167 @@
 # Investment and Wealth Governance
 
-The financial/investment domain is an internal decision-support and explicitly authorized execution system under the normal Hermes topology:
+The investment domain is an internal decision-support system plus separately authorized execution under the normal Hermes topology:
 
-`User <-> Hermes <-> Orchestrator <-> Wealth / Investment / Execution Profiles`
+`User <-> Hermes <-> Orchestrator <-> Wealth / Investment / Risk / Execution Profiles`
+
+Research depth, team size, and internal debate can increase analytical quality; they never increase transaction authority.
 
 ## Role hierarchy
 
-- **Financial Advisor** — goals, constraints, risk capacity, liquidity and investment-policy planning.
+Management/advisory responsibilities are intentionally separated:
+
+- **Financial Advisor** — goals, constraints, risk capacity, liquidity, liabilities, and investment-policy planning.
 - **Wealth Manager** — coordinates the whole wealth picture and recruits accounting/legal/investment specialists.
-- **Portfolio Manager** — portfolio construction, allocation, rebalancing, performance and portfolio-level risk.
+- **Portfolio Manager** — portfolio construction, allocation, rebalancing design, performance and portfolio-level risk.
 - **Asset Manager** — mandate, external-manager and asset oversight.
 - **Stocks Manager** — public-equity portfolio domain.
 - **Cryptocurrency Manager** — digital-asset portfolio domain.
-- **Real Estate Manager** — real-estate investment portfolio domain.
-- **Financial Data Steward** — bank/broker/exchange/Ledger aggregation, normalization, freshness and reconciliation.
-- **Financial Execution Operator** — executes one exact real-money action only from an explicit user order and fresh confirmation.
-- **Crypto Live Wallet Operator** — operates the dedicated Hermes real-value wallet under the same explicit-order gate.
-- **Crypto Sandbox Operator** — autonomous testnet wallet experimentation only; never production custody.
+- **Real Estate Manager** — real-estate investment domain.
+- **Financial Data Steward** — account/portfolio aggregation, normalization, freshness, reconciliation and data-quality ownership.
+- **Financial Execution Operator** — executes one exact real-money action only from explicit user order + fresh confirmation.
+- **Crypto Live Wallet Operator** — operates the dedicated Hermes live wallet under the same one-shot gate.
+- **Crypto Sandbox Operator** — autonomous approved-testnet experimentation only.
 
-Analysts/researchers provide independent specialist evidence rather than inheriting execution authority:
+Analysts/researchers own independent evidence rather than inheriting execution authority: Investment Research, Equity, Fixed Income, Macroeconomic, Quantitative Investment, Investment Risk, Crypto Asset, Blockchain, and Real Estate Investment Analysts/Researchers.
 
-- Investment Research Analyst
-- Equity Analyst
-- Fixed Income Analyst
-- Macroeconomic Analyst
-- Quantitative Investment Analyst
-- Investment Risk Analyst
-- Crypto Asset Analyst
-- Blockchain Researcher
-- Real Estate Investment Analyst
+## Investment decision record
+
+A material recommendation should have enough structure to be challenged and revisited. The internal decision record should capture, where relevant:
+
+- user objective and investment-policy constraint;
+- time horizon and liquidity requirements;
+- current holdings/exposures and data timestamp;
+- proposed change or conclusion;
+- thesis and key evidence with source dates;
+- valuation/return assumptions;
+- fees, taxes and implementation frictions where known;
+- concentration/liquidity/leverage/counterparty/custody/currency/regulatory risks;
+- base/upside/downside or other relevant scenarios;
+- material counterarguments/disconfirming evidence;
+- thesis-break/reconsideration conditions;
+- confidence/uncertainty and known data limitations;
+- independent risk challenge;
+- whether the result is research, recommendation, prepared action, or executed action.
+
+A decision record is not standing authority to trade.
 
 ## Independent research and challenge
 
-Material decisions should recruit the smallest competent research set. Independent work may run in parallel. Investment Risk Analyst should remain separate from the thesis owner for material portfolio decisions and should actively test concentration, liquidity, leverage, counterparty, custody, currency and tail-risk assumptions.
+Material decisions should recruit the smallest competent research set and preserve role independence. Parallel research is encouraged when assets/sectors/questions are independent.
 
-Research outputs should preserve source provenance, dates, assumptions, scenarios, counterarguments, uncertainty and thesis-break conditions. Historical returns, backtests and forecasts must not be represented as guaranteed future performance.
+Investment Risk Analyst should remain separate from the thesis owner for material portfolio decisions and actively challenge:
+
+- concentration/correlation and hidden common factors;
+- drawdown/tail risk;
+- liquidity/market depth and exit assumptions;
+- leverage/margin/liquidation paths;
+- counterparty/custody/exchange/wallet risk;
+- currency/rates/inflation/regime exposure;
+- model/backtest/valuation assumptions;
+- implementation/tax/fee drag;
+- data freshness and unobserved liabilities/locked assets.
+
+For contested recommendations, Orchestrator may recruit Debate Analyst and use the normal deliberation protocol. A majority of bullish analysts does not make the thesis correct.
+
+## Evidence standards
+
+Current market, issuer, regulatory, protocol, tax, and property facts should be refreshed before materially relying on them. Prefer primary sources such as official filings, regulators, central banks/statistical authorities, issuer/protocol documentation, audited reports, official exchange/broker data, and authoritative legal/tax sources.
+
+Separate:
+
+- observed facts;
+- provider/source claims;
+- analyst estimates;
+- model outputs;
+- forecasts;
+- assumptions;
+- opinion/judgment.
+
+Publication date and the date the underlying event/data applies to should be distinguished where relevant.
+
+Historical returns, backtests and forecasts must not be presented as guaranteed future performance. Quantitative work must explicitly guard against survivorship bias, look-ahead bias, leakage, overfitting, inappropriate regime selection, stale constituents, and unrealistic transaction costs/slippage.
+
+## Portfolio governance
+
+Portfolio proposals should be evaluated against an explicit mandate/policy rather than one asset in isolation. Consider:
+
+- strategic allocation/risk budget;
+- diversification and concentration limits;
+- liquidity reserves and known cash needs;
+- position sizing and maximum loss logic;
+- rebalancing rationale/thresholds;
+- tax/fee/turnover implications;
+- currency and jurisdiction exposure;
+- custody/operational constraints;
+- scenario and stress behavior;
+- monitoring and reconsideration triggers.
+
+A recommendation that violates the current mandate should be described as a proposed **policy change**, not disguised as ordinary rebalancing.
 
 ## Read-only financial account access
 
-`financial-data-hub` may ingest read-only observations from:
+`financial-data-hub` may ingest scoped observations from configured providers such as regulated PSD2 AISP connections, Trading 212 read credentials, Pionex `Read`, Ledger `account.list`, and other reviewed read sources.
 
-- Revolut, Banco BPI and moey through regulated PSD2 Account Information Service Provider connections, subject to provider/institution coverage and user consent;
-- Trading 212 through a permission-scoped read key;
-- Pionex through a `Read` key;
-- Ledger through Ledger Wallet API `account.list`.
+`financial-data-steward` normalizes those observations for recruited finance specialists. Raw passwords, PINs, MFA secrets, API secrets, private keys, seed phrases, recovery codes and signing secrets remain outside Profile-visible context.
 
-`financial-data-steward` normalizes those observations for internal finance specialists. Raw passwords, PINs, MFA secrets, API secrets, Ledger private keys, seed phrases, recovery codes and signing secrets remain outside Profile-visible context.
+Data freshness, pending/unsettled activity, valuation provenance, locked assets, liabilities, and reconciliation status should be visible enough that analysts do not mistake an incomplete snapshot for current net wealth or immediately spendable liquidity.
 
 ## Explicit-order real-money execution
 
-`financial-execution-gateway@1.0.0` is write-capable for supported providers, but it is not autonomous. Every action requires an explicit user order routed through Hermes plus a fresh confirmation of the exact final payload.
+`financial-execution-gateway` is write-capable but non-autonomous. Every real-money action requires explicit user order through Hermes and fresh confirmation of the exact final normalized payload.
 
-Configured write paths include:
+The authorization is one-shot, time-limited, payload-bound, and cannot be converted from a strategy/recommendation or reused after material parameter changes.
 
-- bank payment initiation through a regulated PISP adapter for supported Revolut/BPI/moey payment flows;
-- Trading 212 live Market, Limit, Stop and Stop-Limit orders plus pending-order cancellation using a separate execution credential;
-- Pionex order placement/cancellation using a separate key with `Trade` permission;
-- Ledger `transaction.sign` / `transaction.signAndBroadcast` with Ledger hardware/on-device confirmation.
+The Financial Execution Operator executes exactly the confirmed action. It cannot optimize size, substitute an asset, change recipient/price, split into additional actions, create follow-ons, or infer permission from past approvals.
 
-The authorization is one-shot, expires after five minutes, cannot be wildcarded or reused, and is bound to provider, account, operation, recipient/instrument, side, amount/quantity, currency, and price/limit when applicable.
+Supported execution paths remain separately scoped in `FINANCIAL_ACCESS.md`; unsupported/account-admin/withdrawal/arbitrary-signing/property-contract capabilities remain denied unless a future explicitly reviewed resource adds them.
 
-The Financial Execution Operator executes exactly the confirmed action. It cannot optimize size, substitute an asset, change a recipient, split an order, retry with changed parameters, create follow-on transactions, or infer permission from a strategy or recommendation.
+## Execution separation and conflicts
 
-Still denied without a separate future capability:
+A Profile that originates a thesis/recommendation should not also silently act as its execution authority. The execution operator validates authorization/payload and performs the action; it does not re-underwrite the investment thesis or improve the trade.
 
-- autonomous real-money execution;
-- broker/bank account administration;
-- beneficiary administration;
-- withdrawals or transfers from Pionex;
-- arbitrary Ledger message signing;
-- handling user private keys, seed phrases, recovery codes or signing secrets;
-- property purchase/sale/financing/title/contract execution.
+Execution success is reconciled against provider/account state before dependent actions proceed. Ambiguous provider failures are not blindly retried.
 
-See `FINANCIAL_ACCESS.md` for provider-specific details.
+See `FINANCIAL_ACCESS.md` for the one-shot execution state machine, idempotency, credential lifecycle, and reconciliation rules.
 
 ## Dedicated Hermes live wallet
 
-`agent-live-wallet@1.0.0` defines a separate real-value wallet owned for Hermes use. Its key material is generated locally and stays in the host encrypted secret boundary; it is never derived from or mixed with the user's Ledger or other wallets.
+The Hermes live wallet is a separate real-value wallet whose key material stays in the encrypted host secret boundary and is never mixed with the user's Ledger/other wallet secrets.
 
-The wallet may receive real assets and may construct, simulate, sign and broadcast transactions on an explicit configured network allowlist. Real-value signing, however, requires an explicit user order plus fresh confirmation for every transaction. The agent may independently research opportunities, monitor state and prepare transaction proposals, but it cannot autonomously commit real economic value.
+The agent may research, monitor, model, simulate and prepare mainnet transactions independently. Signing/broadcast of real economic value remains explicit-order + fresh-confirmation gated for every action.
 
-This restriction is intentional and does not apply to the separate testnet sandbox.
+Before a proposed blockchain action is confirmed, material review should consider network/chain ID, target address/contract, calldata intent, token approval scope, slippage/price impact, gas/fees, nonce/current wallet state, bridge/protocol/counterparty risk, and available simulation/security evidence.
 
 ## Agent crypto sandbox
 
-`agent-sandbox-wallet` may autonomously sign and send transactions using faucet/test assets on approved public test networks. The sandbox currently permits Ethereum Sepolia and Solana Devnet and rejects mainnet, real-value deposits, fiat on-ramps, production exchange funding, mainnet bridges, production wallet connections, and imported user wallet secrets.
+`agent-sandbox-wallet` may autonomously transact only with test assets on approved public testnets such as Ethereum Sepolia and Solana Devnet. Testnet authority is isolated and cannot be reused for real accounts/wallets.
 
-Sandbox authority must never be reused for the user's Ledger, Pionex, Trading 212, bank accounts, or the Hermes live wallet.
+Testnets reduce economic risk but not all cybersecurity risk. Arbitrary testnet contracts/dApps may still be malicious, so security/source review remains relevant to code/wallet safety.
+
+## Monitoring and thesis lifecycle
+
+A recommendation is not permanent truth. Material theses/allocations should define monitoring signals and reconsideration triggers such as:
+
+- thesis-break events;
+- material valuation change;
+- earnings/issuer/protocol/regulatory change;
+- liquidity/custody/counterparty deterioration;
+- user objective/liability/horizon change;
+- concentration/risk-limit breach;
+- model/data-quality deterioration.
+
+Monitoring should surface a changed decision context to Hermes/Orchestrator; it does not create autonomous execution permission.
 
 ## Professional and jurisdiction boundaries
 
-Financial planning, investment management, securities activity, tax, legal, estate, insurance and property transactions may be regulated differently by jurisdiction. Profiles must distinguish general research/planning from activities requiring licensed or regulated professionals.
+Financial planning, portfolio management, securities, tax, legal, estate, insurance, banking/payment, crypto, and property activities may be regulated differently by jurisdiction.
 
-- Portuguese tax/accounting questions can recruit Accountant — Portugal.
-- International accounting questions can recruit Accountant — International.
-- Portuguese legal questions can recruit Portuguese Law Specialist.
-- Cross-border/international legal questions can recruit International Law Specialist.
-
-The appropriate qualified professional should be involved when licensing, fiduciary duties, suitability, regulated advice, filings, contracts, title, tax treatment or other material jurisdiction-specific obligations require it.
+Profiles must distinguish research/planning from activities requiring regulated/licensed professionals, suitability/fiduciary obligations, filings, contracts, tax treatment, title, or other professional responsibility. Recruit the relevant Accounting, Portuguese/EU/International Law, Insurance, Privacy/Regulatory, or qualified human professional where necessary.
 
 ## Team bundles
 
-- `wealth-investment-team` — overall wealth/portfolio planning and risk.
-- `public-markets-team` — equities, fixed income, macro, quant and risk.
-- `digital-assets-team` — crypto portfolio, protocol, custody and cybersecurity analysis.
-- `real-assets-team` — real estate, asset oversight, property-condition and risk analysis.
-- `financial-data-team` — financial source aggregation plus wealth/portfolio/risk interpretation.
-- `financial-execution-team` — explicitly ordered one-shot real-money execution separated from recommendation roles.
-- `crypto-sandbox-team` — autonomous testnet-only wallet and blockchain experimentation.
+Existing finance/investment Bundles are starting compositions for wealth/portfolio, public markets, digital assets, real assets, financial data, explicit execution, and crypto sandbox work. Orchestrator/Team Leader may recruit additional specialists or multiple analyst instances subject to the host/resource policy.
 
-Bundles are starting compositions, not recruitment ceilings. Orchestrator and Team Leader may create multiple analyst instances for parallel research when useful, subject to host/resource policy.
+## Effective quality and audit
+
+Finance/investment resources inherit `QUALITY_POLICY.yaml` defaults/domain overlays in addition to their explicit manifests. Internal records should preserve source provenance, assumptions, dissent/risk challenge, permissions, executed-vs-proposed status, verification/reconciliation, and redacted audit metadata needed to reproduce material decisions without exposing secrets.

@@ -1,72 +1,80 @@
-# External Integration Sources
+# External Integration Governance
 
-Third-party directories are discovery inputs, not authorization sources. Runtime permissions remain local to Hermes.
+External providers are capability sources, **not authorization sources**. Connected or technically callable does not mean a Profile may use an operation; local host policy, resource declarations, account scope and action authorization remain authoritative.
 
-## Trust tiers
+## Admission lifecycle
 
-1. **First-party implementation/documentation** — preferred when available. Examples: Home Assistant MCP/Wyoming integrations and GitHub Projects/GitHub MCP.
-2. **Official protocol registry** — useful for provenance/discovery metadata, followed by source review. Example: the official MCP Registry.
-3. **Managed integration provider** — acceptable with explicit toolkit/credential scoping and version policy. Example: Composio.
-4. **Public skill index or marketplace** — discovery only until the underlying source, license, scripts, dependencies, and permissions are reviewed. Example: Agent37 Skills.
-5. **Unknown source** — do not install or execute without provenance and security review.
+Prefer first-party implementation/documentation, then official protocol registries, then reviewed managed providers. Public marketplaces are discovery only; unknown/unverifiable sources are rejected.
 
-## Composio policy
+A new or upgraded integration moves through:
 
-The shared `composio` plugin is default-deny. A profile must declare explicit toolkit and tool allowlists. Connections are user-scoped and runtime credentials stay outside Git. Remote workbench, remote bash, arbitrary proxying, and unlisted toolkits are denied.
+`discovered -> provenance-reviewed -> permission/data-flow-reviewed -> isolated-test -> approved/pinned -> deployed -> monitored -> upgraded/revoked`
 
-Production toolkit definitions are pinned to reviewed dated versions. Updating a pin is a dependency upgrade and should be reviewed for tool/schema/permission changes.
+Record source/version, transport/network destinations, credentials/account scope, exposed operations/side effects, filesystem/process access, external data flow/retention, timeout/rate/retry behavior, audit/redaction, rollback/revocation and allowed requesting resources.
 
-A toolkit connection never makes a profile user-facing; all user communication still follows `User <-> Hermes <-> Orchestrator <-> Specialists / Teams`.
+## Runtime contract
+
+- unlisted operations are denied;
+- credentials stay runtime-only and are never returned to Profiles as text;
+- operation/target/account scope is authorized per call;
+- external calls use bounded timeout/backoff/retry;
+- state-changing calls use idempotency/dedup where possible;
+- ambiguous partial failures are reconciled before retry;
+- provider request IDs are retained where available;
+- revoked/expired credentials fail closed.
+
+`QUALITY_POLICY.yaml` supplies the common restrictive Plugin/MCP behavior.
+
+## Composio
+
+The shared Composio Plugin is default-deny. Connections are user-scoped; Profiles require explicit toolkit/tool allowlists and reviewed production pins. Remote workbench, arbitrary proxy and unlisted capabilities remain denied. Connection creation is user-authorized and external writes remain delegated-only.
 
 ## WhatsApp Business
 
-WhatsApp is integrated only through a supported **WhatsApp Business** connection. The registry pins the Composio `whatsapp` toolkit version and exposes only the messaging/history/media subset required by the Hermes channel.
+WhatsApp support is Business-only through the scoped provider. Inbound/outbound traffic routes through Hermes, account administration/destructive tools are denied, and proactive outbound behavior requires delegated/template-authorized handling.
 
-Policy:
+## Home Assistant and local voice
 
-- personal WhatsApp account automation is unsupported and not used;
-- inbound and outbound routing is Hermes-only;
-- account/contact administration is denied;
-- destructive tools are denied;
-- replies to an inbound conversation may be permitted by local policy;
-- proactive outbound communication requires delegated/template-authorized behavior;
-- credentials remain runtime-only.
+Home Assistant uses least-privilege MCP exposure. The local-first Wyoming voice stack may use Speech-to-Phrase, Whisper, Piper and optional openWakeWord. Voice activation does not create Home Assistant control authority; raw audio retention/cloud fallback are denied by default.
 
-## Local voice / Home Assistant
+## GitHub and Epic Kanban
 
-Voice is standardized on Home Assistant's first-party Wyoming ecosystem and remains local-first:
+GitHub uses the smallest repository/tool/token scope required. Read-only is preferred; writes are explicit. Ephemeral GitHub Projects v2 boards may be deleted only after accepted Epic completion and archived completion summary. Project lifecycle permission does not imply repository-admin authority.
 
-- Speech-to-Phrase is preferred for constrained Home Assistant control phrases where appropriate;
-- Whisper is preferred for general assistant speech-to-text;
-- Piper is the preferred local text-to-speech engine;
-- openWakeWord may be enabled as an optional wake-word service.
+## Registry-update notification
 
-Raw audio retention and cloud fallback are denied by default. Transcripts and spoken responses still pass through the Hermes-only conversation topology. Voice capability does not grant additional Home Assistant control authority.
+After the main validation workflow succeeds, `.github/workflows/notify-hermes.yml` may send a signed `registry-update-available` event to a configured Hermes endpoint. Delivery is disabled unless repository variable `HERMES_REGISTRY_UPDATE_ENABLED=true` and both `HERMES_REGISTRY_UPDATE_URL` and `HERMES_REGISTRY_UPDATE_SECRET` secrets are configured.
 
-## Home Assistant MCP
+The notice contains an immutable commit, catalog version, discovered-resource digest/counts and changed paths. `webhooks/registry-update-notice.yaml` treats receipt as a trigger for Resource Evolution Manager assessment; receipt **never authorizes import or activation**.
 
-Home Assistant is standardized on its first-party Model Context Protocol Server integration. The canonical endpoint is `${HOME_ASSISTANT_URL}/api/mcp`; `${HOME_ASSISTANT_URL}/api/mcp/assist` is available when the built-in Assist LLM API is explicitly preferred. Entity exposure stays least-privilege and safety-sensitive controls remain confirmation-gated.
+## Kobo and ebook publishing
 
-## Epic Kanban / GitHub Projects
+The Kobo integration intentionally avoids private/reverse-engineered account automation. It operates on user-exported files and supported sideload paths.
 
-For repository-bound Epics, the internal `epic-kanban` provider may use GitHub Projects v2 to create the temporary Epic board, add/update work items and fields, and delete the project after accepted completion. Non-repository work uses a local ephemeral backend.
+`kobo-bridge` provides three bounded adapters:
 
-Board deletion is lifecycle-authorized only: first archive a concise completion summary, then delete the board after the Epic is accepted done. GitHub credentials remain runtime-only and the board is internal, not a new user-facing channel.
+- **Dropbox** — user-authorized OAuth connection and the Kobo application folder when supported by the device;
+- **Google Drive** — user-authorized OAuth connection when the configured Kobo model/firmware supports it;
+- **USB** — approved mounted-device fallback for exported annotations/notebooks and non-DRM EPUB/PDF sideloading.
 
-## Agent37 policy
+Before cloud transfer the runtime detects the configured Kobo model/capability rather than assuming support. Notebook ingestion is read-only from exported files. Outbound ebook delivery requires an explicit user order, validated EPUB/PDF artifact and overwrite confirmation when a destination conflicts.
 
-Agent37 is a searchable index of public skills, but indexing, stars, forks, and activity are not security review. `agent37-discovery` is read-only/discovery-only. Candidate skills must be traced to their source repository and reviewed using `agent-skill-vetting` and `third-party-supply-chain-review` before any concept or executable component is adopted.
+Denied operations include Kobo-account credential scraping, Kobo-web scraping, store purchases, account changes, notebook mutation, device-content deletion and DRM circumvention.
 
-## MCP policy
+`ebook-toolchain` is host-managed and may use approved Pandoc/EPUBCheck/Calibre conversion binaries. It preserves source artifacts, validates EPUB before delivery and has external network disabled by default.
 
-Use the official MCP Registry for discovery when possible, but registry metadata alone is not sufficient to approve execution. The registry is intentionally permissive and may be in preview; review server source, transport, authentication, requested credentials, tools, network destinations, filesystem/shell access, release provenance, maintenance, and rollback path before approval.
+## MCP / third-party discovery
 
-Namespace verification is useful provenance evidence, not a guarantee that a server is appropriate or safe for Hermes.
+Prefer the official MCP Registry where applicable, then inspect the actual implementation/release. Evaluate transport, authentication, tools/roots, filesystem/shell/process/network access, maintenance, data handling and rollback. Discovery metadata never authorizes installation or execution.
 
-## Review workflow
+## Upgrades and revocation
 
-Candidate external resources should flow through the internal `integration-review-team`:
+Treat provider/toolkit/version changes as permission-surface changes. Diff schemas/permissions/network/data flow, test with least privilege, update pins/rollback references, activate atomically and monitor initial calls. On compromise or unexpected expansion, revoke credentials/connection first, disable the resource, preserve redacted evidence and investigate before re-enabling.
 
-`Integration Curator -> Cybersecurity Analyst -> Systems Architect -> Team Leader`
+## Review chain
 
-That team may recommend a resource for registry adoption, but installation/execution still requires the local Hermes provisioner/runtime policy to permit it.
+Typical admission review is:
+
+`Integration Curator -> Cybersecurity Analyst -> Systems Architect -> relevant domain owner -> Team Leader/Orchestrator`
+
+Privacy/GDPR, legal, financial-risk or other specialists join when the integration's data/authority warrants it.

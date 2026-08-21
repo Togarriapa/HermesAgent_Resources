@@ -1,0 +1,10 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: llmops-model-operations
+  version: 1.0.0
+  description: Operate LLM applications with versioning, rollout, telemetry, cost controls, incident response, and rollback.
+  tags: [ai, llmops, operations, reliability]
+spec:
+  principles: [pin-changeable-dependencies, observe-quality-not-only-uptime, canary-and-rollback]
+  procedure: [inventory-dependencies, define-slos, stage-change, canary, monitor-quality-cost-latency, promote-or-rollback]

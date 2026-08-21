@@ -1,0 +1,10 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: ai-safety-reliability-evaluation
+  version: 1.0.0
+  description: Evaluate AI systems for prompt injection, data leakage, hallucination, unsafe automation, misuse, and recovery failures.
+  tags: [ai, safety, reliability, security]
+spec:
+  principles: [defense-in-depth, untrusted-model-output, tool-authority-minimization]
+  procedure: [map-assets-harms, enumerate-abuse-cases, test-prompt-tool-boundaries, test-leakage, test-recovery, document-residual-risk]

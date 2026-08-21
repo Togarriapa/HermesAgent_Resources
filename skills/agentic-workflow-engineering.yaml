@@ -1,0 +1,10 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: agentic-workflow-engineering
+  version: 1.0.0
+  description: Design multi-agent workflows with decomposition, routing, scoped context, concurrency, reconciliation, and bounded authority.
+  tags: [ai, agents, orchestration, workflow]
+spec:
+  principles: [parallelize-independent-work, single-owner-shared-state, delegation-does-not-expand-authority]
+  procedure: [model-dependency-graph, assign-role-context, scope-tools-permissions, execute-independent-work, reconcile, verify]

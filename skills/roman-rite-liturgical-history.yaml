@@ -1,0 +1,10 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: roman-rite-liturgical-history
+  version: 1.0.0
+  description: Analyze development of the Roman Rite across historical periods, books, calendars, ceremonies, reforms, and local uses.
+  tags: [catholic, liturgy, history, roman-rite]
+spec:
+  principles: [periodization, primary-liturgical-books, avoid-presentism]
+  procedure: [define-period-question, identify-primary-books, trace-development-variation, separate-history-from-present-law, cite-key-sources]

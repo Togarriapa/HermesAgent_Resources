@@ -1,0 +1,10 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: amish-agriculture-practice-analysis
+  version: 1.0.0
+  description: Research Amish farming systems, animal power, crops, livestock, soil stewardship, equipment, and community variation.
+  tags: [amish, agriculture, farm, research]
+spec:
+  principles: [region-affiliation-matter, description-not-automatic-recommendation, animal-worker-safety]
+  procedure: [identify-system-region, document-practices, compare-current-agronomy, assess-soil-water-animal-safety, adapt-with-context]

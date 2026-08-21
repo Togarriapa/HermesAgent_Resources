@@ -1,0 +1,10 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: catholic-devotional-traditions
+  version: 1.0.0
+  description: Research Catholic devotions and sacramentals, their history, theology, approval, local custom, and relation to liturgy.
+  tags: [catholic, devotion, sacramentals, tradition]
+spec:
+  principles: [liturgy-and-devotion-distinguished, avoid-superstition, approval-and-custom-distinguished]
+  procedure: [identify-practice, trace-origin, identify-church-teaching-or-approval, distinguish-universal-local, flag-superstitious-claims]

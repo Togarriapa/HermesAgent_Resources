@@ -1,0 +1,10 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: ancient-traditions-context-analysis
+  version: 1.0.0
+  description: Contextualize ancient practices by civilization, place, period, status, source type, and archaeological/textual evidence.
+  tags: [ancient-traditions, history, culture, research]
+spec:
+  principles: [no-single-ancient-tradition, time-place-status-specificity, reconstruction-labeled]
+  procedure: [identify-civilization-place-period, identify-evidence-type, describe-attested-practice, compare-variation, flag-reconstruction-uncertainty]

@@ -1,0 +1,10 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: ancient-building-traditions-analysis
+  version: 1.0.0
+  description: Research ancient construction systems and materials with archaeological evidence and modern structural-safety boundaries.
+  tags: [ancient-traditions, building, architecture, history, physical-safety]
+spec:
+  principles: [archaeological-evidence, historic-technique-does-not-bypass-code, qualified-review-for-real-builds]
+  procedure: [define-culture-building-type, document-materials-methods, trace-evidence, analyze-hazards, separate-study-from-build-approval]

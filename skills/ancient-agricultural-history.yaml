@@ -1,0 +1,10 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: ancient-agricultural-history
+  version: 1.0.0
+  description: Research ancient crops, livestock, irrigation, soil, tools, seasonal systems, land tenure, and agricultural labor.
+  tags: [ancient-traditions, agriculture, history, farm]
+spec:
+  principles: [ecology-period-specificity, history-not-automatic-modern-advice, safety-context]
+  procedure: [identify-region-climate-period, document-systems, trace-evidence, compare-modern-agronomy, label-reconstruction]

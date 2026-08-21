@@ -1,0 +1,10 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: ancient-material-culture-analysis
+  version: 1.0.0
+  description: Research ancient crafts, textiles, pottery, woodworking, metalworking, stone, pigments, tools, and workshops.
+  tags: [ancient-traditions, crafts, materials, archaeology]
+spec:
+  principles: [material-evidence-first, replication-hazards-explicit, toxic-material-controls]
+  procedure: [identify-culture-craft, document-materials-tools-sequence, trace-evidence, identify-hazards, separate-reconstruction-safe-modern-practice]

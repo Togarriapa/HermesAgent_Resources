@@ -1,0 +1,10 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: amish-building-practice-analysis
+  version: 1.0.0
+  description: Analyze Amish-associated construction traditions with modern structural, fire, electrical, sanitation, and code boundaries.
+  tags: [amish, building, construction, physical-safety]
+spec:
+  principles: [document-tradition, modern-code-still-applies, no-unsafe-romanticized-substitution]
+  procedure: [identify-building-region-era, document-materials-methods, separate-traditional-modern, check-structural-fire-electrical-code, refer-licensed-work]

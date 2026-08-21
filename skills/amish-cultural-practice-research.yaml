@@ -1,0 +1,10 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: amish-cultural-practice-research
+  version: 1.0.0
+  description: Research Amish and related Anabaptist practices with affiliation/community specificity and without treating diverse groups as uniform.
+  tags: [amish, culture, research, anabaptist]
+spec:
+  principles: [community-specificity, avoid-romanticization, avoid-monolithic-claims]
+  procedure: [identify-affiliation-region, use-community-aware-sources, describe-practice-variation, explain-religious-social-context, flag-reconstruction]

@@ -1,0 +1,10 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: patristic-source-research
+  version: 1.0.0
+  description: Research Church Fathers using primary texts, reliable editions/translations, authorship and dating analysis, context, and later reception.
+  tags: [catholic, patristics, theology, history]
+spec:
+  principles: [primary-text-first, authorship-and-dating-uncertainty, quotation-context-required]
+  procedure: [identify-author-work-passage, verify-text-and-translation, establish-context, compare-witnesses-or-scholarship, relate-later-reception, state-uncertainty]

@@ -1,49 +1,55 @@
-# Capability Coverage — Registry v2.1
+# Capability Coverage
 
-The previous capability-gap audit has been fully consumed into registry resources. This document records the implemented responsibility domains rather than maintaining a backlog of missing roles.
+This is the canonical current capability map. Individual manifest YAML files remain authoritative for exact dependencies, instructions, versions, tools, and permissions. Use `python scripts/render_registry_reference.py` for a live manifest-derived Profile/integration table.
 
-## Product, operations, people and decisions
+## HermesAgent, software, data and AI
 
-Implemented Profiles include Product Manager; Business Analyst / Requirements Engineer; COO / Operations Manager; People Operations / HR Specialist; Recruiter / Talent Acquisition Specialist; Privacy / GDPR Specialist; Negotiation & Conflict Resolution Specialist; and Decision Scientist / Operations Research Specialist.
+HermesAgent runtime/provisioner expertise; general/backend/frontend/web/DevOps development; systems architecture; network/SRE/database/infrastructure; cybersecurity/privacy engineering; data engineering/science/analytics; AI/ML application development; AI systems architecture; prompt engineering; agent orchestration; evaluation; LLMOps; AI safety/reliability; retrieval and knowledge engineering.
 
-## Household, property and resilience
+## Product, operations, people and career
 
-Implemented Profiles include Automotive Maintenance; Home Energy / Solar; Water & Wastewater; Emergency Preparedness & Resilience; Arboriculture / Tree Care; Pest & Building Biology, alongside the existing focused home-maintenance profiles.
+Product management/research, business analysis/requirements, COO/operations, project/agile/scrum, improvement management, HR/people operations, recruiting, procurement/vendor management, negotiation/conflict resolution, remote-work optimization, career advising/development, executive leadership, and decision science.
 
-## Farm and food systems
+## Finance, accounting and investment
 
-Implemented Profiles include Farm Planner; Horticulture / Orchard; Livestock Health Navigator; Farm Machinery Maintenance, alongside Farming, Agriculture, Weather, Homesteading, and Home & Farm Management.
+Portuguese/international accounting, CFO/financial planning, wealth/portfolio/asset/stocks/crypto/real-estate management, investment research and independent risk analysis, normalized financial data stewardship, explicit-order real-money execution, Ledger/live-wallet control, and autonomous testnet experimentation.
 
-## Education and family
+## Law, privacy and governance
 
-Implemented Profiles include Child Development; Special Education / SEN; Mathematics Teacher; Science Teacher; Literacy / Reading Specialist, alongside curriculum, homeschooling, homeroom, language, history, music and theology teaching.
+Portuguese, EU, international and employment-law research; GDPR/privacy; estate/succession; insurance; ethics; fact checking/source verification; and privacy/security engineering. Licensed representation or professional sign-off is not implied.
 
-## Legal, finance and commercial operations
+## Home, property, resilience and fabrication
 
-Implemented Profiles include Insurance; Estate & Succession Planning Research; Procurement & Vendor Management; EU Law / Regulatory Research; and Portugal/EU Employment Law, alongside Portuguese/International Law, accounting, wealth and investment specialists.
+Preventive home maintenance; plumbing/appliances/carpentry/finishes/roofing/drainage/grounds/home comfort; building architecture; energy/solar; water/wastewater; emergency preparedness; arboriculture; building biology/pests; automotive maintenance; Home Assistant/smart-home/IoT; electrical/mechanical/robotics engineering; 3D CAD/modeling/optimization/printing.
 
-## Technology
+## Farm, agriculture, food and traditional living
 
-Implemented Profiles include Network Engineer; Site Reliability Engineer; Database Reliability Specialist; AI/ML Engineer; and Privacy/Security Engineer, alongside systems architecture, cybersecurity, development, DevOps, data, homelab, smart-home and infrastructure roles.
+Farm planning/management, agriculture/agronomy, horticulture/orchards, livestock navigation, farm machinery, irrigation/water, weather, homesteading, cooking and food preservation. Amish coverage includes lifestyle, remedies, construction, farming, housekeeping, cooking and preservation while preserving community/affiliation/region variation. Ancient-tradition coverage is civilization/place/period/source specific and labels attested, inferred, reconstructed and speculative material.
 
-## Information quality and reasoning
+## Health, traditional remedies and fitness
 
-Implemented Profiles include Fact Checker / Source Verification; Media Literacy / Misinformation Analyst; Ethics Specialist; Knowledge Manager / Archivist; Debate Analyst; Philosophy; Culture; Psychology; Sociology; and Anthropology.
+Nutrition; traditional-remedy research; herbalism/ethnobotany; historical materia medica; natural-lifestyle education; traditional foodways; Amish/ancient remedy research; general fitness; bodybuilding/hypertrophy; calisthenics; powerlifting; strength/conditioning; mobility/flexibility; endurance; prenatal/postpartum; senior and youth fitness.
 
-## Catholic specialist domain
+Traditional-use claims are separated from modern evidence. Remedy roles do not diagnose/prescribe or advise delaying effective/urgent care. Fitness roles use symptom-aware progression/referral; pregnancy/postpartum clinician restrictions and youth safeguarding are hard boundaries.
 
-Implemented Profiles include Catholic Relationship Expert; Catholic Traditional Family Advisor; Catholic Tradition Expert; Catholic History Expert; Catholic Prayer Planner / Writer; Catholic Traditional Advisor; Catholic Guidance; Theology Teacher; and Portuguese, Sicilian, Spanish and German Catholic Family Advisors.
+## Education, children, family and social sciences
 
-## Translation, architecture and digital fabrication
+Curriculum/homeschooling, homeroom, mathematics, science, literacy, languages, history, music, theology, child development, SEN, safeguarding, psychology, sociology, anthropology, culture, philosophy, debate/dissent analysis, Catholic relationship/family guidance, and Portuguese/Sicilian/Spanish/German Catholic family perspectives.
 
-Implemented Profiles include Professional European Portuguese ↔ English Translator; Building Architect; 3D Model Designer; 3D Printer Specialist; 3D Model Maker; and 3D Model Optimizer.
+## Catholic theology, tradition and liturgy
 
-## Reusable cross-domain procedures
+Scripture, theology, Magisterium, Catholic history, tradition, family guidance, prayer planning/writing, Traditional Latin Mass, Roman Rite liturgical history, pre-Vatican-II practice, devotions/sacramentals, Gregorian chant/sacred music, calendar/fasting/abstinence, Patristics/Church Fathers, and Ecclesiastical Latin. Outputs distinguish doctrine, discipline, liturgical law, historical practice, devotion/custom, opinion and current jurisdiction.
 
-Reusable Skills cover claim verification, negotiation preparation, scenario/sensitivity analysis, decision records, root-cause analysis, vendor comparison, privacy impact screening, emergency checklist design, cost-benefit/TCO analysis, requirements engineering, professional PT↔EN translation, architectural design planning, 3D CAD modeling, additive manufacturing and printability optimization.
+## Research, information and language
 
-## Team coverage
+General/scientific research, evidence synthesis, misinformation/media literacy, historical method, knowledge management/archive work, professional European Portuguese↔English translation, writing/editing, and source-integrity procedures.
 
-Registry v2.1 includes the audit-requested `product-strategy-team`, `people-career-team`, `privacy-compliance-team`, `home-resilience-team`, `farm-reliability-team`, and `decision-science-team`, plus `catholic-tradition-family-team`, `core-education-team`, `architecture-fabrication-team`, `additive-manufacturing-team`, `information-integrity-team`, and `farm-planning-team`.
+## Ebook publishing and Kobo
 
-All Profiles remain internal-only and are dynamically recruitable through Orchestrator/Team Leader. Team bundles are starting compositions, not recruitment ceilings.
+Ebook Planner, Writer, Editor/Publisher, Designer and Converter cover architecture, long-form drafting, editing/proofing, reflowable design, metadata, EPUB/PDF conversion and validation. Kobo Library & Notebook Specialist owns exported-note ingestion/synthesis; Kobo Integration Specialist owns device/model/firmware capability detection, sync/USB troubleshooting and transfer workflows. Validated non-DRM EPUB/PDF delivery uses approved Dropbox/Google Drive/USB paths only on explicit request, with USB/manual fallback when cloud support is unavailable.
+
+## Integrations and automation
+
+GitHub, web research, Composio, filesystem/GitHub/Home Assistant MCP, Home Assistant/Wyoming voice, WhatsApp Business, Cloudflare/GitHub webhooks, scheduled resource reconciliation, ebook conversion tools, and Kobo export/sideload bridge are bounded by host policy and per-resource declarations.
+
+GitHub Actions provide PR validation, semantic-version/catalog consistency checks, weekly maintenance audits, dependency-update PRs, and optional signed notification to Hermes after a validated `main` update.

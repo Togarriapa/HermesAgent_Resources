@@ -1,166 +1,106 @@
 # Hermes Resource Manifest v1
 
-## Goals
+## Purpose
 
-The v1 contract makes agent resources portable, reviewable, composable, dynamically recruitable, safely updateable, and safe to share.
+The manifest contract makes Hermes resources portable, reviewable, composable, dynamically recruitable, safely updateable and safe to share. The registry describes capability/configuration; **host/runtime policy and provisioned credentials remain the authorization ceiling**.
 
-## Required envelope
+## Required resource envelope
 
-Each YAML manifest must contain `apiVersion`, `kind`, `metadata`, and `spec`.
-
-- `apiVersion`: currently `hermes.togarriapa/v1`.
-- `kind`: one of `Profile`, `Skill`, `Plugin`, `MCP`, `Cron`, `Webhook`, `Channel`, or `Bundle`.
-- `metadata.name`: stable lowercase kebab-case identifier.
-- `metadata.version`: semantic version.
-- `metadata.description`: human-readable purpose.
-- `metadata.tags`: optional searchable tags.
-- `spec`: kind-specific configuration.
-
-## Dependencies
-
-A resource may declare `spec.requires`:
+Every discovered resource contains:
 
 ```yaml
-requires:
-  skills:
-    - docker-ops@^1.0.0
-  plugins:
-    - github@^1.0.0
+apiVersion: hermes.togarriapa/v1
+kind: Profile | Skill | Plugin | MCP | Cron | Webhook | Channel | Bundle
+metadata:
+  name: lowercase-kebab-case
+  version: 1.0.0
+  description: human-readable purpose
+  tags: []
+spec: {}
 ```
 
-Importers resolve dependencies by `(kind, name, version)` from `catalog.yaml` and fail closed when a required dependency is missing or incompatible.
+`Catalog` and `RegistryQualityPolicy` are repository-control documents, not importable resources.
 
-## Inheritance
+## Discovery-driven catalog
 
-Profiles, skills, and bundles may use `spec.extends` with a resource selector such as `base@^1.0.0`.
+`catalog.yaml` declares one non-recursive root for each resource kind and `*.yaml` as the manifest pattern. The manifest itself is the canonical identity source: directory determines the expected kind, filename must equal `metadata.name`, and `metadata.version` is semantic version.
 
-Merge rules:
+A valid resource file is automatically part of the registry; contributors never maintain a second list. CI discovers all manifests, validates identity/dependencies/inheritance, emits deterministic kind counts and a SHA-256 resource digest, and fails closed on malformed or conflicting resources.
 
-1. Scalars from the child replace parent scalars.
-2. Maps merge recursively.
-3. Lists append by default.
-4. A future importer may support explicit replace/delete operators, but v1 manifests should avoid relying on them.
-5. Cyclic inheritance is invalid.
+The catalog version is the registry release version and must increase when the resource set changes relative to the merge base.
 
-## Runtime learned overlays
+## Dependencies and inheritance
 
-Published manifests are not the only runtime state. Effective resources compose layers with increasing precedence:
+`spec.requires` uses selectors such as `docker-ops@^1.0.0`. Importers resolve selectors by kind/name/version and fail closed when missing or incompatible.
 
-1. upstream registry base;
-2. local experience overlay;
-3. private user-learned overlay;
-4. current explicit instruction/session context.
+Profiles, Skills and Bundles may `extend` another resource of the same kind. Scalars replace, maps merge recursively and lists append/deduplicate. Cycles are invalid. Dependencies/inheritance expose declared behavior/capability only within the host authorization ceiling.
 
-Upstream updates may replace layer 1 only. They must not overwrite layers 2 or 3. The runtime should semantically rebase overlays onto the new base, surface conflicts, regression-test the effective result, activate atomically, and retain rollback state.
+## Effective quality
 
-Private user-learned overlays are runtime-private data. They must not be committed, exported, or converted into shared resources without deliberate de-identification/generalization and normal review.
+`QUALITY_POLICY.yaml` is the **single canonical** registry quality document. It applies conservative universal and kind-specific defaults plus narrowly matched domain overlays. It never grants credentials, tools, account permissions, filesystem roots, network targets, user-facing routes, transactions, signing, physical control or other authority.
 
-See `RESOURCE_EVOLUTION.md`.
+Composition from low to high behavior precedence is:
 
-## Dynamic orchestration
+`universal/kind defaults < domain overlays < resolved manifest < local experience overlay < private user overlay < current session context`
 
-Orchestration is dependency-graph based rather than sequential by default.
+Host authorization is not another precedence layer; it surrounds the result. Explicit user authorization may unlock a confirmation-gated action only when the host/resource/account scope already permits it.
 
-- Independent work packages may run concurrently.
-- Team Leaders and other coordinators may execute nested subteams within delegated authority.
-- Orchestrator and Team Leader may recruit any registered Profile when needed.
-- Multiple instances of the same Profile are permitted when useful for parallelism.
-- The registry imposes no numeric instance ceiling; effective limits come from host/runtime resource, cost, credential, authorization, and isolation policy.
-- Scaling creates execution capacity only; instances retain the permissions and safety boundaries of their Profile.
-- Concurrent technical writers should use isolated workspaces/branches/worktrees and reconcile through an integration gate.
-
-### Epic Kanban
-
-Every Epic gets one ephemeral Kanban board containing work items such as `epic`, `user-story`, `task`, `defect`, `spike`, `risk`, and `decision`. Independent work can proceed in parallel according to the dependency graph. After accepted completion, the runtime archives a concise completion summary and deletes the board.
-
-Repository-backed work may use GitHub Projects v2; non-repository work may use a local ephemeral backend.
-
-See `ORCHESTRATION.md`.
+See `RESOURCE_QUALITY.md` and `SECURITY.md`.
 
 ## Secrets
 
-Manifests may reference environment variables with `${NAME}`. Importers must not resolve secret placeholders while parsing this repository; resolution happens at runtime. Secret-looking literals should be rejected by CI where practical.
+Manifests use `${ENV_VAR}` or explicit runtime credential references. Validation/materialization must leave them unresolved. Secrets and private learned data never belong in Git, PRs, logs, generated artifacts, Kanban items or Profile-visible text.
 
-## External integration policy
-
-Profiles may narrow a shared integration provider through `spec.integrationPolicy`. The Composio contract is allowlist-based:
-
-```yaml
-requires:
-  plugins:
-    - composio@^1.0.0
-integrationPolicy:
-  composio:
-    toolkits:
-      - slug: gmail
-        version: 20260721_00
-        allowedTools:
-          - GMAIL_FETCH_EMAILS
-          - GMAIL_CREATE_EMAIL_DRAFT
-    emailSend: deny
-```
-
-Rules:
-
-1. Declaring `integrationPolicy.composio` requires an explicit `composio` plugin dependency.
-2. Every toolkit is explicit, pins a dated production version, and contains a non-empty tool allowlist.
-3. Tools from unlisted toolkits are unavailable.
-4. Provider connectivity does not make a profile user-facing or expand local authorization.
-5. Destructive actions, writes, sends, permission changes, and other side effects remain separately governed.
-6. Runtime credentials stay outside Git and are scoped to the delegated user/account.
-7. Marketplaces and indexes are discovery sources, not trust authorities.
-
-See `EXTERNAL_INTEGRATIONS.md` and `INTEGRATION_MATRIX.md`.
-
-## Compatibility
-
-Resources may declare:
-
-```yaml
-compatibility:
-  hermes: ">=1"
-  os:
-    - linux
-  architectures:
-    - arm64
-    - amd64
-```
-
-Compatibility is advisory in v1 unless the importer enforces it.
-
-## Conversation routing
-
-The canonical conversational path is:
+## Conversation topology
 
 `User <-> Hermes <-> Orchestrator <-> Specialists / Teams`
 
-Profile interaction fields are routing constraints, not merely behavioral suggestions. The runtime/importer should enforce them fail-closed.
-
-- `base` defaults profiles to `userFacing: false`, `directUserContact: deny`, and `userChannelBinding: deny`.
-- `hermes` is the sole profile permitted to override those defaults for user-facing interaction.
-- User-facing channels, including web, Telegram, Discord, WhatsApp, and voice, route inbound and outbound through `hermes` and reject direct selection of any other profile.
-- `orchestrator` accepts user-originating work from `hermes`, recruits and coordinates internal profiles/teams, and returns synthesized results to `hermes`.
-- Specialists and Team Leaders communicate internally only.
-- Clarification requests, scheduled outputs, webhook outcomes, alerts, and other user-visible events pass through `hermes` before delivery.
+Hermes is the sole user-facing Profile. Channels reject direct specialist targeting. Orchestrator/Team Leaders are internal, may dynamically recruit any registered Profile and multiple instances, and never gain authority through recruitment or scaling. Clarifications, scheduled results, webhook outcomes and specialist output return through Hermes.
 
 See `TOPOLOGY.md`.
 
-## Voice
+## Orchestration and deliberation
 
-The shared voice contract is local-first. The preferred Home Assistant/Wyoming stack is Speech-to-Phrase for constrained home-control speech, Whisper for general speech-to-text, Piper for text-to-speech, and optional openWakeWord wake-word detection. Raw audio retention and cloud fallback are denied by default.
+Work is dependency-graph based. Independent packages should run concurrently when safe; concurrent writers require isolation/serialized integration. Bundles are starting rosters, not recruitment ceilings. Material decisions may use independent first pass, critique/steelman, Debate Analyst and evidence-based synthesis. Majority vote never overrides evidence, user constraints, safety or authorization.
 
-Voice input becomes a Hermes request; it does not bypass the Hermes/Orchestrator topology.
+Every Epic has an ephemeral Kanban until accepted completion. See `ORCHESTRATION.md` and `DELIBERATION.md`.
 
-## WhatsApp
+## External integrations
 
-WhatsApp support is for WhatsApp Business accounts through an explicitly scoped integration. Personal-account automation is not part of the contract. WhatsApp is a user-facing channel and must route only through Hermes. Account-administration and destructive actions are denied by default. Proactive outbound behavior requires delegated/template-authorized handling.
+Plugins/MCPs expose only declared operations and use runtime-only credentials. Connectivity is not permission. State-changing calls are authorized at action time, bounded by timeout/retry/idempotency policy, verified afterward and reconciled before retry after ambiguous failures.
 
-## Improvement model
+Composio is allowlist-based. Home Assistant/voice remains local-first and scoped. WhatsApp is Business-only. Kobo access uses user-exported notebook files and approved cloud/USB sideload paths; Kobo-account scraping, store purchases, deletion and DRM circumvention are denied.
 
-Do not silently mutate a published version. For behavior changes, bump `metadata.version`, keep the stable `metadata.name`, update the catalog, and document the change in the pull request. A local agent may extend a shared resource under a new name while preserving provenance through `metadata.source`.
+See `EXTERNAL_INTEGRATIONS.md`.
 
-Learned overlays differ from published versions: they are local composition layers and survive upstream resource replacement.
+## Crons and Webhooks
 
-## Trust model
+A schedule or event receipt is a trigger, not authority. Crons/Webhooks may request work already permitted by their resource/host policy but cannot mint permissions. Signed registry-update notifications identify a candidate commit only; Resource Evolution Manager must validate and classify the candidate before import/activation.
 
-Repository content is configuration, not authorization. Local Hermes policy remains authoritative for filesystem access, shell execution, network access, credential use, destructive actions, outbound communications, profile-instance capacity, and external side effects. Conversation routing, integration policy, and resource manifests may restrict those capabilities but cannot expand them beyond host authority.
+## Learned overlays and updates
+
+Published resources are the replaceable upstream base. Local experience and private user-learned overlays survive upstream replacement and are semantically rebased. They may improve procedure/preferences but cannot expand authority.
+
+A validated GitHub `main` update may emit a signed `registry-update-available` notice. The runtime pins the referenced commit, reruns validation/materialization, rebases overlays, compares permissions/compatibility, stages a candidate generation and atomically activates only if local policy permits. See `RESOURCE_EVOLUTION.md` and `RUNTIME_IMPORT.md`.
+
+## Versioning
+
+Do not silently mutate a published resource contract: bump its semantic version. New/deleted resources require a catalog-version bump. Registry-wide restrictive quality changes bump `QUALITY_POLICY.yaml` when they become a release. CI checks PR versioning against the base branch.
+
+Derived Profile/integration tables are not committed as static Markdown; `scripts/render_registry_reference.py` renders them from manifests on demand.
+
+## Validation
+
+```bash
+python scripts/check_catalog_consistency.py
+python scripts/validate_registry.py
+python scripts/validate_deliberation.py
+python scripts/validate_expansion_v21.py
+python scripts/validate_expansion_v22.py
+python scripts/validate_quality_v22.py
+python scripts/validate_quality_overlays_v22.py
+python scripts/render_registry_reference.py --output /tmp/registry-reference.md
+python scripts/materialize_effective_registry.py --check-only
+```
+
+On PRs, `scripts/check_pr_quality.py` additionally checks semantic-version/catalog changes and canonical-document hygiene.

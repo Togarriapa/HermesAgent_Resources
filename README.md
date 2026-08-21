@@ -1,129 +1,136 @@
 # HermesAgent Resources
 
-A shared, versioned resource registry for Hermes agents. Resources are declarative YAML manifests consumed by a provisioner/importer; credentials and private learned state do not belong in Git.
+A versioned registry of Hermes capabilities and operating contracts. The repository describes what resources are and how they behave; **host/runtime policy, credential scope, and explicit authorization remain the capability ceiling**.
 
-## Conversation architecture
+## Architecture
 
-The canonical topology is:
+`User <-> Hermes <-> Orchestrator <-> Specialist Profiles / Team Bundles`
 
-`User <-> Hermes <-> Orchestrator <-> Specialist Profiles / Team bundles`
+- Hermes is the only user-facing Profile and all user channels bind to Hermes.
+- Orchestrator decomposes work, recruits any suitable registered Profile, runs safe independent work in parallel, and reconciles results.
+- Team Leaders and specialists are internal-only.
+- Bundles are starting rosters, not permission pools or recruitment ceilings.
+- Scaling creates capacity, never authority.
+- Material decisions may use evidence-driven deliberation; credible dissent is preserved.
 
-`hermes` is the only user-facing Profile. Web, Telegram, Discord, WhatsApp Business, and voice route exclusively through Hermes and reject direct Profile selection. Specialists, execution operators and Team Leaders remain internal-only.
+See `TOPOLOGY.md`, `ORCHESTRATION.md`, and `DELIBERATION.md`.
 
-## Parallel, hierarchical and deliberative orchestration
+## Registry discovery and catalog integrity
 
-Orchestrator uses a dependency DAG. Independent work may run in parallel, nested Team Leaders may coordinate subteams, and multiple instances of the same Profile are permitted subject to host/runtime policy. Scaling increases capacity, not authority.
+`catalog.yaml` declares eight non-recursive manifest roots: Profiles, Skills, Plugins, MCPs, Crons, Webhooks, Channels, and Bundles. Every direct `*.yaml` manifest in those roots is discovered from its own metadata; there is no duplicated hand-maintained resource list.
 
-For material, ambiguous, strategic or trade-off-heavy work, Orchestrator may run structured multi-agent deliberation: independent first positions, evidence/assumption mapping, cross-critique and steelmanning, position revision, and synthesis by evidence plus user constraints rather than majority vote. Material dissent is preserved. See `ORCHESTRATION.md` and `DELIBERATION.md`.
+CI verifies filename/name/kind/version consistency, dependency and inheritance selectors, deterministic catalog digest, topology/security invariants, semantic-version bumps on changed resources, and a catalog-version bump whenever the resource set changes.
 
-Every Epic receives one ephemeral Kanban board. A completion summary is archived and the board deleted after accepted completion.
-
-## Hermes response contract
-
-Every Hermes response renders exactly these six sections:
-
-1. **Initial Question or Request**
-2. **Quick Answer / Result / Action**
-3. **Detailed Answer / Result / Action**
-4. **Agent Profiles That Contributed**
-5. **Opinions Against the Final Answer / Solution and Why**
-6. **Permissions Needed to Proceed**
-
-When appropriate Hermes uses `No material dissent.` and `None.` rather than inventing disagreement or permissions.
-
-## Registry v2.1 capability coverage
-
-Catalog v2.1 completes the prior capability-gap audit and adds durable Profiles across:
-
-- product management, business analysis/requirements, COO/operations, people operations, recruiting, privacy/GDPR, negotiation and decision science;
-- automotive maintenance, home energy/solar, water/wastewater, emergency preparedness, arboriculture and building biology/pest management;
-- farm planning, horticulture/orchards, livestock health navigation and farm machinery maintenance;
-- child development, SEN/special education, mathematics, science and literacy/reading education;
-- insurance, estate/succession research, procurement/vendor management, EU regulatory law and Portugal/EU employment law;
-- network engineering, SRE, database reliability, AI/ML engineering and privacy/security engineering;
-- fact checking/source verification, misinformation/media literacy, ethics and knowledge management;
-- Catholic relationship guidance, traditional family advice, Catholic Tradition, Catholic history, and prayer/devotional planning;
-- professional European Portuguese ↔ English translation;
-- building architecture, 3D model design, 3D printing, model making and model optimization.
-
-Reusable cross-domain Skills cover claim verification, negotiation preparation, scenario/sensitivity analysis, decision records, root-cause analysis, vendor comparison, privacy screening, emergency checklist design, cost-benefit/TCO analysis, requirements engineering, translation, architectural planning, CAD, additive manufacturing and printability optimization.
-
-See `CAPABILITY_COVERAGE.md`, `PROFILE_MATRIX.md`, and `INTEGRATION_MATRIX.md`.
-
-## Team bundles added in v2.1
-
-The audit-requested teams are implemented:
-
-- `product-strategy-team`
-- `people-career-team`
-- `privacy-compliance-team`
-- `home-resilience-team`
-- `farm-reliability-team`
-- `decision-science-team`
-
-Additional v2.1 teams are:
-
-- `catholic-tradition-family-team`
-- `core-education-team`
-- `architecture-fabrication-team`
-- `additive-manufacturing-team`
-- `information-integrity-team`
-- `farm-planning-team`
-
-Bundles are starting compositions, not recruitment ceilings.
-
-## Resource evolution without forgetting
-
-Effective configuration is layered from upstream registry base through local experience and private user-learned overlays to current explicit context. `resource-evolution-manager` rebases compatible upstream changes without overwriting or publishing private learning. See `RESOURCE_EVOLUTION.md`.
-
-## Voice and channels
-
-The local-first voice pipeline uses Home Assistant/Wyoming: Speech-to-Phrase where suitable, Whisper for general STT, Piper for TTS, and optional openWakeWord. Raw-audio retention and cloud fallback are disabled by default.
-
-WhatsApp uses supported WhatsApp Business integration only. All user-visible channels remain Hermes-only.
-
-## Resource types
-
-- `profiles/` — durable internal agent responsibilities and role boundaries.
-- `skills/` — reusable procedures and domain playbooks.
-- `plugins/` — optional runtime integrations.
-- `mcps/` — Model Context Protocol definitions.
-- `crons/` — recurring jobs.
-- `webhooks/` — event-driven jobs.
-- `channels/` — communication adapters.
-- `bundles/` — curated starting teams.
-
-## Canonical runtime import
-
-A provisioner can fetch this repository at a pinned Git ref, resolve `catalog.yaml`, dependencies and inheritance, preserve `${ENV_VAR}` placeholders until runtime, and materialize effective resources.
-
-```yaml
-resourceSource:
-  repository: Togarriapa/HermesAgent_Resources
-  ref: main
-imports:
-  - bundles/hermes-runtime.yaml
-```
-
-The registry defines contracts declaratively; the deployed Hermes provisioner/runtime must consume and enforce them before the behavior is operational.
-
-## Safe defaults
-
-- No passwords, API keys, bearer tokens, bot tokens, private keys or private learned data in Git.
-- All non-Hermes Profiles are internal-only.
-- External integrations are least-privilege and explicit.
-- Financial execution retains its explicit-order/confirmation boundaries.
-- Regulated legal, medical/veterinary, architecture/engineering, electrical, gas and other licensed responsibilities are clearly escalated.
-- Deliberation cannot vote away safety, authorization, privacy or professional boundaries.
-
-## Contributing
-
-Update or add versioned resources, index them in `catalog.yaml`, then run:
+`PROFILE_MATRIX.md` and `INTEGRATION_MATRIX.md` remain the canonical human-readable responsibility/integration summaries. Exact current dependency tables are generated from manifests with:
 
 ```bash
-python3 scripts/validate_registry.py
-python3 scripts/validate_deliberation.py
-python3 scripts/validate_expansion_v21.py
+python scripts/render_registry_reference.py
 ```
 
-See `CONTRIBUTING.md` and `SPEC.md`.
+Versioned matrix supplements are forbidden.
+
+## Effective quality
+
+`QUALITY_POLICY.yaml` is the single canonical restrictive/defaulting quality policy. It supplies common evidence, verification, privacy, retry, failure, audit, lifecycle, and authority-non-escalation behavior plus narrowly matched domain overlays.
+
+Behavior composition is:
+
+`kind defaults < domain overlays < resolved manifest < local experience overlay < private user overlay < current session context`
+
+Host/runtime authorization surrounds that entire composition and cannot be expanded by prompts, learning, Bundles, schedules, webhooks, or confirmation.
+
+See `RESOURCE_QUALITY.md`, `SPEC.md`, and `SECURITY.md`.
+
+## Capability coverage
+
+The registry covers software/infrastructure/data/AI; product/operations/people; finance/investment/accounting; law/privacy; home/property/farm; education; research/humanities; Catholic theology/tradition/liturgy; traditional and historical living/remedies; fitness; translation; architecture/fabrication; and ebook/Kobo workflows.
+
+See `CAPABILITY_COVERAGE.md` and `PROFILE_MATRIX.md`.
+
+## Kobo / ebook workflow
+
+Kobo support is deliberately based on documented/user-controlled transfer paths rather than an invented general Kobo API.
+
+Typical flow:
+
+`Kobo exported notes / Hermes results -> Kobo specialist -> Ebook Planner -> Writer -> Editor/Publisher -> Designer -> Converter -> EPUB validation -> explicit delivery to Kobo`
+
+- `kobo-bridge` handles approved user-authorized Dropbox/Google Drive/USB workflows with device capability detection.
+- `ebook-toolchain` supplies host-managed conversion, packaging and EPUB validation.
+- Notebook ingestion is exported/authorized-file only and preserves notebook/page provenance.
+- Outbound ebook delivery requires an explicit user order and successful artifact validation.
+- Kobo credential scraping, store purchasing, destructive library actions and DRM circumvention are denied.
+
+See `INTEGRATION_MATRIX.md` for the canonical integration boundary.
+
+## Financial and crypto separation
+
+Research/management Profiles may analyse and recommend. Real-value execution stays isolated behind dedicated execution operators and exact one-shot authorization/confirmation contracts; autonomous crypto experimentation remains testnet-only. See `FINANCIAL_ACCESS.md` and `INVESTMENT_GOVERNANCE.md`.
+
+## Resource evolution and update notifications
+
+GitHub CI validates registry changes. After a successful validation run on `main`, an optional workflow can send an HMAC-signed `registry-update-available` event to the live Hermes runtime. The event is **notification, not authority**: Resource Evolution Manager must fetch the immutable commit, validate/materialize it, rebase private/local overlays, compare permission surfaces, and classify it as import-ready or quarantined before activation.
+
+See `RESOURCE_EVOLUTION.md` and `RUNTIME_IMPORT.md`.
+
+## GitHub quality automation
+
+- `.github/workflows/validate.yml` — PR/main quality gate.
+- `.github/workflows/registry-maintenance.yml` — scheduled/manual deep registry audit.
+- `.github/workflows/notify-hermes.yml` — signed update-available notification after validated `main` changes.
+- `.github/dependabot.yml` — weekly GitHub Actions dependency updates.
+- `scripts/check_catalog_consistency.py` — deterministic discovery/count/digest audit.
+- `scripts/check_pr_quality.py` — semantic-versioning, catalog-version, canonical-doc and link hygiene checks.
+
+Repository branch protection should require the validation workflow before merge.
+
+## Resource layout
+
+- `profiles/` — durable professional/operational responsibilities
+- `skills/` — reusable methods and procedures
+- `plugins/` — bounded integrations/runtime toolchains
+- `mcps/` — bounded MCP definitions
+- `channels/` — Hermes-only communication adapters
+- `crons/` — recurring jobs
+- `webhooks/` — authenticated events
+- `bundles/` — starting team compositions
+- `templates/` — canonical starters
+- `scripts/` — discovery, validation, materialization and generated-reference tooling
+- `catalog.yaml` — discovery and fail-closed catalog contract
+- `QUALITY_POLICY.yaml` — canonical effective-quality policy
+
+## Canonical documentation
+
+Keep these living documents current instead of adding versioned supplements:
+
+- `README.md` — repository overview
+- `SPEC.md` — manifest/discovery/composition contract
+- `TOPOLOGY.md` — user/channel/session routing
+- `ORCHESTRATION.md` — work packaging, teams and execution
+- `DELIBERATION.md` — internal debate and Hermes response contract
+- `PROFILE_MATRIX.md` — Profile responsibility/boundary map
+- `INTEGRATION_MATRIX.md` — integration/authority map
+- `CAPABILITY_COVERAGE.md` — current domain coverage
+- `RESOURCE_QUALITY.md` — completeness requirements
+- `RESOURCE_EVOLUTION.md` — updates and learned overlays
+- `RUNTIME_IMPORT.md` — provisioner/import lifecycle
+- `EXTERNAL_INTEGRATIONS.md` — integration admission/provider rules
+- `SECURITY.md` — security boundary and secrets
+- `FINANCIAL_ACCESS.md` / `INVESTMENT_GOVERNANCE.md` — financial domain
+- `CONTRIBUTING.md` — change and PR rules
+
+## Validation
+
+```bash
+python scripts/check_catalog_consistency.py
+python scripts/validate_registry.py
+python scripts/validate_deliberation.py
+python scripts/validate_expansion_v21.py
+python scripts/validate_expansion_v22.py
+python scripts/validate_quality_v22.py
+python scripts/validate_quality_overlays_v22.py
+python scripts/render_registry_reference.py --output /tmp/registry-reference.md
+python scripts/materialize_effective_registry.py --check-only
+```
+
+On pull requests, CI additionally runs `scripts/check_pr_quality.py` against the base branch. See `CONTRIBUTING.md`.

@@ -1,0 +1,10 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: amish-foodways-analysis
+  version: 1.0.0
+  description: Research Amish cooking and food traditions with regional/community specificity and modern food-safety context.
+  tags: [amish, foodways, cooking, culture]
+spec:
+  principles: [regional-variation, traditional-recipe-is-not-health-claim, food-safety-over-authenticity]
+  procedure: [identify-community-dish, trace-source, document-technique-seasonality, check-food-safety, label-substitutions]

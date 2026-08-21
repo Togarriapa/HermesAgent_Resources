@@ -1,0 +1,10 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: prompt-engineering
+  version: 1.0.0
+  description: Design and evaluate prompts, context, examples, output schemas, and tool instructions for reliable model behavior.
+  tags: [ai, prompt, llm, evaluation]
+spec:
+  principles: [explicit-success-criteria, minimize-ambiguity, measure-not-vibe]
+  procedure: [define-task-and-failures, design-instruction-hierarchy, design-output-schema, build-eval-set, iterate-on-errors, version]
