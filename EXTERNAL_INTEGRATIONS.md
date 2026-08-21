@@ -25,6 +25,18 @@ Record source/version, transport/network destinations, credentials/account scope
 
 `QUALITY_POLICY.yaml` supplies the common restrictive Plugin/MCP behavior.
 
+## Authentik and homelab infrastructure
+
+Authentik is the authoritative Hermes user/group source for infrastructure mutation and infrastructure alarm delivery. `authentik-authorization` is deliberately read-only: it resolves the trusted session principal, reads active-user/effective-group information, verifies effective membership in `System`, and resolves the current `System` recipient set for alarms. It cannot create/update/delete users, alter group membership, administer roles, or treat user-supplied claims as identity evidence.
+
+`homelab-ops-broker` is a host-managed allowlisted administration surface for the Hermes and Nextcloud hosts. It may expose host/service/container health, bounded logs, backups, approved service/container lifecycle, approved recovery and constrained Nextcloud administration. Raw SSH, arbitrary shell/commands, arbitrary `occ`, arbitrary Docker/systemd targets, secret readback and unrestricted filesystem access are denied. Every write requires a fresh successful Authentik `System` check before invocation; destructive operations retain explicit confirmation requirements.
+
+`cloudflare-homelab` is restricted to the configured account/zone plus the approved homelab hostnames and tunnel IDs. Reads can support diagnosis; DNS/tunnel writes require fresh `System` membership. Account administration, token administration, billing access, unrelated zones/tunnels, broad DNS mutation and tunnel deletion are denied. Prefer Cloudflare API tokens scoped to the minimum required zone/account resources and permission groups.
+
+The periodic `homelab-health-review` is read-only. It can detect/correlate incidents but cannot remediate from schedule authority. Infrastructure alarms route through Hermes only after the recipients are freshly resolved as effective Authentik `System` members at delivery time; static recipient lists are not authority.
+
+Home Assistant remains the device/smart-home control plane rather than duplicating routine Starlink polling or HA automations in this integration set.
+
 ## Composio
 
 The shared Composio Plugin is default-deny. Connections are user-scoped; Profiles require explicit toolkit/tool allowlists and reviewed production pins. Remote workbench, arbitrary proxy and unlisted capabilities remain denied. Connection creation is user-authorized and external writes remain delegated-only.

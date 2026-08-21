@@ -11,6 +11,7 @@ EXPECTED_PROFILES = {
     "traditional-latin-mass-expert", "roman-rite-liturgical-traditions-expert", "pre-vatican-ii-catholic-practice-researcher", "catholic-devotions-sacramentals-expert", "gregorian-chant-sacred-music-expert", "catholic-calendar-fasting-abstinence-expert", "patristics-church-fathers-expert", "ecclesiastical-latin-expert",
     "fitness-coach", "bodybuilding-coach", "calisthenics-coach", "powerlifting-coach", "prenatal-postpartum-fitness-coach", "strength-conditioning-coach", "mobility-flexibility-coach", "endurance-conditioning-coach", "senior-fitness-coach", "youth-fitness-coach",
     "kobo-integration-specialist", "kobo-library-notebook-specialist", "ebook-planner", "ebook-writer", "ebook-designer", "ebook-converter", "ebook-editor-publisher",
+    "homelab-infrastructure-operator",
 }
 EXPECTED_SKILLS = {
     "hermesagent-runtime-architecture", "ai-application-engineering", "ai-system-architecture", "prompt-engineering", "agentic-workflow-engineering", "ai-evaluation-benchmarking", "llmops-model-operations", "ai-safety-reliability-evaluation", "retrieval-knowledge-engineering",
@@ -20,9 +21,11 @@ EXPECTED_SKILLS = {
     "traditional-latin-mass-research", "roman-rite-liturgical-history", "catholic-devotional-traditions", "gregorian-chant-liturgical-music", "catholic-calendar-fasting-practice", "patristic-source-research", "ecclesiastical-latin-analysis",
     "fitness-coaching", "hypertrophy-programming", "calisthenics-programming", "powerlifting-programming", "prenatal-postpartum-exercise", "strength-conditioning", "mobility-flexibility-programming", "endurance-conditioning", "senior-fitness-programming", "youth-fitness-programming",
     "kobo-device-workflow", "kobo-notebook-ingestion", "kobo-book-delivery", "notebook-knowledge-synthesis", "ebook-architecture-planning", "long-form-ebook-writing", "ebook-editing-proofing", "ebook-design-layout", "epub-conversion-validation", "ebook-metadata-packaging",
+    "authentik-infrastructure-authorization", "homelab-host-operations", "nextcloud-service-operations", "cloudflare-tunnel-operations", "homelab-backup-recovery", "cross-service-incident-diagnosis", "infrastructure-alarm-triage",
 }
-EXPECTED_PLUGINS = {"kobo-bridge", "ebook-toolchain"}
-EXPECTED_BUNDLES = {"ai-engineering-team", "traditional-remedies-research-team", "amish-traditional-living-team", "ancient-traditions-team", "traditional-catholic-liturgy-team", "strength-fitness-team", "life-stage-fitness-team", "ebook-publishing-team"}
+EXPECTED_PLUGINS = {"kobo-bridge", "ebook-toolchain", "authentik-authorization", "homelab-ops-broker", "cloudflare-homelab"}
+EXPECTED_BUNDLES = {"ai-engineering-team", "traditional-remedies-research-team", "amish-traditional-living-team", "ancient-traditions-team", "traditional-catholic-liturgy-team", "strength-fitness-team", "life-stage-fitness-team", "ebook-publishing-team", "homelab-operations-team"}
+EXPECTED_CRONS = {"homelab-health-review"}
 REMEDY_PROFILES = {"traditional-remedies-researcher", "herbalism-ethnobotany-researcher", "historical-materia-medica-researcher", "amish-remedies-expert", "ancient-traditional-remedies-expert"}
 AMISH_PROFILES = {name for name in EXPECTED_PROFILES if name.startswith("amish-")}
 ANCIENT_PROFILES = {name for name in EXPECTED_PROFILES if name.startswith("ancient-")}
@@ -43,15 +46,15 @@ def plugin_doc(name: str) -> dict:
 
 def main() -> int:
     errors: list[str] = []
-    if (catalog().get("metadata") or {}).get("version") != "2.2.0":
-        errors.append("catalog.yaml must be version 2.2.0")
+    if (catalog().get("metadata") or {}).get("version") != "2.3.0":
+        errors.append("catalog.yaml must be version 2.3.0")
 
     resources = discover_resources()
     names = names_by_kind(resources)
-    for kind, expected in (("Profile", EXPECTED_PROFILES), ("Skill", EXPECTED_SKILLS), ("Plugin", EXPECTED_PLUGINS), ("Bundle", EXPECTED_BUNDLES)):
+    for kind, expected in (("Profile", EXPECTED_PROFILES), ("Skill", EXPECTED_SKILLS), ("Plugin", EXPECTED_PLUGINS), ("Bundle", EXPECTED_BUNDLES), ("Cron", EXPECTED_CRONS)):
         missing = sorted(expected - names.get(kind, set()))
         if missing:
-            errors.append(f"missing v2.2 {kind} resources: {missing}")
+            errors.append(f"missing expected {kind} resources: {missing}")
 
     for name in EXPECTED_PROFILES:
         interaction = (profile_doc(name).get("spec") or {}).get("interaction") or {}
@@ -114,13 +117,52 @@ def main() -> int:
     if toolchain_policy.get("drmRemoval") != "deny":
         errors.append("ebook-toolchain must deny DRM removal")
 
+    homelab = profile_doc("homelab-infrastructure-operator").get("spec") or {}
+    auth = homelab.get("authorization") or {}
+    if auth.get("identityProvider") != "authentik" or auth.get("requiredEffectiveGroup") != "System" or auth.get("failClosed") is not True:
+        errors.append("homelab-infrastructure-operator must require fail-closed Authentik System authorization")
+    if auth.get("mutationCheck") != "fresh-before-tool-call" or auth.get("alarmRecipientCheck") != "fresh-at-delivery":
+        errors.append("homelab-infrastructure-operator must freshly check writes and alarm recipients")
+
+    authentik = plugin_doc("authentik-authorization").get("spec") or {}
+    authentik_policy = authentik.get("policy") or {}
+    authentik_runtime = authentik.get("runtime") or {}
+    if authentik_policy.get("writes") != "deny" or authentik_policy.get("groupAdministration") != "deny" or authentik_policy.get("roleAdministration") != "deny":
+        errors.append("authentik-authorization must remain read-only")
+    if authentik_runtime.get("requiredGroupName") != "System" or authentik_runtime.get("membershipMode") != "direct-and-indirect" or authentik_policy.get("failClosedOnLookupFailure") is not True:
+        errors.append("authentik-authorization must verify effective System membership and fail closed")
+
+    broker = plugin_doc("homelab-ops-broker").get("spec") or {}
+    broker_policy = broker.get("policy") or {}
+    broker_runtime = broker.get("runtime") or {}
+    if broker_policy.get("arbitraryShell") != "deny" or broker_policy.get("rawSsh") != "deny" or broker_policy.get("arbitraryCommand") != "deny":
+        errors.append("homelab-ops-broker must deny arbitrary shell/raw SSH/commands")
+    if broker_policy.get("writesRequireFreshAuthentikSystemMembership") is not True or broker_runtime.get("requiredEffectiveGroupForWrites") != "System":
+        errors.append("homelab-ops-broker writes must require fresh Authentik System membership")
+
+    cloudflare = plugin_doc("cloudflare-homelab").get("spec") or {}
+    cloudflare_policy = cloudflare.get("policy") or {}
+    cloudflare_runtime = cloudflare.get("runtime") or {}
+    if cloudflare_policy.get("writesRequireFreshAuthentikSystemMembership") is not True or cloudflare_runtime.get("requiredEffectiveGroupForWrites") != "System":
+        errors.append("cloudflare-homelab writes must require fresh Authentik System membership")
+    for field in ("unrelatedZoneAccess", "unrelatedTunnelAccess", "accountAdministration", "apiTokenAdministration"):
+        if cloudflare_policy.get(field) != "deny":
+            errors.append(f"cloudflare-homelab policy.{field} must remain deny")
+
+    cron = load_yaml(ROOT / "crons" / "homelab-health-review.yaml").get("spec") or {}
+    cron_policy = cron.get("policy") or {}
+    if cron_policy.get("authorityFromSchedule") != "deny" or cron_policy.get("remediationFromSchedule") != "deny":
+        errors.append("homelab-health-review must remain read-only and gain no remediation authority from schedule")
+    if cron_policy.get("infrastructureAlarmRequiredGroup") != "System" or cron_policy.get("resolveRecipientsAtDelivery") is not True or cron_policy.get("failClosedOnRecipientAuthorizationFailure") is not True:
+        errors.append("homelab-health-review alarms must resolve current System recipients and fail closed")
+
     if errors:
-        print("v2.2 specialist expansion validation failed:")
+        print("specialist expansion validation failed:")
         for error in errors:
             print(f" - {error}")
         return 1
 
-    print(f"v2.2 expansion OK: {len(EXPECTED_PROFILES)} profiles, {len(EXPECTED_SKILLS)} skills, {len(EXPECTED_PLUGINS)} plugins, {len(EXPECTED_BUNDLES)} bundles")
+    print(f"Expansion OK: {len(EXPECTED_PROFILES)} profiles, {len(EXPECTED_SKILLS)} skills, {len(EXPECTED_PLUGINS)} plugins, {len(EXPECTED_BUNDLES)} bundles, {len(EXPECTED_CRONS)} required crons")
     return 0
 
 

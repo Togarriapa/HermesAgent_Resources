@@ -2,9 +2,13 @@
 
 This is the canonical current capability map. Individual manifest YAML files remain authoritative for exact dependencies, instructions, versions, tools, and permissions. Use `python scripts/render_registry_reference.py` for a live manifest-derived Profile/integration table.
 
-## HermesAgent, software, data and AI
+## HermesAgent, software, data, AI and homelab infrastructure
 
 HermesAgent runtime/provisioner expertise; general/backend/frontend/web/DevOps development; systems architecture; network/SRE/database/infrastructure; cybersecurity/privacy engineering; data engineering/science/analytics; AI/ML application development; AI systems architecture; prompt engineering; agent orchestration; evaluation; LLMOps; AI safety/reliability; retrieval and knowledge engineering.
+
+Homelab infrastructure coverage adds cross-service diagnosis, bounded Hermes/Nextcloud host operations, Nextcloud maintenance, backup/recovery, Cloudflare tunnel/DNS operations, and periodic read-only health review. Infrastructure mutation and infrastructure alarms are restricted to Hermes users with current effective membership in the Authentik `System` group. Membership is freshly checked before writes and recipients are freshly resolved at alarm delivery; failures deny rather than broaden access. Raw SSH/arbitrary shell is not exposed to agents.
+
+Home Assistant remains the smart-home/device automation control plane, including routine device/Starlink automations; Hermes infrastructure operations consume only the context/control already intentionally exposed by the existing Home Assistant MCP.
 
 ## Product, operations, people and career
 
@@ -50,6 +54,6 @@ Ebook Planner, Writer, Editor/Publisher, Designer and Converter cover architectu
 
 ## Integrations and automation
 
-GitHub, web research, Composio, filesystem/GitHub/Home Assistant MCP, Home Assistant/Wyoming voice, WhatsApp Business, Cloudflare/GitHub webhooks, scheduled resource reconciliation, ebook conversion tools, and Kobo export/sideload bridge are bounded by host policy and per-resource declarations.
+GitHub, web research, Composio, filesystem/GitHub/Home Assistant MCP, Home Assistant/Wyoming voice, WhatsApp Business, Authentik authorization, bounded Hermes/Nextcloud host operations, scoped Cloudflare homelab operations, Cloudflare/GitHub webhooks, scheduled resource reconciliation, read-only homelab health review, ebook conversion tools, and Kobo export/sideload bridge are bounded by host policy and per-resource declarations.
 
 GitHub Actions provide PR validation, semantic-version/catalog consistency checks, weekly maintenance audits, dependency-update PRs, and optional signed notification to Hermes after a validated `main` update.

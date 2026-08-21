@@ -51,6 +51,8 @@ python scripts/materialize_effective_registry.py --check-only
 
 Review both the declared manifest and its inherited/effective quality contract. Confirm distinct responsibility, least privilege, bounded integrations, runtime-only secrets, safe retries/idempotency, explicit side-effect authorization, verification/rollback where applicable, Hermes-only user routing, non-authority-bearing Cron/Webhook/Bundle behavior, current evidence where material, and explicit professional/medical/legal/physical/financial boundaries.
 
+For homelab/infrastructure changes additionally preserve the Authentik `System` boundary: trusted Hermes session principal binding, current direct/indirect effective-group evaluation, fresh pre-tool authorization for writes, fresh recipient resolution for infrastructure alarms, fail-closed Authentik failure, read-only Authentik administration surface, no raw SSH/arbitrary shell, bounded host/Nextcloud/Cloudflare targets, and no mutation authority from schedules/webhooks/alarms. `System` membership never replaces destructive-action confirmation or rollback/verification requirements.
+
 For Kobo/ebook changes additionally preserve exported/authorized-file-only notebook ingestion, source/rights provenance, model/transport capability detection, EPUB validation, explicit outbound delivery, source-artifact preservation, and the no-DRM-circumvention boundary.
 
 ## Canonical documentation

@@ -43,9 +43,25 @@ See `RESOURCE_QUALITY.md`, `SPEC.md`, and `SECURITY.md`.
 
 ## Capability coverage
 
-The registry covers software/infrastructure/data/AI; product/operations/people; finance/investment/accounting; law/privacy; home/property/farm; education; research/humanities; Catholic theology/tradition/liturgy; traditional and historical living/remedies; fitness; translation; architecture/fabrication; and ebook/Kobo workflows.
+The registry covers software/infrastructure/data/AI; product/operations/people; finance/investment/accounting; law/privacy; home/property/farm; education; research/humanities; Catholic theology/tradition/liturgy; traditional and historical living/remedies; fitness; translation; architecture/fabrication; ebook/Kobo workflows; and Authentik-gated homelab operations.
 
 See `CAPABILITY_COVERAGE.md` and `PROFILE_MATRIX.md`.
+
+## Homelab infrastructure operations
+
+The homelab operations layer covers bounded Hermes/Nextcloud host diagnostics and maintenance, Nextcloud administration, backup/recovery, Cloudflare tunnel/DNS operations, cross-service incident diagnosis, and a periodic read-only health review.
+
+- Authentik is the authoritative Hermes user/group source for infrastructure privileges.
+- Only Hermes users with current effective membership in Authentik group `System` may execute infrastructure-changing actions or receive infrastructure alarms.
+- Membership is freshly checked before every infrastructure write; alarm recipients are freshly resolved at delivery time; lookup failure fails closed.
+- Cached group membership, static recipient lists, prompt claims, Bundles, schedules and webhooks never create infrastructure authority.
+- `authentik-authorization` is read-only; it cannot administer Authentik users/groups/roles.
+- `homelab-ops-broker` exposes approved operations only; raw SSH, arbitrary shell/commands and unrestricted Nextcloud/Docker/systemd/filesystem operations are denied.
+- `cloudflare-homelab` is restricted to configured homelab zone/hostnames/tunnels and uses least-privilege provider credentials.
+- The `homelab-health-review` schedule is read-only and cannot remediate from schedule authority.
+- Home Assistant remains the smart-home/device automation control plane rather than duplicating routine HA/Starlink automations here.
+
+`System` membership is necessary, not sufficient, for risky work: destructive/irreversible actions retain explicit confirmation, rollback and verification requirements. See `SECURITY.md`, `INTEGRATION_MATRIX.md`, `EXTERNAL_INTEGRATIONS.md`, and `RUNTIME_IMPORT.md`.
 
 ## Kobo / ebook workflow
 

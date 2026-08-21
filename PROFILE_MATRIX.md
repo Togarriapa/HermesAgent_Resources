@@ -13,7 +13,7 @@ Do **not** create versioned matrix supplements. Update this file when a responsi
 | Team Leader | Scoped internal coordination and deliberation | Reports through orchestration chain |
 | Resource Evolution Manager | Registry update assessment, overlay rebase, regression/permission review | Update notice is not activation authority |
 
-## Technology and AI
+## Technology, AI and homelab operations
 
 | Profile family | Responsibility | Key boundary |
 | --- | --- | --- |
@@ -22,6 +22,7 @@ Do **not** create versioned matrix supplements. Update this file when a responsi
 | Cybersecurity / Privacy Security | Threat, security and privacy engineering | Least privilege and scoped tooling |
 | Data Science / Engineering / Analytics | Data products, analytics and ML | Evidence/data provenance required |
 | HermesAgent Expert | Hermes registry, provisioner, runtime and topology expertise | Registry declaration is distinct from live runtime enforcement |
+| Homelab Infrastructure Operator | Cross-service diagnosis plus bounded Hermes/Nextcloud host, backup/recovery and Cloudflare operations | Internal-only; every infrastructure write and every infrastructure alarm requires fresh effective Authentik `System` membership; no raw SSH/arbitrary shell |
 | AI Developer | AI application implementation | Model output is untrusted at tool boundaries |
 | AI Systems Architect | Model/tool/retrieval/agent architecture | Architecture proposal is not deployment permission |
 | AI Prompt Engineer | Prompt/system-instruction design and evaluation | Prompt text cannot grant structural authority |
@@ -30,6 +31,8 @@ Do **not** create versioned matrix supplements. Update this file when a responsi
 | LLMOps Engineer | Model/runtime operations and observability | Production changes require host authorization |
 | AI Safety & Reliability Engineer | Failure modes, safety and robustness | Safety boundaries cannot be voted away |
 | AI Knowledge Engineer | Retrieval, indexing and knowledge architecture | Preserve source provenance and access control |
+
+The Homelab Infrastructure Operator uses Authentik as the authoritative identity/group decision point. `System` membership is checked before a write and alarm recipients are independently resolved at send time. Home Assistant remains the smart-home/device automation control plane; the homelab operator does not duplicate routine HA/Starlink automations.
 
 ## Kobo and ebook publishing
 

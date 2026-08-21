@@ -11,6 +11,9 @@ Do **not** create versioned integration-matrix supplements. Update this file whe
 | Web | Research-oriented Profiles | Read current public information | Source provenance/freshness; no account authority implied |
 | Filesystem MCP | Profiles with approved workspace access | Bounded roots only | No implicit access outside configured roots |
 | Home Assistant MCP | Smart-home/Home Assistant roles | Scoped HA operations | Physical/home automation actions remain authorization- and safety-gated |
+| Authentik Authorization | Homelab Infrastructure Operator / Hermes runtime | Read trusted user identity and effective groups; resolve alarm recipients | Read-only; infrastructure writes and alarms require fresh effective `System` membership; fail closed |
+| Homelab Ops Broker | Homelab Infrastructure Operator | Read host/Nextcloud health; bounded service/container/backup/recovery/Nextcloud writes | Hermes + Nextcloud targets only; no raw SSH/arbitrary shell; every write requires fresh `System` authorization |
+| Cloudflare Homelab | Homelab Infrastructure Operator | Read approved DNS/tunnel state; bounded approved DNS/tunnel writes | Approved zone/hostnames/tunnels only; writes require fresh `System`; no account/token/billing administration |
 | Composio | Approved external SaaS integrations | Provider/toolkit-specific | Runtime OAuth only; toolkit exposure must remain explicit |
 | Financial Data Hub | Financial Data Steward / analysis roles | Read/reconcile financial data | No raw credentials; read access is distinct from execution |
 | Financial Execution Gateway | Financial Execution Operator | Real-value order/payment actions | Exact one-shot user order + fresh confirmation + reconciliation |
@@ -21,6 +24,14 @@ Do **not** create versioned integration-matrix supplements. Update this file whe
 | Voice Pipeline | Hermes | STT/TTS around Hermes | Specialists never receive direct user-channel binding |
 | Resource Overlay Store | Resource Evolution Manager | Private/local learned overlays | Private learning is not published and cannot grant permissions |
 | Epic Kanban | Orchestrator / Team Leaders | Ephemeral work coordination | Board state does not create authority |
+
+## Homelab infrastructure authorization model
+
+The authenticated Hermes session principal is mapped to Authentik. Only users with current effective membership in Authentik group `System`, including indirect membership, are eligible for infrastructure-changing operations or infrastructure alarms.
+
+Mutation authorization is checked immediately before the target tool call. Alarm recipients are independently resolved at delivery time. Authentik lookup failure, ambiguous identity, missing/ambiguous group or unverified membership fails closed. Cached membership, static recipient lists, prompts, Bundles, schedules and webhooks never substitute for the lookup.
+
+The scheduled `homelab-health-review` is read-only: it may detect/correlate incidents but cannot remediate from schedule authority. Home Assistant remains the smart-home/device automation control plane rather than duplicating its routine automations in Hermes infrastructure operations.
 
 ## Kobo transport model
 
