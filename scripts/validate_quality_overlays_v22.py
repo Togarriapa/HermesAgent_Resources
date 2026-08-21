@@ -25,6 +25,7 @@ CASES = {
     "profiles/prenatal-postpartum-fitness-coach.yaml": {"must": {"health-psychology-nutrition", "pregnancy-postpartum-fitness", "specialized-fitness"}, "must_not": {"traditional-remedies"}},
     "profiles/powerlifting-coach.yaml": {"must": {"health-psychology-nutrition", "specialized-fitness"}, "must_not": {"pregnancy-postpartum-fitness"}},
     "profiles/kobo-library-notebook-specialist.yaml": {"must": {"ebook-kobo"}, "must_not": {"finance-investment", "health-psychology-nutrition"}},
+    "profiles/kobo-integration-specialist.yaml": {"must": {"ebook-kobo"}, "must_not": {"finance-investment", "health-psychology-nutrition"}},
     "profiles/ebook-converter.yaml": {"must": {"ebook-kobo"}, "must_not": {"finance-investment"}},
 }
 

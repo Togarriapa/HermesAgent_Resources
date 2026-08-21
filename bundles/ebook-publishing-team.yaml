@@ -3,7 +3,7 @@ kind: Bundle
 metadata:
   name: ebook-publishing-team
   version: 1.0.0
-  description: Internal ebook planning, writing, editing, design, conversion, and Kobo delivery team.
+  description: Internal ebook planning, writing, editing, design, conversion, Kobo notebook, device integration, and explicit delivery team.
   tags: [bundle, ebook, publishing, kobo]
 spec:
   imports:
@@ -15,6 +15,7 @@ spec:
       - ebook-designer@^1.0.0
       - ebook-converter@^1.0.0
       - kobo-library-notebook-specialist@^1.0.0
+      - kobo-integration-specialist@^1.0.0
   policy:
     userFacing: false
     drmRemoval: deny

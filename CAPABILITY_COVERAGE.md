@@ -46,7 +46,7 @@ General/scientific research, evidence synthesis, misinformation/media literacy, 
 
 ## Ebook publishing and Kobo
 
-Ebook Planner, Writer, Editor/Publisher, Designer and Converter cover architecture, long-form drafting, editing/proofing, reflowable design, metadata, EPUB/PDF conversion and validation. Kobo Library & Notebook Specialist can ingest **user-exported** notebook files, synthesize them with provenance, and stage validated non-DRM EPUB/PDF files to an approved Dropbox/Google Drive/USB path on explicit request. Model capability is detected rather than assumed; unsupported cloud workflows fall back to USB/manual steps.
+Ebook Planner, Writer, Editor/Publisher, Designer and Converter cover architecture, long-form drafting, editing/proofing, reflowable design, metadata, EPUB/PDF conversion and validation. Kobo Library & Notebook Specialist owns exported-note ingestion/synthesis; Kobo Integration Specialist owns device/model/firmware capability detection, sync/USB troubleshooting and transfer workflows. Validated non-DRM EPUB/PDF delivery uses approved Dropbox/Google Drive/USB paths only on explicit request, with USB/manual fallback when cloud support is unavailable.
 
 ## Integrations and automation
 
