@@ -1,33 +1,39 @@
 # Runtime / Provisioner Import Contract
 
-This repository is declarative. A deployed Hermes host becomes compliant only when its provisioner/importer resolves, materializes, authorizes, isolates, and enforces the registry structurally.
+This repository is declarative. A deployed Hermes host becomes compliant only when its provisioner/importer discovers, resolves, materializes, authorizes, isolates and enforces the registry structurally.
 
 ## Canonical import pipeline
 
-A production importer should perform these stages in order and fail closed on an invalid stage:
+A production importer should fail closed through these stages:
 
-1. **Select source** — repository, immutable/pinned Git ref or explicitly approved moving ref, expected provenance.
+1. **Select source** — repository plus immutable/pinned commit and expected provenance.
 2. **Fetch** — retrieve source without executing repository content.
-3. **Validate raw registry** — run envelope/catalog/dependency/topology/deliberation/quality validation before activation.
-4. **Resolve catalog selectors** — choose exact versions satisfying requested selectors.
-5. **Resolve dependency graph** — recursively resolve `requires`, Bundle `imports`, and inheritance; reject missing/incompatible/cyclic dependencies.
-6. **Resolve inheritance** — materialize parent→child manifest composition according to `SPEC.md`.
-7. **Apply registry quality** — merge universal kind defaults and matching domain overlays from `QUALITY_POLICY.yaml` without expanding capabilities.
-8. **Rebase local overlays** — apply local experience and private user-learned overlays semantically, surfacing conflicts.
-9. **Apply current session context** — behavioral/contextual instructions for the current work.
-10. **Enforce host authorization ceiling** — intersect requested capabilities with local filesystem/process/network/account/credential/side-effect policies. Anything not allowed is unavailable regardless of manifest/user request.
-11. **Resolve compatibility** — OS/architecture/runtime/provider requirements; reject known incompatibility before launching.
-12. **Plan isolation** — Profile identity, workspace/worktree, filesystem roots, network exposure, credential mounts/references, process/container limits, and inter-agent communication scope.
-13. **Inject runtime secrets** — resolve only the credential references actually required by the authorized materialized resource. Never write resolved secrets back into generated manifests/workspaces/logs.
-14. **Instantiate dependencies/providers** — Plugins/MCPs/channels/internal providers with health checks and least-privilege scope.
-15. **Instantiate Profile/team** — with the effective resource contract and only the authorized capabilities.
-16. **Register observability** — resource/version/policy version, instance identity, parent coordinator, permissions/capabilities, lifecycle and audit correlation.
-17. **Acceptance check** — verify health, topology, required dependencies and critical read-only smoke tests before marking active.
-18. **Atomic activation** — switch from prior effective generation only after acceptance; retain rollback state.
+3. **Discover/validate raw registry** — use the catalog roots; validate envelopes, identities, dependencies, topology, deliberation and quality.
+4. **Resolve selectors/dependency graph** — recursively resolve `requires`, Bundle imports and compatible versions.
+5. **Resolve inheritance** — parent→child composition according to `SPEC.md`; reject cycles.
+6. **Apply registry quality** — merge universal/kind defaults and matching domain overlays from the single `QUALITY_POLICY.yaml` without expanding capability.
+7. **Rebase local/private overlays** — semantically preserve local experience and private user learning; quarantine conflicts.
+8. **Apply current session context** — behavioral context for current work only.
+9. **Intersect host authorization** — filesystem/process/network/account/credential/side-effect policy is the absolute ceiling.
+10. **Resolve compatibility** — OS/architecture/runtime/provider/device requirements.
+11. **Plan isolation** — Profile identity, workspace/worktree, filesystem roots, network exposure, credential references, process/container limits and internal communication scope.
+12. **Inject runtime secrets** — resolve only authorized references and never persist resolved values into registry/workspace/logs.
+13. **Instantiate providers/resources** — Plugins/MCPs/channels/internal providers, then Profiles/Bundles with least privilege and health checks.
+14. **Register observability** — source commit, resource/policy versions, instance lineage, effective capabilities and audit correlation.
+15. **Acceptance check** — health, topology, dependencies and relevant read-only/smoke tests.
+16. **Atomic activation** — switch generations only after acceptance and retain rollback state.
 
-## Recommended resolved-resource record
+## Effective capability
 
-For each instantiated resource, retain a non-secret internal record such as:
+`available capability = declared/resolved capability ∩ host/runtime policy ∩ credential/account scope`
+
+Where an operation requires confirmation/order, valid user authority is an additional predicate **inside** that intersection. It never expands it.
+
+A Bundle does not pool member permissions; recruitment does not inherit the coordinator's credentials; schedule/webhook receipt does not create mutation authority.
+
+## Recommended resolved record
+
+Retain non-secret provenance sufficient to reproduce behavior:
 
 ```yaml
 resource:
@@ -57,154 +63,64 @@ runtime:
   activatedAt: <timestamp>
 ```
 
-Do not put resolved secret values into this record.
+## Hermes-only topology
 
-## Dependency and inheritance rules
+Adapters enforce Hermes inbound/outbound, deny direct specialist selection and non-Hermes user-channel binding, scope internal messages to assignment/session, and correlate clarifications/results/alerts back to the correct Hermes conversation.
 
-- Resolve selectors to exact catalog versions before activation.
-- Fail closed on missing/ambiguous dependency resolution.
-- Detect inheritance cycles across the full graph.
-- Parent configuration supplies defaults; child configuration specializes it according to the merge rules in `SPEC.md`.
-- Dependencies provide only their declared capability surfaces.
-- A Bundle's roster/imports do not merge all member permissions into every member.
+## Dynamic recruitment and parallelism
 
-## Quality-policy materialization
+Recruit against the active generation, resolve the recruited Profile's own dependencies/effective quality, intersect with host policy, allocate isolated context/workspace, register parent-child lifecycle and release after handoff. Concurrent technical writers use isolated branches/worktrees or serialized/partitioned writes plus an integration gate.
 
-The quality policy is a restrictive/defaulting layer. The reference script:
+## Provider lifecycle
 
-```bash
-python scripts/materialize_effective_registry.py
-```
+Before exposing a Plugin/MCP, resolve reviewed source/version, restrict network/process/filesystem scope, inject only required credentials, health-check it, expose only approved operations, enforce timeout/retry/rate policy, audit with redaction and revoke/stop cleanly when no longer needed.
 
-shows quality-policy materialization with secrets unresolved. A production importer must additionally resolve catalog dependencies/inheritance and local overlays as described above.
+## Crons and Webhooks
 
-Store the policy version alongside the effective generation so a behavior change can be reproduced/rolled back.
+The runtime maintains idempotency/dedup/replay stores, overlap/misfire policies, bounded retry, payload validation and exact authority checks. User-visible outcomes route through Hermes.
 
-## Authorization intersection
+### Registry update notice
 
-Authorization is not ordinary YAML precedence. Compute the effective requested capability, then intersect it with host policy:
+A successful `main` validation may cause GitHub to POST the signed `registry-update-available` event defined by `webhooks/registry-update-notice.yaml` when repository notification settings are enabled.
 
-`effective available capability = declared/resolved capability ∩ host/runtime permission ∩ credential/account scope`
+The runtime must:
 
-For operations requiring explicit confirmation/order, user authority is an additional runtime predicate **inside that intersection**, never an expansion beyond it.
+1. verify HMAC signature, event type, delivery ID/replay and payload schema;
+2. verify repository and immutable commit;
+3. compare the commit with the active generation;
+4. run the normal candidate pipeline below;
+5. report assessment through Hermes.
 
-Examples:
+**Receipt does not authorize import/activation.** The configured webhook secret authenticates a notification source only.
 
-- a Profile requiring GitHub does not gain repository write if the provided token/profile policy is read-only;
-- a Bundle containing Financial Execution Operator does not authorize a trade;
-- a valid trade confirmation cannot enable withdrawal permission absent from the execution credential/gateway policy;
-- a Home Assistant control request cannot reach an entity that host/MCP exposure policy did not expose.
+## Candidate update / resource evolution
 
-## Hermes-only topology enforcement
+Never mutate the active generation in place. Candidate flow:
 
-User channels should bind to Hermes at the adapter/router layer rather than trusting a prompt instruction.
+`notice/daily-check -> fetch immutable commit -> discover/validate -> resolve -> quality materialize -> rebase overlays -> permission/compatibility diff -> regression/smoke tests -> snapshot -> policy-approved activation -> health verify`
 
-Enforce:
+Authority-expanding, breaking, semantically conflicting or incompatible updates are quarantined. Rollback restores the prior generation without discarding overlay histories. See `RESOURCE_EVOLUTION.md`.
 
-- inbound/outbound Profile = Hermes;
-- direct client Profile selection denied;
-- non-Hermes Profile user-channel binding rejected at provisioning time;
-- internal Profile messages authenticated/scoped to their assignment/session;
-- clarification/results/alerts follow internal chain back to Hermes;
-- session/correlation IDs prevent cross-user result delivery.
+## Kobo / ebook runtime requirements
 
-## Dynamic recruitment
+`kobo-bridge` must detect device/model capability before choosing cloud delivery. Dropbox/Google Drive connections are owner-authorized OAuth connections and must expose only the required read/write file operations. USB mode requires an explicitly approved Kobo mount root.
 
-When Orchestrator recruits a Profile:
+Notebook inputs are exported user files, not scraped Kobo account data. Delivery accepts validated non-DRM EPUB/PDF only and requires an explicit user order. Existing-file replacement requires confirmation.
 
-1. resolve the latest compatible/allowed exact resource version from the current effective generation;
-2. compute its own dependencies/effective quality/overlays;
-3. intersect with host policy and available credential scope;
-4. allocate isolated instance/workspace/context;
-5. attach only assignment-relevant context;
-6. register parent/child lifecycle and audit identity;
-7. release the instance after handoff/completion.
-
-Recruitment must never inherit the recruiting Profile's credentials merely because they communicate.
-
-## Parallel writer isolation
-
-For code/config/shared mutable state:
-
-- isolated Git branches/worktrees/workspaces for independent technical writers;
-- serialized or partitioned writes where target state cannot safely merge;
-- explicit integration/reconciliation gate before shared-state promotion;
-- rollback/compensation and post-write verification for material changes.
-
-## Plugin/MCP lifecycle
-
-Before exposing a Plugin/MCP to a Profile:
-
-- resolve reviewed version/source;
-- start in minimum network/process/filesystem scope;
-- inject only required credential references;
-- perform health/readiness checks;
-- expose only approved tools/roots/operations;
-- enforce timeout/retry/rate-limit policy;
-- audit calls with redaction;
-- stop/revoke cleanly when the Profile instance is released if the provider is instance-scoped.
-
-Shared providers must still enforce per-Profile/user/account authorization on every call.
-
-## Cron and Webhook instantiation
-
-Scheduled/event resources are triggers, not standing permission grants.
-
-The runtime should provide:
-
-- idempotency/deduplication store;
-- overlap/concurrency policy;
-- retry/backoff/misfire behavior;
-- payload/event validation and replay protection for Webhooks;
-- correlation into Orchestrator/Hermes for user-visible results;
-- exact authority checks before any state-changing action.
+`ebook-toolchain` should expose approved host binaries (for example Pandoc/EPUBCheck/Calibre where installed) through a bounded wrapper rather than arbitrary shell access. Conversion keeps source artifacts, validates outputs and records checksums/results.
 
 ## Financial execution
 
-The runtime must enforce the one-shot state machine in `FINANCIAL_ACCESS.md` outside LLM prompt text. Confirmation objects should be payload-bound, one-shot, short-lived, auditable and impossible to reuse after material changes.
-
-Secrets/signing material stay behind execution-provider boundaries; decision Profiles receive normalized observations/results rather than raw keys.
-
-## Resource evolution / activation
-
-The daily reconcile process should create a **candidate generation**, never mutate the active generation in place.
-
-Candidate flow:
-
-`fetch -> validate -> resolve -> quality materialize -> rebase overlays -> permission-diff -> regression/smoke test -> snapshot -> atomic activate -> health verify`
-
-On failure after activation, restore the prior generation while retaining overlay histories. Authority-expanding or semantically conflicting updates are quarantined rather than automatically applied.
+The runtime enforces the one-shot state machine in `FINANCIAL_ACCESS.md` outside prompt text. Confirmation objects are exact-payload-bound, short-lived, one-shot and auditable; ambiguous provider outcomes reconcile before retry. Secret/signing material stays behind execution-provider boundaries.
 
 ## Shared host Codex authentication
 
-The registry declares `codex` as host-managed with shared host authentication. A compliant provisioner should expose the approved host-managed Codex auth location/reference to eligible agent containers/processes without copying reusable credentials into individual agent workspaces.
-
-Each agent should be able to use the authorized host connection while workspace isolation, Profile capability policy, and host account/session controls remain intact. The live provisioner implementation must verify the actual mount/reference behavior; the declaration alone is not proof that deployed agents currently share the authentication.
+Eligible agents reuse the approved host-managed Codex authentication location/reference. Do not require separate per-agent login or copy reusable credentials into agent workspaces. Workspace isolation and Profile/host policy still apply to every Codex call.
 
 ## Deployment acceptance criteria
 
-A runtime generation should not be marked active until at minimum:
-
-- all requested resources/dependencies resolved;
-- raw and effective validation passed;
-- Hermes is the only user-facing Profile;
-- channel bindings/routes are correct;
-- unauthorized capabilities are absent/fail closed;
-- required Plugins/MCPs healthy;
-- secret placeholders are not exposed in logs/materialized files;
-- isolated workspaces/processes are available where required;
-- relevant read-only health/smoke tests pass;
-- rollback target is retained.
+Do not mark a generation active until requested resources/dependencies resolve, raw/effective validation passes, Hermes-only topology holds, unauthorized capabilities are absent, required providers are healthy, secrets remain protected, needed isolation exists, relevant smoke tests pass and a rollback target is retained.
 
 ## Audit and rollback
 
-Record non-secret generation metadata sufficient to answer:
-
-- which source commit/resource versions/policy version were active;
-- which overlays were applied;
-- what host-policy revision authorized capabilities;
-- which dependencies/providers/credentials references were selected;
-- when activation occurred and acceptance tests passed;
-- what generation to restore on rollback.
-
-This lets the live Pi reproduce and diagnose effective behavior without storing credentials in Git or relying on undocumented prompt state.
+Record source commit/catalog/policy/resource versions, applied overlays, host-policy revision, dependency/provider/credential references, acceptance outcome, activation time and rollback target—without secret values. This allows the Pi runtime to reproduce and diagnose effective behavior rather than relying on undocumented prompt state.

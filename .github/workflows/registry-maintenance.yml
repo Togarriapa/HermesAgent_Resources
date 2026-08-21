@@ -38,6 +38,7 @@ jobs:
           python scripts/validate_expansion_v22.py
           python scripts/validate_quality_v22.py
           python scripts/validate_quality_overlays_v22.py
+          python scripts/render_registry_reference.py --output /tmp/registry-reference.md
           python scripts/materialize_effective_registry.py --check-only
       - name: Build update-notice fixture
         run: python scripts/build_update_notice.py --output /tmp/registry-update.json
