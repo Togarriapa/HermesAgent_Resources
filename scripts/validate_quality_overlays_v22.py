@@ -27,6 +27,7 @@ CASES = {
     "profiles/kobo-library-notebook-specialist.yaml": {"must": {"ebook-kobo"}, "must_not": {"finance-investment", "health-psychology-nutrition"}},
     "profiles/kobo-integration-specialist.yaml": {"must": {"ebook-kobo"}, "must_not": {"finance-investment", "health-psychology-nutrition"}},
     "profiles/ebook-converter.yaml": {"must": {"ebook-kobo"}, "must_not": {"finance-investment"}},
+    "profiles/homelab-infrastructure-operator.yaml": {"must": {"software-data-infrastructure"}, "must_not": {"finance-investment", "health-psychology-nutrition", "physical-engineering-property-farm"}},
 }
 
 
