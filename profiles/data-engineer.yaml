@@ -2,7 +2,7 @@ apiVersion: hermes.togarriapa/v1
 kind: Profile
 metadata:
   name: data-engineer
-  version: 1.1.0
+  version: 1.1.1
   description: Data engineer for reliable pipelines, data models, SQL/database engineering, quality controls, and data-platform operations.
   tags: [data, engineering, pipelines, databases]
 spec:
@@ -23,7 +23,7 @@ spec:
     composio:
       toolkits:
         - slug: googlesheets
-          version: 20260721_00
+          version: "20260721_00"
           allowedTools:
             - GOOGLESHEETS_SEARCH_SPREADSHEETS
             - GOOGLESHEETS_GET_SPREADSHEET_INFO
@@ -33,7 +33,7 @@ spec:
             - GOOGLESHEETS_UPDATE_VALUES_BATCH
             - GOOGLESHEETS_VALUES_UPDATE
         - slug: googledrive
-          version: 20260721_00
+          version: "20260721_00"
           allowedTools:
             - GOOGLEDRIVE_FIND_FILE
             - GOOGLEDRIVE_FIND_FOLDER
