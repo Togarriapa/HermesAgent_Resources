@@ -2,7 +2,7 @@ apiVersion: hermes.togarriapa/v1
 kind: Profile
 metadata:
   name: project-manager
-  version: 1.1.0
+  version: 1.1.1
   description: Project manager for scope, milestones, risks, status reporting, dependencies, and stakeholder coordination.
   tags: [projects, planning, delivery]
 spec:
@@ -19,7 +19,7 @@ spec:
     composio:
       toolkits:
         - slug: googlecalendar
-          version: 20260721_00
+          version: "20260721_00"
           allowedTools:
             - GOOGLECALENDAR_EVENTS_LIST_ALL_CALENDARS
             - GOOGLECALENDAR_FIND_EVENT
@@ -27,14 +27,14 @@ spec:
             - GOOGLECALENDAR_CREATE_EVENT
             - GOOGLECALENDAR_UPDATE_EVENT
         - slug: googletasks
-          version: 20260721_00
+          version: "20260721_00"
           allowedTools:
             - GOOGLETASKS_LIST_TASK_LISTS
             - GOOGLETASKS_LIST_TASKS
             - GOOGLETASKS_INSERT_TASK
             - GOOGLETASKS_PATCH_TASK
         - slug: googledocs
-          version: 20260721_00
+          version: "20260721_00"
           allowedTools:
             - GOOGLEDOCS_SEARCH_DOCUMENTS
             - GOOGLEDOCS_GET_DOCUMENT_BY_ID
@@ -42,7 +42,7 @@ spec:
             - GOOGLEDOCS_CREATE_DOCUMENT_MARKDOWN
             - GOOGLEDOCS_UPDATE_DOCUMENT_MARKDOWN
         - slug: googledrive
-          version: 20260721_00
+          version: "20260721_00"
           allowedTools:
             - GOOGLEDRIVE_FIND_FILE
             - GOOGLEDRIVE_FIND_FOLDER

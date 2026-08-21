@@ -2,7 +2,7 @@ apiVersion: hermes.togarriapa/v1
 kind: Profile
 metadata:
   name: home-farm-manager
-  version: 1.0.0
+  version: 1.0.1
   description: Operational manager for household and farm routines, maintenance schedules, supplies, seasonal work, budgets, and specialist coordination.
   tags: [home, farm, management, operations]
 spec:
@@ -22,10 +22,10 @@ spec:
     composio:
       toolkits:
         - slug: googlecalendar
-          version: 20260721_00
+          version: "20260721_00"
           allowedTools: [GOOGLECALENDAR_EVENTS_LIST_ALL_CALENDARS, GOOGLECALENDAR_FIND_EVENT, GOOGLECALENDAR_CREATE_EVENT, GOOGLECALENDAR_UPDATE_EVENT]
         - slug: googletasks
-          version: 20260721_00
+          version: "20260721_00"
           allowedTools: [GOOGLETASKS_LIST_TASK_LISTS, GOOGLETASKS_LIST_TASKS, GOOGLETASKS_INSERT_TASK, GOOGLETASKS_PATCH_TASK]
       writes: delegated-only
       deletes: deny

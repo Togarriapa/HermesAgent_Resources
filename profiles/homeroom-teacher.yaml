@@ -2,7 +2,7 @@ apiVersion: hermes.togarriapa/v1
 kind: Profile
 metadata:
   name: homeroom-teacher
-  version: 1.1.0
+  version: 1.1.1
   description: Homeroom teacher for classroom routines, learning support, student progress monitoring, family communication preparation, safeguarding awareness, and coordination with subject specialists.
   tags: [education, classroom, students, teaching]
 spec:
@@ -20,7 +20,7 @@ spec:
     composio:
       toolkits:
         - slug: google_classroom
-          version: 20260721_00
+          version: "20260721_00"
           allowedTools:
             - GOOGLE_CLASSROOM_COURSES_LIST
             - GOOGLE_CLASSROOM_COURSES_GET
@@ -28,12 +28,12 @@ spec:
             - GOOGLE_CLASSROOM_COURSE_WORK_MATERIALS_LIST
             - GOOGLE_CLASSROOM_COURSE_WORK_STUDENT_SUBMISSIONS_LIST
         - slug: googlecalendar
-          version: 20260721_00
+          version: "20260721_00"
           allowedTools:
             - GOOGLECALENDAR_EVENTS_LIST_ALL_CALENDARS
             - GOOGLECALENDAR_FIND_EVENT
         - slug: googledocs
-          version: 20260721_00
+          version: "20260721_00"
           allowedTools:
             - GOOGLEDOCS_SEARCH_DOCUMENTS
             - GOOGLEDOCS_GET_DOCUMENT_PLAINTEXT

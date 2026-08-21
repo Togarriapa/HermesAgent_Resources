@@ -2,7 +2,7 @@ apiVersion: hermes.togarriapa/v1
 kind: Channel
 metadata:
   name: whatsapp
-  version: 1.0.0
+  version: 1.0.1
   description: WhatsApp Business user channel routed exclusively through Hermes using a scoped Composio WhatsApp Business connection.
   tags: [channel, whatsapp, composio, hermes]
 spec:
@@ -12,7 +12,7 @@ spec:
   adapter: composio-whatsapp-business
   integration:
     toolkit: whatsapp
-    version: 20260721_00
+    version: "20260721_00"
     inboundTrigger: provider-message-received
     allowedTools:
       - WHATSAPP_GET_MESSAGE_HISTORY
