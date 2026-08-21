@@ -2,9 +2,9 @@ apiVersion: hermes.togarriapa/v1
 kind: Cron
 metadata:
   name: daily-resource-reconcile
-  version: 1.0.0
-  description: Daily safe reconciliation of upstream Hermes resources while preserving local experiential and private user-learned overlays.
-  tags: [cron, resources, updates, learning]
+  version: 1.0.1
+  description: Daily candidate assessment of upstream Hermes resources while preserving local and private overlays; schedule never grants activation authority.
+  tags: [cron, resources, updates, learning, infrastructure]
 spec:
   requires:
     profiles:
@@ -16,15 +16,22 @@ spec:
     profile: resource-evolution-manager@^1.0.0
     repository: Togarriapa/HermesAgent_Resources
     ref: main
+    mode: candidate-assessment
   policy:
-    autoApply: safe-compatible-only
+    autoApply: false
+    candidateMaterialization: true
+    authorityFromSchedule: deny
+    activationFromSchedule: deny
+    activationRequiresIndependentAuthorizedPath: true
     preserveLocalExperienceOverlay: true
     preservePrivateUserLearnedOverlay: true
     publishPrivateOverlays: false
     breakingChanges: quarantine
     conflicts: quarantine
-    atomicActivation: true
     rollbackSnapshot: true
-    notifyOnAppliedChanges: true
     notifyOnBlockedChanges: true
     jitterSeconds: 300
+    infrastructureAlarmRequiredGroup: System
+    resolveRecipientsAtDelivery: true
+    failClosedOnRecipientAuthorizationFailure: true
+    staticRecipientListAsAuthority: deny

@@ -19,27 +19,15 @@ REQUIRED_EFFECTIVE_PATHS: dict[str, tuple[str, ...]] = {
     "Webhook": ("contract", "safety", "privacy", "reliability", "observability", "replayProtection", "deduplication", "limits", "routing", "validation", "failureHandling", "policy"),
     "Bundle": ("contract", "safety", "privacy", "reliability", "observability", "purpose", "composition", "recruitment", "authority", "deliberation", "lifecycle"),
 }
-SKILL_METHOD_KEYS = {
-    "principles",
-    "procedure",
-    "steps",
-    "method",
-    "checks",
-    "rules",
-    "workflow",
-    "playbook",
-    "guidelines",
-    "process",
-    "criteria",
-    "techniques",
-    "framework",
-    "responsibilities",
-    "instructions",
-    "lifecycle",
-    "states",
-    "itemTypes",
-}
-PROFILE_ROLE_KEYS = {"instructions", "responsibilities", "principles", "role", "scope", "workflow", "method"}
+SKILL_PROCEDURAL_KEYS = (
+    "procedure", "steps", "workflow", "playbook", "process", "method", "instructions",
+    "rules", "guidelines", "checks", "criteria", "techniques", "framework", "responsibilities",
+    "lifecycle", "states", "itemTypes",
+)
+PROFILE_ROLE_KEYS = ("instructions", "responsibilities", "principles", "role", "scope", "workflow", "method")
+PLUGIN_CAPABILITY_KEYS = ("capabilities", "permissions", "sessions", "layers", "toolkits", "adapters", "tools")
+MCP_BOUNDARY_KEYS = ("capabilities", "roots", "exposure", "policy", "tools")
+INFRASTRUCTURE_ALERT_TAGS = {"infrastructure", "homelab"}
 
 
 def effective_spec(kind: str, name: str, tags: set[str], raw_spec: dict[str, Any], policy: dict[str, Any]) -> tuple[dict[str, Any], list[str]]:
@@ -66,6 +54,40 @@ def iter_scalars(value: Any, prefix: tuple[str, ...] = ()):
         yield prefix, value
 
 
+def substantive_text_stats(value: Any) -> tuple[int, int]:
+    texts: list[str] = []
+    for _, scalar in iter_scalars(value):
+        if isinstance(scalar, str):
+            normalized = " ".join(scalar.split())
+            if len(normalized) >= 20:
+                texts.append(normalized)
+    return len(texts), sum(len(text) for text in texts)
+
+
+def has_substantive_skill_method(spec: dict[str, Any]) -> bool:
+    # Principles are useful guidance but are intentionally insufficient on their own:
+    # a reusable Skill needs an operational method another agent can actually follow.
+    for key in SKILL_PROCEDURAL_KEYS:
+        if key not in spec:
+            continue
+        count, chars = substantive_text_stats(spec.get(key))
+        if count >= 3 and chars >= 120:
+            return True
+    return False
+
+
+def has_substantive_profile_role(spec: dict[str, Any]) -> bool:
+    count = 0
+    chars = 0
+    for key in PROFILE_ROLE_KEYS:
+        if key not in spec:
+            continue
+        item_count, item_chars = substantive_text_stats(spec.get(key))
+        count += item_count
+        chars += item_chars
+    return count >= 3 and chars >= 90
+
+
 def secret_literal_errors(rel: str, doc: dict[str, Any]) -> list[str]:
     errors: list[str] = []
     for path, value in iter_scalars(doc.get("spec") or {}):
@@ -81,6 +103,27 @@ def secret_literal_errors(rel: str, doc: dict[str, Any]) -> list[str]:
     return errors
 
 
+def infrastructure_alarm_checks(rel: str, kind: str, tags: set[str], doc: dict[str, Any]) -> list[str]:
+    if kind not in {"Cron", "Webhook"} or not (tags & INFRASTRUCTURE_ALERT_TAGS):
+        return []
+    spec = doc.get("spec") or {}
+    policy = spec.get("policy") or {}
+    action = spec.get("action") or {}
+    notification_like = any(str(key).lower().startswith("notify") for key in policy) or action.get("type") in {"health-report", "incident-triage"}
+    if not notification_like:
+        return []
+    errors: list[str] = []
+    if policy.get("infrastructureAlarmRequiredGroup") != "System":
+        errors.append(f"{rel}: infrastructure alarms must require current Authentik group System")
+    if policy.get("resolveRecipientsAtDelivery") is not True:
+        errors.append(f"{rel}: infrastructure alarm recipients must be resolved at delivery time")
+    if policy.get("failClosedOnRecipientAuthorizationFailure") is not True:
+        errors.append(f"{rel}: infrastructure alarm delivery must fail closed when Authentik authorization cannot be verified")
+    if policy.get("staticRecipientListAsAuthority") != "deny":
+        errors.append(f"{rel}: static recipient lists cannot authorize infrastructure alarm delivery")
+    return errors
+
+
 def direct_manifest_checks(rel: str, kind: str, name: str, doc: dict[str, Any]) -> list[str]:
     errors: list[str] = []
     metadata = doc.get("metadata") or {}
@@ -91,9 +134,10 @@ def direct_manifest_checks(rel: str, kind: str, name: str, doc: dict[str, Any]) 
         errors.append(f"{rel}: description must communicate a substantive purpose")
     if tags is not None and (not isinstance(tags, list) or any(not isinstance(tag, str) or not tag for tag in tags)):
         errors.append(f"{rel}: metadata.tags must be a list of non-empty strings")
+
     if kind == "Profile":
-        if not any(key in spec for key in PROFILE_ROLE_KEYS):
-            errors.append(f"{rel}: Profile needs direct domain role/instruction content")
+        if not has_substantive_profile_role(spec):
+            errors.append(f"{rel}: Profile needs substantive direct role/method content, not only a label or token principles")
         interaction = spec.get("interaction") or {}
         if name == "hermes":
             if interaction.get("userFacing") is not True:
@@ -101,24 +145,41 @@ def direct_manifest_checks(rel: str, kind: str, name: str, doc: dict[str, Any]) 
         elif interaction.get("userFacing") is True or interaction.get("directUserContact") == "allow" or interaction.get("userChannelBinding") == "allow":
             errors.append(f"{rel}: non-Hermes Profile cannot become user-facing")
     elif kind == "Skill":
-        if not (set(spec) & SKILL_METHOD_KEYS):
-            errors.append(f"{rel}: Skill needs direct domain method content")
+        if not has_substantive_skill_method(spec):
+            errors.append(f"{rel}: Skill needs a substantive direct procedure/workflow/method; principles alone are not a reusable specialist method")
     elif kind == "Plugin":
         if not any(key in spec for key in ("provider", "endpoint", "command", "runtime", "adapters")):
             errors.append(f"{rel}: Plugin must declare provider/endpoint/runtime surface")
+        if not any(key in spec for key in PLUGIN_CAPABILITY_KEYS):
+            errors.append(f"{rel}: Plugin must directly declare a bounded capability/permission/session surface")
+        if not any(key in spec for key in ("auth", "security", "policy", "permissions")):
+            errors.append(f"{rel}: Plugin must directly declare credential/security/side-effect policy")
     elif kind == "MCP":
         if not spec.get("transport") or not any(key in spec for key in ("endpoint", "command", "image")):
             errors.append(f"{rel}: MCP requires transport and endpoint/command/image")
+        if not any(key in spec for key in MCP_BOUNDARY_KEYS):
+            errors.append(f"{rel}: MCP must directly declare a bounded capability/root/exposure/policy surface")
     elif kind == "Channel":
         routing = spec.get("routing") or {}
         if routing.get("inboundProfile") != "hermes" or routing.get("outboundProfile") != "hermes":
             errors.append(f"{rel}: Channel must explicitly bind Hermes inbound/outbound")
+        if not isinstance(spec.get("policy"), dict):
+            errors.append(f"{rel}: Channel must directly declare admission/exposure policy")
     elif kind == "Cron":
         if not spec.get("schedule") or not spec.get("timezone") or not isinstance(spec.get("action"), dict):
             errors.append(f"{rel}: Cron requires schedule, timezone, and action")
+        policy = spec.get("policy") or {}
+        if policy.get("authorityFromSchedule") != "deny":
+            errors.append(f"{rel}: Cron must directly deny authority from schedule")
     elif kind == "Webhook":
         if not spec.get("path") or not spec.get("method") or not isinstance(spec.get("authentication"), dict):
             errors.append(f"{rel}: Webhook requires path, method, and authentication")
+        policy = spec.get("policy") or {}
+        if policy.get("authorityFromWebhookReceipt") != "deny":
+            errors.append(f"{rel}: Webhook must directly deny authority from receipt")
+        has_replay = isinstance(spec.get("replayProtection"), dict) or policy.get("deduplicateByDeliveryId") is True
+        if not has_replay:
+            errors.append(f"{rel}: Webhook must directly declare replay or delivery deduplication behavior")
     elif kind == "Bundle":
         imports = spec.get("imports")
         if not isinstance(imports, dict) or not any(isinstance(v, list) and v for v in imports.values()):
@@ -229,6 +290,7 @@ def main() -> int:
         errors.extend(direct_manifest_checks(rel, kind, name, doc))
         errors.extend(secret_literal_errors(rel, doc))
         errors.extend(homelab_authorization_checks(rel, kind, name, doc))
+        errors.extend(infrastructure_alarm_checks(rel, kind, tags, doc))
         if (effective.get("safety") or {}).get("authorityFromInference") != "deny":
             errors.append(f"{rel}: effective policy must deny authority inferred from context")
         if (effective.get("privacy") or {}).get("secretCommit") != "deny":

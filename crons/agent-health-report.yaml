@@ -2,9 +2,9 @@ apiVersion: hermes.togarriapa/v1
 kind: Cron
 metadata:
   name: agent-health-report
-  version: 1.0.0
-  description: Daily non-destructive health summary for an agent runtime.
-  tags: [cron, health, observability]
+  version: 1.0.1
+  description: Daily non-destructive agent-runtime health review with infrastructure alarms restricted to current Authentik System members.
+  tags: [cron, health, observability, infrastructure]
 spec:
   schedule: "23 7 * * *"
   timezone: Europe/Lisbon
@@ -18,4 +18,12 @@ spec:
       - resource-version
   policy:
     mutate: false
+    authorityFromSchedule: deny
+    remediationFromSchedule: deny
     notifyOnlyOnProblems: true
+    noProblemNoNotification: true
+    evidenceRequiredForAlarm: true
+    infrastructureAlarmRequiredGroup: System
+    resolveRecipientsAtDelivery: true
+    failClosedOnRecipientAuthorizationFailure: true
+    staticRecipientListAsAuthority: deny
