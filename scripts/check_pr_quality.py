@@ -18,6 +18,13 @@ FORBIDDEN_ROOT_DOCS = [
     re.compile(r"CATALOG_DISCOVERY_.*\.md$", re.I),
     re.compile(r"QUALITY_POLICY_EXPANSION_.*\.ya?ml$", re.I),
 ]
+CANONICAL_DOCS = {
+    "README.md", "SPEC.md", "TOPOLOGY.md", "ORCHESTRATION.md", "DELIBERATION.md",
+    "PROFILE_MATRIX.md", "INTEGRATION_MATRIX.md", "CAPABILITY_COVERAGE.md",
+    "RESOURCE_QUALITY.md", "RESOURCE_EVOLUTION.md", "RUNTIME_IMPORT.md",
+    "EXTERNAL_INTEGRATIONS.md", "SECURITY.md", "FINANCIAL_ACCESS.md",
+    "INVESTMENT_GOVERNANCE.md", "CONTRIBUTING.md",
+}
 LINK_RE = re.compile(r"\[[^\]]+\]\(([^)]+)\)")
 
 
@@ -57,9 +64,15 @@ def check_markdown_links(errors: list[str]) -> None:
 
 def main() -> int:
     errors: list[str] = []
+
+    for required in sorted(CANONICAL_DOCS):
+        if not (ROOT / required).is_file():
+            errors.append(f"missing canonical document: {required}")
+
     for path in ROOT.iterdir():
         if path.is_file() and any(regex.fullmatch(path.name) for regex in FORBIDDEN_ROOT_DOCS):
             errors.append(f"versioned/supplemental root document is forbidden; update a canonical document instead: {path.name}")
+
     check_markdown_links(errors)
 
     base_ref = os.getenv("GITHUB_BASE_REF")
@@ -70,6 +83,7 @@ def main() -> int:
         except subprocess.CalledProcessError:
             errors.append(f"cannot resolve PR base {base}; checkout must use fetch-depth: 0")
             base = ""
+
         if base:
             changed = run("git", "diff", "--name-status", f"{base}...HEAD").splitlines()
             resource_prefixes = tuple(f"{directory}/" for directory in RESOURCE_DIRS.values())
@@ -111,6 +125,7 @@ def main() -> int:
         for error in errors:
             print(f" - {error}", file=sys.stderr)
         return 1
+
     print("PR quality checks OK")
     return 0
 
