@@ -1,0 +1,10 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: epub-conversion-validation
+  version: 1.0.0
+  description: Convert source documents to EPUB/PDF and validate package structure, navigation, metadata, links, media, and renderability before delivery.
+  tags: [ebook, epub, conversion, validation]
+spec:
+  principles: [epub3-preferred, deterministic-build, validate-before-delivery, preserve-source, no-drm-circumvention]
+  procedure: [inspect-source-format, normalize-source, select-output-format, convert, validate-package, verify-navigation-and-links, inspect-images-and-fonts, sample-render, checksum-output, release-or-fail]

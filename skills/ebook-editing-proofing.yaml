@@ -1,0 +1,10 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: ebook-editing-proofing
+  version: 1.0.0
+  description: Perform structural, copy, consistency, citation, link, and final proofing passes for publication-ready ebooks.
+  tags: [ebook, editing, proofreading, publishing]
+spec:
+  principles: [preserve-author-intent, distinguish-edit-from-fact-change, terminology-consistency, citation-integrity, final-device-proof]
+  procedure: [structural-edit, continuity-check, copyedit, fact-and-citation-check, link-and-cross-reference-check, typography-proof, metadata-proof, final-device-proof]

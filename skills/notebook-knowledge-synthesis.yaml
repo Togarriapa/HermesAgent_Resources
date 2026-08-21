@@ -1,0 +1,10 @@
+apiVersion: hermes.togarriapa/v1
+kind: Skill
+metadata:
+  name: notebook-knowledge-synthesis
+  version: 1.0.0
+  description: Turn notebook exports and reading notes into structured topics, decisions, questions, quotations, references, and actionable knowledge without losing provenance.
+  tags: [notes, knowledge, synthesis, kobo]
+spec:
+  principles: [source-linked-notes, separate-author-text-from-user-notes, preserve-uncertainty, no-fabricated-quotes]
+  procedure: [segment-notes, classify-note-types, link-to-notebook-page-or-source, extract-themes, identify-decisions-and-open-questions, deduplicate, produce-summary-and-index, retain-provenance-map]
