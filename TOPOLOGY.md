@@ -88,13 +88,21 @@ The runtime should prevent:
 
 Permission/confirmation objects should be one-shot, payload-bound where material, and expire according to the action's risk.
 
+For infrastructure-changing requests, the correlated authenticated Hermes principal must be mapped to Authentik and freshly verified as an effective member of `System` before the target tool call. User-supplied identity/group fields in the request are never authoritative.
+
 ## Scheduled and event-driven results
 
 Cron jobs and webhooks are internal triggers, not alternate user identities. Receipt of a schedule tick or webhook event does not grant authority beyond the resource/host policy.
 
-When their outcome is user-visible, the route is:
+When their outcome is user-visible, the normal route is:
 
 `Cron/Webhook -> internal handler/Orchestrator -> Hermes -> authenticated user channel`
+
+Infrastructure alarms add a recipient-authorization step:
+
+`health/event signal -> internal triage -> fresh Authentik effective System resolution -> Hermes -> authenticated channel(s) for verified System members`
+
+An infrastructure alarm is not delivered to a non-`System` user merely because that user has an active Hermes session, received a prior alarm, appears on a static recipient list, or triggered the original diagnostic request. If current recipient authorization cannot be verified, alarm delivery fails closed.
 
 ## WhatsApp constraints
 
