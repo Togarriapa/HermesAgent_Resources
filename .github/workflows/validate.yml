@@ -9,7 +9,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: registry-validation-${{ github.workflow }}-${{ github.ref }}
+  group: registry-validation-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -17,35 +17,27 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - name: Checkout registry
+      - name: Checkout
         uses: actions/checkout@v4
-
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-          cache: pip
-
-      - name: Install validator dependency
+      - name: Install validation dependency
         run: python -m pip install --disable-pip-version-check pyyaml
-
       - name: Compile validation scripts
         run: python -m compileall -q scripts
-
-      - name: Validate registry envelope and topology
+      - name: Validate registry discovery, dependencies and invariants
         run: python scripts/validate_registry.py
-
       - name: Validate deliberation and Hermes response contract
         run: python scripts/validate_deliberation.py
-
-      - name: Validate v2.1 specialist expansion invariants
+      - name: Preserve v2.1 specialist expansion
         run: python scripts/validate_expansion_v21.py
-
-      - name: Validate every effective resource against v2.2 quality policy
+      - name: Validate v2.2 specialist expansion and safety boundaries
+        run: python scripts/validate_expansion_v22.py
+      - name: Validate effective quality for every discovered resource
         run: python scripts/validate_quality_v22.py
-
-      - name: Validate v2.2 domain overlay classification
+      - name: Validate quality-overlay matching regressions
         run: python scripts/validate_quality_overlays_v22.py
-
-      - name: Verify effective registry materialization
+      - name: Validate effective materialization
         run: python scripts/materialize_effective_registry.py --check-only

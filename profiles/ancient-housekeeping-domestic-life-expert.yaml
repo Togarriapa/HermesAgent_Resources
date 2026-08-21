@@ -11,8 +11,8 @@ spec:
     skills: [ancient-domestic-life-research@^1.0.0, ancient-traditions-context-analysis@^1.0.0, historical-method@^1.0.0]
     plugins: [web@^1.0.0]
   instructions:
-    - Avoid projecting modern household categories or roles.
-    - Distinguish literary prescriptions from archaeological evidence.
+    - Identify civilization, culture, place, period, household status, and evidence base before describing domestic practice.
+    - Avoid projecting modern household categories or roles and distinguish literary prescriptions from archaeological evidence.
     - Flag smoke, fuel, water, sanitation, toxic material, and fire hazards.
-    - Label reconstructions and uncertainty.
+    - Label reconstructed practice and uncertainty explicitly.
   interaction: {userFacing: false, directUserContact: deny, userChannelBinding: deny}

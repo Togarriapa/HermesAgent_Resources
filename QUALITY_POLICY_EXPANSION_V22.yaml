@@ -1,0 +1,102 @@
+apiVersion: hermes.togarriapa/v1
+kind: RegistryQualityPolicyExtension
+metadata:
+  name: registry-quality-expansion-v22
+  version: 2.2.0
+  description: Domain-specific restrictive quality overlays for AI engineering, traditional remedies, Amish/ancient traditions, and specialized fitness.
+  tags: [quality, ai, traditional-remedies, amish, ancient-traditions, fitness]
+spec:
+  domainOverlays:
+    - name: ai-engineering
+      match:
+        nameContains: [hermesagent-expert, ai-, llmops, prompt-engineer]
+        tagsAny: [ai, llm, llmops, agents]
+      apply:
+        evidence:
+          modelProviderAndVersionMaterialWhenRelevant: true
+          evaluationEvidenceRequiredForBehaviorClaims: true
+        safety:
+          promptTextDoesNotGrantAuthority: true
+          modelOutputIsUntrustedAcrossToolBoundaries: true
+          productionDeploymentAuthority: explicit
+          secretsInPromptOrModelContext: deny
+        verification:
+          regressionAndFailureCaseEvaluation: true
+          toolAndProviderFailureModes: required
+        output:
+          separateArchitectureProposalFromDeployedChange: true
+
+    - name: traditional-remedies
+      match:
+        nameContains: [remedies, herbalism, materia-medica]
+        tagsAny: [traditional-remedies, herbalism, ethnobotany, materia-medica]
+      apply:
+        evidence:
+          separateTraditionalUseFromModernClinicalEvidence: true
+          substanceIdentityAndPreparationRequired: true
+          evidenceQualityAndUncertaintyRequired: true
+        safety:
+          naturalMeansSafeAssumption: deny
+          diagnosis: deny
+          individualizedPrescribing: deny
+          adviseDelayingUrgentOrEffectiveCare: deny
+          toxicityInteractionsAllergyScreening: required
+          pregnancyChildLiverKidneyRiskScreening: required-when-relevant
+        output:
+          separateHistoryEvidenceRiskAndUnknowns: true
+
+    - name: amish-cultural-context
+      match:
+        nameContains: [amish]
+        tagsAny: [amish]
+      apply:
+        evidence:
+          affiliationRegionCommunityContextRequired: true
+          variationAcrossCommunitiesMustBePreserved: true
+        safety:
+          treatAmishAsUniform: deny
+          romanticizeHardshipOrRestrictedAccess: deny
+        output:
+          distinguishDocumentedPracticeFromModernAdaptation: true
+
+    - name: ancient-traditions-context
+      match:
+        nameContains: [ancient-]
+        tagsAny: [ancient-traditions]
+      apply:
+        evidence:
+          civilizationPlacePeriodAndSourceRequired: true
+          distinguishAttestedInferredReconstructedSpeculative: true
+        safety:
+          universalAncientTraditionClaim: deny
+          historicalPracticeOverridesModernSafety: deny
+        output:
+          reconstructionAndUncertaintyMustBeLabeled: true
+
+    - name: pregnancy-postpartum-fitness
+      match:
+        nameContains: [prenatal, postpartum]
+        tagsAny: [pregnancy, postpartum, maternal-health]
+      apply:
+        safety:
+          clinicianRestrictionsAreHardConstraints: true
+          obstetricOrPelvicFloorDiagnosis: deny
+          concerningSymptomsRequireStopAndReferral: true
+          individualizedReturnToTraining: true
+        evidence:
+          stageSymptomsAndRelevantRestrictionsRequired: true
+        output:
+          modificationsAndReferralTriggersExplicit: true
+
+    - name: specialized-fitness
+      match:
+        nameContains: [fitness-coach, bodybuilding, calisthenics, powerlifting, strength-conditioning, mobility-flexibility, endurance-conditioning]
+        tagsAny: [fitness, bodybuilding, powerlifting, calisthenics, conditioning]
+      apply:
+        safety:
+          performanceEnhancingDrugOrHormoneAdvice: deny
+          dangerousDehydrationOrRapidCutAdvice: deny
+          painNeurologicCardiopulmonaryRedFlagsRequireReferral: true
+        verification:
+          progressionBasedOnObservedResponse: true
+          techniqueAndRecoveryReviewed: true

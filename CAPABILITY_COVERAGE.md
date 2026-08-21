@@ -1,75 +1,61 @@
-# Capability Coverage — v2.1 Breadth / v2.2 Effective Quality
+# Capability Coverage — Registry v2.2
 
-The former capability-gap audit has been fully consumed into registry resources. This document records implemented responsibility domains rather than maintaining a speculative backlog.
+The registry combines the v2.1 breadth expansion with v2.2 effective-quality hardening and specialist additions.
 
-**v2.1 established breadth. v2.2 hardens every indexed resource's effective operating contract through `QUALITY_POLICY.yaml`.** The quality layer does not create new expertise or permissions; it adds consistent evidence, verification, privacy, failure, observability, lifecycle, and authority-non-escalation behavior around the existing catalog.
+## HermesAgent, software, data and AI
+
+Coverage includes HermesAgent runtime/provisioner expertise; software development; systems/infrastructure/network/SRE/database/security; data science/engineering/analytics; AI/ML; AI application development; AI architecture; prompt engineering; multi-agent orchestration; evaluation; LLMOps; AI safety/reliability; and knowledge/retrieval engineering.
 
 ## Product, operations, people and decisions
 
-Profiles include Product Manager; Business Analyst / Requirements Engineer; COO / Operations Manager; People Operations / HR Specialist; Recruiter / Talent Acquisition Specialist; Privacy / GDPR Specialist; Negotiation & Conflict Resolution Specialist; Decision Scientist / Operations Research Specialist; plus CEO/CFO/CTO, Project/Agile/Scrum, analytics, research, and implementation roles.
+Coverage includes product management, requirements/business analysis, COO/operations, people operations/HR, recruiting, procurement/vendor management, negotiation/conflict resolution, project/agile disciplines, decision science, executive leadership, and improvement management.
 
-## Household, property and resilience
+## Finance, accounting and investment
 
-Coverage includes Home Maintenance Manager with plumbing, appliance, carpentry/joinery, finishes, roofing/drainage, grounds, and home-comfort specialists; Home Fixing/Improvement; Automotive Maintenance; Home Energy/Solar; Water & Wastewater; Emergency Preparedness & Resilience; Arboriculture/Tree Care; Pest & Building Biology; smart-home/Home Assistant; and relevant engineering.
+Coverage includes Portuguese/international accounting, finance leadership, financial planning, wealth/portfolio/asset/stocks/crypto/real-estate management, specialist investment research, independent risk analysis, read-only financial data stewardship, explicit-order execution, live-wallet control, and autonomous testnet experimentation.
 
-## Farm and food systems
+## Law, privacy and governance
 
-Coverage includes Farm Planner; Home & Farm Manager; Farming; Agriculture; Homesteading; Weather; Horticulture/Orchard; Livestock Health Navigator; Farm Machinery Maintenance; garden/grounds; water/irrigation and related engineering/maintenance roles.
+Coverage includes Portuguese, EU, international, employment, privacy/GDPR, estate/succession, compliance, ethics, and source-verification roles, with licensed/legal authority boundaries preserved.
 
-Livestock Health Navigator remains non-veterinary and routes diagnosis/prescribing to qualified veterinary care.
+## Home, property, resilience and fabrication
 
-## Education, development and family
+Coverage includes home maintenance and trades research, energy/solar, water/wastewater, emergency preparedness, building biology/pests, automotive maintenance, architecture, 3D design/printing, robotics/mechatronics, smart-home/IoT, and homelab operation.
 
-Coverage includes Curriculum Designer; Homeschooling/Homeroom; Language, History, Music, Theology, Mathematics and Science teachers; Literacy/Reading; Child Development; Special Education/SEN; Catholic family perspectives; Psychology and relevant family/routine specialists.
+## Farm, agriculture and traditional land systems
 
-Child-development/SEN guidance remains non-diagnostic and safeguarding/age appropriateness remain primary constraints.
+Coverage includes farming/agronomy, farm planning, horticulture/orchards, livestock husbandry/health navigation, machinery, weather, homesteading, Amish farming systems, and ancient agricultural history.
 
-## Career, work and organizational life
+## Health, food and traditional remedies
 
-Coverage includes Career Advisor; Career Development Specialist; Remote Work Manager; People Operations/HR; Recruiter/Talent Acquisition; Negotiation/Conflict Resolution; Psychology/Sociology; and management/executive roles.
+Coverage includes nutrition, general fitness, evidence-aware traditional remedies, herbalism/ethnobotany, historical materia medica, natural lifestyle education, traditional foodways, Amish remedies, and ancient remedy traditions.
 
-## Legal, privacy, finance and commercial operations
+Traditional/natural remedy roles do not diagnose or prescribe, and cultural/historical use is separated from clinical evidence and modern safety.
 
-Coverage includes Portuguese Law; International Law; EU Law/Regulatory; Portugal/EU Employment Law; Privacy/GDPR; Privacy/Security Engineering; Accountant Portugal/International; Insurance; Estate & Succession Planning Research; Procurement/Vendor Management; finance/wealth/investment managers, analysts, data and execution operators.
+## Fitness and physical preparation
 
-Legal/regulatory Profiles provide research/information within jurisdictional/professional boundaries rather than representation.
+Coverage includes general fitness, bodybuilding/hypertrophy, calisthenics, powerlifting, strength and conditioning, mobility/flexibility, endurance, prenatal/postpartum fitness, senior fitness, youth fitness, nutrition support, and exercise safety.
 
-## Technology and digital systems
+## Education, children and family
 
-Coverage includes Systems Architect; Network Engineer; Site Reliability Engineer; Database Reliability Specialist; AI/ML Engineer; Cybersecurity; Privacy/Security Engineering; backend/frontend/general/web/DevOps developers; QA; Data Engineer/Data Scientist/Data Analytics; Infrastructure Manager; Homelab Operator; Home Assistant/IoT; Robotics; and electrical/mechanical engineering.
+Coverage includes curriculum/homeschooling, homeroom, mathematics, science, literacy, language, history, music, theology, child development, SEN, safeguarding, and family/school support.
 
-## Information quality, research and reasoning
+## Catholic theology, tradition and liturgy
 
-Coverage includes Researcher; Scientific Researcher; Fact Checker / Source Verification; Media Literacy / Misinformation Analyst; Debate Analyst; Ethics Specialist; Knowledge Manager / Archivist; Philosophy; Culture; Psychology; Sociology; Anthropology; History; and evidence/source-integrity skills.
+Coverage includes Scripture, theology, Magisterium, Catholic history, traditional family guidance, regional Catholic family perspectives, Catholic relationships, Traditional Latin Mass, Roman Rite history, pre-Vatican-II practice, devotions/sacramentals, Gregorian chant/sacred music, calendar/fasting discipline, Patristics, and Ecclesiastical Latin.
 
-The v2.2 research overlay requires provenance, current-fact refresh where material, supporting/disconfirming evidence, and explicit uncertainty.
+## Amish domestic/cultural systems
 
-## Catholic specialist domain
+Coverage includes Amish lifestyle, remedies, construction, farming, housekeeping, cooking, and food preservation. Affiliation/community/region differences are preserved rather than collapsed into a stereotype.
 
-Coverage includes Catholic Guidance; Catholic Traditional Advisor; Catholic Relationship Expert; Catholic Traditional Family Advisor; Catholic Tradition Expert; Catholic History Expert; Catholic Prayer Planner / Writer; Theology Teacher; and Portuguese, Sicilian, Spanish and German Catholic Family Advisors.
+## Ancient traditions and material culture
 
-The v2.2 Catholic overlay reinforces source hierarchy and separation of binding doctrine, discipline/liturgical law, theological opinion, devotional/customary practice, and prudential judgment without impersonating clergy/ecclesiastical authority.
+Coverage includes civilization-specific ancient lifestyle, remedies, construction, agriculture, housekeeping/domestic life, cooking/foodways, preservation, crafts, and material culture. Outputs label what is attested, inferred, reconstructed, or speculative.
 
-## Translation, architecture and digital fabrication
+## Research, humanities and information integrity
 
-Coverage includes Professional European Portuguese ↔ English Translator; Building Architect; 3D Model Designer; 3D Printer Specialist; 3D Model Maker; and 3D Model Optimizer, supported by translation, architectural-planning, CAD, additive-manufacturing and printability Skills.
+Coverage includes scientific research, fact checking, misinformation/media literacy, history, philosophy, psychology, sociology, anthropology, culture, debate/dissent analysis, knowledge management, evidence synthesis, and professional PT↔EN translation.
 
-Building architecture remains distinct from Systems Architecture and does not imply licensed/statutory sign-off. Translation does not falsely claim sworn/certified status. Digital-fabrication capability does not automatically grant unattended machine control.
+## v2.2 expansion details
 
-## Reusable cross-domain procedures
-
-In addition to the large existing Skill library, reusable procedures include claim verification, negotiation preparation, scenario/sensitivity analysis, decision records, root-cause analysis, vendor comparison, privacy impact screening, emergency checklist design, cost-benefit/TCO analysis, requirements engineering, professional PT↔EN translation, architectural design planning, 3D CAD modeling, additive manufacturing and printability optimization.
-
-Every effective Skill receives common input/precondition/procedure-shell/verification/failure/output behavior from the quality policy, but its own manifest must still contain domain-specific method content.
-
-## Team coverage
-
-Specialist Bundles cover product strategy, people/career, privacy/compliance, home resilience, farm reliability/planning, decision science, Catholic tradition/family, core education, architecture/fabrication, additive manufacturing, information integrity, finance/investment, software/data/infrastructure, smart home/homelab, research/writing, and other existing domains.
-
-All Bundles are starting compositions, not recruitment ceilings. Orchestrator/Team Leader can recruit any registered Profile and multiple instances when useful.
-
-## Completeness guarantee
-
-`python scripts/validate_quality_v22.py` iterates every catalog resource individually, merges the universal/kind/domain quality policy with its declared manifest, and checks the effective contract for that resource kind. `materialize_effective_registry.py` provides the reference unresolved materialization used by a future provisioner/importer.
-
-The registry can therefore remain modular and concise without allowing sparse YAML to mean undefined runtime behavior.
+See `CAPABILITY_EXPANSION_V22.md`, `PROFILE_MATRIX_V22.md`, and `INTEGRATION_MATRIX_V22.md` for the new 47 Profiles, 43 Skills, and 7 Bundles.

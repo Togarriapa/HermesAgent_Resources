@@ -1,82 +1,31 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 
-import re
 import sys
-from pathlib import Path
 from typing import Any
 
-try:
-    import yaml
-except ImportError:
-    print("PyYAML is required: python3 -m pip install pyyaml", file=sys.stderr)
-    raise SystemExit(2)
+from registry_lib import (
+    API_VERSION,
+    DEPENDENCY_KINDS,
+    NAME_RE,
+    RESOURCE_DIRS,
+    SELECTOR_RE,
+    SEMVER_RE,
+    catalog,
+    discover_resources,
+    selector_matches,
+    versions_index,
+)
 
-ROOT = Path(__file__).resolve().parents[1]
-API_VERSION = "hermes.togarriapa/v1"
-VALID_KINDS = {"Profile", "Skill", "Plugin", "MCP", "Cron", "Webhook", "Channel", "Bundle"}
-RESOURCE_DIRS = {
-    "Profile": "profiles",
-    "Skill": "skills",
-    "Plugin": "plugins",
-    "MCP": "mcps",
-    "Cron": "crons",
-    "Webhook": "webhooks",
-    "Channel": "channels",
-    "Bundle": "bundles",
-}
-DEPENDENCY_KINDS = {
-    "profiles": "Profile",
-    "skills": "Skill",
-    "plugins": "Plugin",
-    "mcps": "MCP",
-    "crons": "Cron",
-    "webhooks": "Webhook",
-    "channels": "Channel",
-    "bundles": "Bundle",
-}
 USER_CHANNELS = {"web", "telegram", "discord", "whatsapp", "voice"}
-NAME_RE = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
-SEMVER_RE = re.compile(r"^\d+\.\d+\.\d+(?:[-+][0-9A-Za-z.-]+)?$")
-SELECTOR_RE = re.compile(r"^([a-z0-9]+(?:-[a-z0-9]+)*)@(\^?)(\d+\.\d+\.\d+)$")
-COMPOSIO_VERSION_RE = re.compile(r"^\d{8}_\d{2}$")
-
-
-def load_yaml(path: Path) -> Any:
-    with path.open("r", encoding="utf-8") as handle:
-        return yaml.safe_load(handle)
+COMPOSIO_VERSION_RE = __import__("re").compile(r"^\d{8}_\d{2}$")
 
 
 def fail(message: str, errors: list[str]) -> None:
     errors.append(message)
 
 
-def version_tuple(version: str) -> tuple[int, int, int]:
-    core = version.split("-", 1)[0].split("+", 1)[0]
-    major, minor, patch = core.split(".")
-    return int(major), int(minor), int(patch)
-
-
-def selector_matches(candidate: str, requested: str, caret: bool) -> bool:
-    c = version_tuple(candidate)
-    r = version_tuple(requested)
-    if not caret:
-        return c == r
-    if r[0] > 0:
-        return c[0] == r[0] and c >= r
-    if r[1] > 0:
-        return c[0] == 0 and c[1] == r[1] and c >= r
-    return c[0] == 0 and c[1] == 0 and c[2] == r[2]
-
-
-def validate_selector(
-    rel: str,
-    field: str,
-    kind: str,
-    selector: Any,
-    versions: dict[tuple[str, str], set[str]],
-    errors: list[str],
-) -> None:
+def validate_selector(rel: str, field: str, kind: str, selector: Any, versions: dict[tuple[str, str], set[str]], errors: list[str]) -> None:
     if not isinstance(selector, str):
         fail(f"{rel}: {field} selector must be a string", errors)
         return
@@ -93,13 +42,7 @@ def validate_selector(
         fail(f"{rel}: {field} selector {selector!r} is not satisfied by {sorted(candidates)}", errors)
 
 
-def validate_dependency_map(
-    rel: str,
-    field: str,
-    dependency_map: Any,
-    versions: dict[tuple[str, str], set[str]],
-    errors: list[str],
-) -> None:
+def validate_dependency_map(rel: str, field: str, dependency_map: Any, versions: dict[tuple[str, str], set[str]], errors: list[str]) -> None:
     if dependency_map is None:
         return
     if not isinstance(dependency_map, dict):
@@ -124,17 +67,14 @@ def validate_composio_policy(rel: str, spec: dict[str, Any], errors: list[str]) 
     if not isinstance(policy, dict):
         fail(f"{rel}: integrationPolicy.composio must be a mapping", errors)
         return
-
     required_plugins = ((spec.get("requires") or {}).get("plugins") or [])
     if not any(isinstance(item, str) and item.startswith("composio@") for item in required_plugins):
         fail(f"{rel}: Composio policy requires an explicit composio plugin dependency", errors)
-
     toolkits = policy.get("toolkits")
     if not isinstance(toolkits, list) or not toolkits:
         fail(f"{rel}: integrationPolicy.composio.toolkits must be a non-empty list", errors)
         return
-
-    seen_slugs: set[str] = set()
+    seen: set[str] = set()
     for toolkit in toolkits:
         if not isinstance(toolkit, dict):
             fail(f"{rel}: each Composio toolkit entry must be a mapping", errors)
@@ -145,118 +85,87 @@ def validate_composio_policy(rel: str, spec: dict[str, Any], errors: list[str]) 
         if not isinstance(slug, str) or not NAME_RE.fullmatch(slug.replace("_", "-")):
             fail(f"{rel}: invalid Composio toolkit slug {slug!r}", errors)
             continue
-        if slug in seen_slugs:
+        if slug in seen:
             fail(f"{rel}: duplicate Composio toolkit {slug!r}", errors)
-        seen_slugs.add(slug)
+        seen.add(slug)
         if not isinstance(version, str) or not COMPOSIO_VERSION_RE.fullmatch(version):
             fail(f"{rel}: Composio toolkit {slug!r} must pin a dated version", errors)
         if not isinstance(tools, list) or not tools:
             fail(f"{rel}: Composio toolkit {slug!r} must explicitly allow tools", errors)
             continue
-        expected_prefix = slug.upper() + "_"
+        prefix = slug.upper() + "_"
         for tool in tools:
-            if not isinstance(tool, str) or not tool.startswith(expected_prefix):
+            if not isinstance(tool, str) or not tool.startswith(prefix):
                 fail(f"{rel}: tool {tool!r} does not match toolkit {slug!r}", errors)
 
 
 def main() -> int:
     errors: list[str] = []
-    catalog_path = ROOT / "catalog.yaml"
-    if not catalog_path.exists():
-        print("catalog.yaml is missing", file=sys.stderr)
+    try:
+        cat = catalog()
+        resources = discover_resources()
+    except (ValueError, OSError) as exc:
+        print(f"Registry discovery failed: {exc}", file=sys.stderr)
         return 1
 
-    catalog = load_yaml(catalog_path) or {}
-    if catalog.get("apiVersion") != API_VERSION:
+    if cat.get("apiVersion") != API_VERSION:
         fail(f"catalog.yaml: apiVersion must be {API_VERSION}", errors)
-    if catalog.get("kind") != "Catalog":
+    if cat.get("kind") != "Catalog":
         fail("catalog.yaml: kind must be Catalog", errors)
-
-    entries = catalog.get("resources", [])
-    if not isinstance(entries, list):
-        fail("catalog.yaml: resources must be a list", errors)
-        entries = []
+    metadata = cat.get("metadata") or {}
+    if not isinstance(metadata.get("version"), str) or not SEMVER_RE.fullmatch(metadata.get("version", "")):
+        fail("catalog.yaml: metadata.version must be semantic version", errors)
+    discovery = ((cat.get("spec") or {}).get("discovery") or {})
+    if discovery.get("mode") != "manifest-roots":
+        fail("catalog.yaml: spec.discovery.mode must be manifest-roots", errors)
+    if discovery.get("recursive") is not False:
+        fail("catalog.yaml: discovery must remain non-recursive until nested-resource semantics are defined", errors)
+    roots = discovery.get("roots") or {}
+    if set(roots) != set(RESOURCE_DIRS):
+        fail(f"catalog.yaml: discovery roots must cover exactly {sorted(RESOURCE_DIRS)}", errors)
 
     seen: set[tuple[str, str, str]] = set()
-    catalog_paths: set[str] = set()
-    versions: dict[tuple[str, str], set[str]] = {}
-    docs: list[tuple[str, str, str, str, dict[str, Any]]] = []
-
-    for entry in entries:
-        if not isinstance(entry, dict):
-            fail("catalog.yaml: each resource entry must be a mapping", errors)
-            continue
-        kind = entry.get("kind")
-        name = entry.get("name")
-        version = entry.get("version")
-        rel = entry.get("path")
-        key = (str(kind), str(name), str(version))
-        if key in seen:
-            fail(f"catalog.yaml: duplicate resource {key}", errors)
-            continue
-        seen.add(key)
-
-        if kind not in VALID_KINDS:
-            fail(f"{rel}: invalid kind {kind!r}", errors)
+    for item in resources:
+        rel = item["rel"]
+        doc = item["doc"]
+        kind = item.get("kind")
+        name = item.get("name")
+        version = item.get("version")
+        expected_kind = item.get("expected_kind")
+        if doc.get("apiVersion") != API_VERSION:
+            fail(f"{rel}: apiVersion must be {API_VERSION}", errors)
+        if kind != expected_kind:
+            fail(f"{rel}: kind {kind!r} does not match discovery root kind {expected_kind}", errors)
+        if kind not in RESOURCE_DIRS:
+            fail(f"{rel}: unsupported kind {kind!r}", errors)
         if not isinstance(name, str) or not NAME_RE.fullmatch(name):
             fail(f"{rel}: invalid metadata.name {name!r}", errors)
         if not isinstance(version, str) or not SEMVER_RE.fullmatch(version):
-            fail(f"{rel}: invalid version {version!r}", errors)
-        if not isinstance(rel, str):
-            fail(f"catalog.yaml: resource {key} has no path", errors)
-            continue
-
-        catalog_paths.add(rel)
-        path = (ROOT / rel).resolve()
-        if ROOT not in path.parents:
-            fail(f"{rel}: path escapes repository", errors)
-            continue
-        if not path.is_file():
-            fail(f"{rel}: file is missing", errors)
-            continue
-
-        doc = load_yaml(path) or {}
-        if not isinstance(doc, dict):
-            fail(f"{rel}: document must be a mapping", errors)
-            continue
-        metadata = doc.get("metadata") or {}
-        if doc.get("apiVersion") != API_VERSION:
-            fail(f"{rel}: apiVersion must be {API_VERSION}", errors)
-        if doc.get("kind") != kind:
-            fail(f"{rel}: kind differs from catalog", errors)
-        if metadata.get("name") != name:
-            fail(f"{rel}: metadata.name differs from catalog", errors)
-        if metadata.get("version") != version:
-            fail(f"{rel}: metadata.version differs from catalog", errors)
-        if not metadata.get("description"):
+            fail(f"{rel}: invalid metadata.version {version!r}", errors)
+        description = (doc.get("metadata") or {}).get("description")
+        if not isinstance(description, str) or not description.strip():
             fail(f"{rel}: metadata.description is required", errors)
         if not isinstance(doc.get("spec"), dict):
             fail(f"{rel}: spec must be a mapping", errors)
-            continue
+        if isinstance(name, str) and item["path"].stem != name:
+            fail(f"{rel}: filename must equal metadata.name", errors)
+        if isinstance(kind, str) and isinstance(name, str) and isinstance(version, str):
+            key = (kind, name, version)
+            if key in seen:
+                fail(f"{rel}: duplicate resource identity {key}", errors)
+            seen.add(key)
 
-        versions.setdefault((kind, name), set()).add(version)
-        docs.append((rel, kind, name, version, doc))
-
-    disk_paths: set[str] = set()
-    for directory in RESOURCE_DIRS.values():
-        root = ROOT / directory
-        if not root.exists():
-            continue
-        for path in root.glob("*.yaml"):
-            disk_paths.add(path.relative_to(ROOT).as_posix())
-    for rel in sorted(disk_paths - catalog_paths):
-        fail(f"{rel}: resource manifest is not indexed in catalog.yaml", errors)
-    for rel in sorted(catalog_paths - disk_paths):
-        fail(f"{rel}: catalog path is not a recognized resource manifest", errors)
-
-    for rel, kind, name, _version, doc in docs:
-        spec = doc["spec"]
+    versions = versions_index(resources)
+    for item in resources:
+        rel = item["rel"]
+        kind = item.get("kind")
+        name = item.get("name")
+        spec = (item["doc"].get("spec") or {}) if isinstance(item["doc"].get("spec"), dict) else {}
         validate_dependency_map(rel, "spec.requires", spec.get("requires"), versions, errors)
         if kind == "Bundle":
             validate_dependency_map(rel, "spec.imports", spec.get("imports"), versions, errors)
-
         extends = spec.get("extends")
-        if extends is not None:
+        if extends is not None and isinstance(kind, str):
             validate_selector(rel, "spec.extends", kind, extends, versions, errors)
 
         if kind == "Profile":
@@ -282,20 +191,16 @@ def main() -> int:
         if kind == "Channel" and name in USER_CHANNELS:
             routing = spec.get("routing") or {}
             policy = spec.get("policy") or {}
-            if routing.get("inboundProfile") != "hermes":
-                fail(f"{rel}: inboundProfile must be hermes", errors)
-            if routing.get("outboundProfile") != "hermes":
-                fail(f"{rel}: outboundProfile must be hermes", errors)
+            if routing.get("inboundProfile") != "hermes" or routing.get("outboundProfile") != "hermes":
+                fail(f"{rel}: user channels must route inbound/outbound through Hermes", errors)
             if routing.get("allowDirectProfileSelection") is not False:
                 fail(f"{rel}: direct profile selection must be disabled", errors)
             if routing.get("allowedUserFacingProfiles") != ["hermes"]:
                 fail(f"{rel}: allowedUserFacingProfiles must be exactly [hermes]", errors)
-            if policy.get("requireHermesGateway") is not True:
-                fail(f"{rel}: requireHermesGateway must be true", errors)
-            if policy.get("rejectNonHermesProfileTarget") is not True:
-                fail(f"{rel}: rejectNonHermesProfileTarget must be true", errors)
+            if policy.get("requireHermesGateway") is not True or policy.get("rejectNonHermesProfileTarget") is not True:
+                fail(f"{rel}: user channel must structurally require Hermes gateway", errors)
 
-    by_resource = {(kind, name): doc for _rel, kind, name, _version, doc in docs}
+    by_resource = {(r.get("kind"), r.get("name")): r["doc"] for r in resources}
 
     composio = by_resource.get(("Plugin", "composio"), {}).get("spec", {})
     if composio:
@@ -334,10 +239,8 @@ def main() -> int:
             fail("profiles/orchestrator.yaml: executionModel must remain dependency-dag", errors)
         if recruitment.get("allowMultipleInstancesPerProfile") is not True:
             fail("profiles/orchestrator.yaml: multiple instances per profile must be allowed", errors)
-        if recruitment.get("registryMaxInstancesPerProfile") != "none":
-            fail("profiles/orchestrator.yaml: registry must not impose a numeric per-profile instance ceiling", errors)
-        if recruitment.get("effectiveInstanceLimit") != "host-policy":
-            fail("profiles/orchestrator.yaml: effective instance limit must remain host-policy", errors)
+        if recruitment.get("registryMaxInstancesPerProfile") != "none" or recruitment.get("effectiveInstanceLimit") != "host-policy":
+            fail("profiles/orchestrator.yaml: instance ceiling must remain host-policy", errors)
         if kanban.get("oneBoardPerEpic") is not True or kanban.get("deleteOnAcceptedDone") is not True:
             fail("profiles/orchestrator.yaml: one ephemeral board per Epic is required", errors)
 
@@ -362,8 +265,7 @@ def main() -> int:
     if evolution:
         merge = evolution.get("mergePolicy") or {}
         apply = evolution.get("applyPolicy") or {}
-        expected_layers = ["local-experience-overlay", "private-user-learned-overlay"]
-        if merge.get("neverOverwriteLayers") != expected_layers:
+        if merge.get("neverOverwriteLayers") != ["local-experience-overlay", "private-user-learned-overlay"]:
             fail("profiles/resource-evolution-manager.yaml: learned/local overlays must be protected", errors)
         if merge.get("privateLayersMayPublish") is not False:
             fail("profiles/resource-evolution-manager.yaml: private overlays must never auto-publish", errors)
@@ -380,38 +282,28 @@ def main() -> int:
         if policy.get("publishPrivateOverlays") is not False:
             fail("crons/daily-resource-reconcile.yaml: private overlays must not publish", errors)
 
-    epic_kanban = by_resource.get(("Plugin", "epic-kanban"), {}).get("spec", {})
-    if epic_kanban:
-        lifecycle = epic_kanban.get("lifecycle") or {}
-        if lifecycle.get("createOnEpicStart") is not True or lifecycle.get("deleteAfterAcceptedDone") is not True:
-            fail("plugins/epic-kanban.yaml: Epic boards must be created and deleted with Epic lifecycle", errors)
-        if lifecycle.get("archiveCompletionSummary") is not True:
-            fail("plugins/epic-kanban.yaml: completion summary must be archived before deletion", errors)
+    epic = by_resource.get(("Plugin", "epic-kanban"), {}).get("spec", {})
+    if epic:
+        lifecycle = epic.get("lifecycle") or {}
+        if lifecycle.get("createOnEpicStart") is not True or lifecycle.get("deleteAfterAcceptedDone") is not True or lifecycle.get("archiveCompletionSummary") is not True:
+            fail("plugins/epic-kanban.yaml: Epic board lifecycle contract must be preserved", errors)
 
     voice = by_resource.get(("Plugin", "voice-pipeline"), {}).get("spec", {})
     if voice:
         policy = voice.get("policy") or {}
-        if policy.get("localFirst") is not True or policy.get("cloudFallback") != "deny":
-            fail("plugins/voice-pipeline.yaml: voice must remain local-first with cloud fallback denied", errors)
-        if policy.get("rawAudioRetention") is not False:
-            fail("plugins/voice-pipeline.yaml: raw audio retention must stay disabled", errors)
+        if policy.get("localFirst") is not True or policy.get("cloudFallback") != "deny" or policy.get("rawAudioRetention") is not False:
+            fail("plugins/voice-pipeline.yaml: local-first/no-cloud/no-raw-audio policy must be preserved", errors)
         if (voice.get("textToSpeech") or {}).get("preferred") != "piper":
-            fail("plugins/voice-pipeline.yaml: Piper must remain the preferred local TTS", errors)
+            fail("plugins/voice-pipeline.yaml: Piper must remain preferred TTS", errors)
 
     whatsapp = by_resource.get(("Channel", "whatsapp"), {}).get("spec", {})
     if whatsapp:
         integration = whatsapp.get("integration") or {}
         policy = whatsapp.get("policy") or {}
-        if integration.get("toolkit") != "whatsapp":
-            fail("channels/whatsapp.yaml: Composio whatsapp toolkit is required", errors)
-        if not COMPOSIO_VERSION_RE.fullmatch(str(integration.get("version", ""))):
-            fail("channels/whatsapp.yaml: toolkit version must be pinned", errors)
-        if policy.get("businessAccountsOnly") is not True:
-            fail("channels/whatsapp.yaml: personal WhatsApp accounts must not be supported", errors)
-        if policy.get("proactiveOutbound") != "delegated-template-only":
-            fail("channels/whatsapp.yaml: proactive outbound must remain delegated-template-only", errors)
-        if policy.get("accountAdministration") != "deny":
-            fail("channels/whatsapp.yaml: WhatsApp account administration must stay denied", errors)
+        if integration.get("toolkit") != "whatsapp" or not COMPOSIO_VERSION_RE.fullmatch(str(integration.get("version", ""))):
+            fail("channels/whatsapp.yaml: pinned Composio WhatsApp toolkit is required", errors)
+        if policy.get("businessAccountsOnly") is not True or policy.get("proactiveOutbound") != "delegated-template-only" or policy.get("accountAdministration") != "deny":
+            fail("channels/whatsapp.yaml: Business-only/delegated-template/no-admin policy must be preserved", errors)
 
     if errors:
         print("Registry validation failed:", file=sys.stderr)
@@ -419,7 +311,11 @@ def main() -> int:
             print(f" - {error}", file=sys.stderr)
         return 1
 
-    print(f"Registry OK: {len(seen)} resources")
+    counts: dict[str, int] = {}
+    for item in resources:
+        counts[str(item.get("kind"))] = counts.get(str(item.get("kind")), 0) + 1
+    summary = ", ".join(f"{kind}={counts.get(kind, 0)}" for kind in RESOURCE_DIRS)
+    print(f"Registry OK: {len(resources)} discovered resources ({summary})")
     return 0
 
 

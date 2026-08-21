@@ -1,104 +1,60 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 
-from pathlib import Path
+from registry_lib import ROOT, effective_spec, load_quality_policy, load_yaml, resolve_inherited_spec, discover_resources
 
-from validate_quality_v22 import ROOT, effective_spec, load_yaml
-
-POLICY_PATH = ROOT / "QUALITY_POLICY.yaml"
-
-# Each case asserts the quality overlays that SHOULD and SHOULD NOT attach to a
-# representative real catalog resource. These are regression tests for broad
-# substring/tag matchers: a conservative policy is only useful if it remains
-# relevant to the resource rather than attaching unrelated physical, medical,
-# financial, or translation constraints everywhere.
 CASES = {
-    "profiles/systems-architect.yaml": {
-        "must": {"software-data-infrastructure"},
-        "must_not": {"physical-engineering-property-farm", "translation"},
-    },
-    "profiles/network-engineer.yaml": {
-        "must": {"software-data-infrastructure"},
-        "must_not": {"physical-engineering-property-farm"},
-    },
-    "profiles/building-architect.yaml": {
-        "must": {"physical-engineering-property-farm"},
-        "must_not": {"software-data-infrastructure"},
-    },
-    "profiles/language-teacher.yaml": {
-        "must": {"children-education"},
-        "must_not": {"translation"},
-    },
-    "profiles/portuguese-english-translator.yaml": {
-        "must": {"translation"},
-        "must_not": {"children-education"},
-    },
-    "profiles/portfolio-manager.yaml": {
-        "must": {"finance-investment"},
-        "must_not": {"physical-engineering-property-farm"},
-    },
-    "profiles/catholic-tradition-expert.yaml": {
-        "must": {"catholic"},
-        "must_not": {"translation"},
-    },
-    "profiles/psychology-expert.yaml": {
-        "must": {"health-psychology-nutrition", "research-information-integrity"},
-        "must_not": {"physical-engineering-property-farm"},
-    },
-    "profiles/eu-law-regulatory-specialist.yaml": {
-        "must": {"legal-regulatory"},
-        "must_not": {"finance-investment"},
-    },
-    "profiles/fact-checker-source-verification-specialist.yaml": {
-        "must": {"research-information-integrity"},
-        "must_not": {"legal-regulatory", "finance-investment"},
-    },
-    "profiles/3d-printer-specialist.yaml": {
-        "must": {"physical-engineering-property-farm"},
-        "must_not": {"software-data-infrastructure"},
-    },
+    "profiles/systems-architect.yaml": {"must": {"software-data-infrastructure"}, "must_not": {"physical-engineering-property-farm", "translation"}},
+    "profiles/network-engineer.yaml": {"must": {"software-data-infrastructure"}, "must_not": {"physical-engineering-property-farm"}},
+    "profiles/building-architect.yaml": {"must": {"physical-engineering-property-farm"}, "must_not": {"software-data-infrastructure"}},
+    "profiles/language-teacher.yaml": {"must": {"children-education"}, "must_not": {"translation"}},
+    "profiles/portuguese-english-translator.yaml": {"must": {"translation"}, "must_not": {"children-education"}},
+    "profiles/portfolio-manager.yaml": {"must": {"finance-investment"}, "must_not": {"physical-engineering-property-farm"}},
+    "profiles/catholic-tradition-expert.yaml": {"must": {"catholic"}, "must_not": {"translation"}},
+    "profiles/psychology-expert.yaml": {"must": {"health-psychology-nutrition", "research-information-integrity"}, "must_not": {"physical-engineering-property-farm"}},
+    "profiles/eu-law-regulatory-specialist.yaml": {"must": {"legal-regulatory"}, "must_not": {"finance-investment"}},
+    "profiles/fact-checker-source-verification-specialist.yaml": {"must": {"research-information-integrity"}, "must_not": {"legal-regulatory", "finance-investment"}},
+    "profiles/3d-printer-specialist.yaml": {"must": {"physical-engineering-property-farm"}, "must_not": {"software-data-infrastructure"}},
+    "profiles/ai-prompt-engineer.yaml": {"must": {"software-data-infrastructure", "ai-engineering"}, "must_not": {"physical-engineering-property-farm"}},
+    "profiles/hermesagent-expert.yaml": {"must": {"ai-engineering"}, "must_not": {"health-psychology-nutrition"}},
+    "profiles/amish-remedies-expert.yaml": {"must": {"health-psychology-nutrition", "traditional-remedies", "amish-cultural-context", "research-information-integrity"}, "must_not": {"pregnancy-postpartum-fitness"}},
+    "profiles/amish-construction-expert.yaml": {"must": {"amish-cultural-context", "physical-engineering-property-farm"}, "must_not": {"traditional-remedies"}},
+    "profiles/ancient-traditional-remedies-expert.yaml": {"must": {"health-psychology-nutrition", "traditional-remedies", "ancient-traditions-context", "research-information-integrity"}, "must_not": {"pregnancy-postpartum-fitness"}},
+    "profiles/ancient-building-traditions-expert.yaml": {"must": {"ancient-traditions-context", "physical-engineering-property-farm"}, "must_not": {"traditional-remedies"}},
+    "profiles/traditional-latin-mass-expert.yaml": {"must": {"catholic"}, "must_not": {"health-psychology-nutrition"}},
+    "profiles/prenatal-postpartum-fitness-coach.yaml": {"must": {"health-psychology-nutrition", "pregnancy-postpartum-fitness", "specialized-fitness"}, "must_not": {"traditional-remedies"}},
+    "profiles/powerlifting-coach.yaml": {"must": {"health-psychology-nutrition", "specialized-fitness"}, "must_not": {"pregnancy-postpartum-fitness"}},
 }
 
 
-def overlays_for(relative_path: str, policy: dict) -> set[str]:
-    path = ROOT / relative_path
-    if not path.exists():
-        raise FileNotFoundError(relative_path)
-    doc = load_yaml(path)
-    metadata = doc.get("metadata") or {}
-    kind = str(doc.get("kind"))
-    name = str(metadata.get("name"))
-    raw_tags = metadata.get("tags") or []
-    tags = set(raw_tags) if isinstance(raw_tags, list) else set()
-    _effective, overlays = effective_spec(kind, name, tags, doc.get("spec") or {}, policy)
-    return set(overlays)
-
-
 def main() -> int:
-    policy_doc = load_yaml(POLICY_PATH)
-    policy = policy_doc.get("spec") or {}
+    policy = load_quality_policy()
+    resources = discover_resources()
+    by_rel = {item["rel"]: item for item in resources}
     errors: list[str] = []
-
     for relative_path, expected in CASES.items():
-        try:
-            actual = overlays_for(relative_path, policy)
-        except FileNotFoundError:
+        item = by_rel.get(relative_path)
+        if item is None:
             errors.append(f"missing regression resource: {relative_path}")
             continue
-
+        doc = item["doc"]
+        metadata = doc.get("metadata") or {}
+        tags_raw = metadata.get("tags") or []
+        tags = set(tags_raw) if isinstance(tags_raw, list) else set()
+        resolved = resolve_inherited_spec(item, resources)
+        _effective, overlays = effective_spec(str(item["kind"]), str(item["name"]), tags, resolved, policy)
+        actual = set(overlays)
         missing = sorted(expected["must"] - actual)
         forbidden = sorted(expected["must_not"] & actual)
         if missing:
             errors.append(f"{relative_path}: expected overlays missing: {missing}; actual={sorted(actual)}")
         if forbidden:
             errors.append(f"{relative_path}: unrelated overlays attached: {forbidden}; actual={sorted(actual)}")
-
     if errors:
         print("v2.2 quality-overlay regression validation failed:")
         for error in errors:
             print(f" - {error}")
         return 1
-
     print(f"Quality overlay regression OK: {len(CASES)} representative resources")
     return 0
 

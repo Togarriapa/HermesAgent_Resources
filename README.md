@@ -8,11 +8,12 @@ Canonical user path:
 
 `User <-> Hermes <-> Orchestrator <-> Specialist Profiles / Team bundles`
 
-- **Hermes is the only user-facing Profile.** Web, Telegram, Discord, WhatsApp Business, and voice bind only to Hermes and reject direct specialist selection.
-- **Orchestrator is internal.** It decomposes work into a dependency DAG, dynamically recruits any registered Profile/team, runs independent work in parallel, and may create multiple instances subject to host limits.
-- **Team Leaders and specialists are internal.** Nested subteams are allowed; scaling creates capacity, never authority.
-- **Material decisions may deliberate.** Independent first-pass positions, cross-critique/steelmanning, assumption challenge, revision, and Debate Analyst can be used; evidence and user constraints beat majority vote.
-- **Every Epic gets one ephemeral Kanban.** The board is updated during work, a completion summary is archived, and the board is deleted after accepted completion.
+- **Hermes is the only user-facing Profile.** All user channels bind only to Hermes.
+- **Orchestrator is internal.** It decomposes work into a dependency DAG, dynamically recruits any registered Profile/team, and runs independent work in parallel.
+- **Team Leaders and specialists are internal.** Nested subteams and multiple instances are allowed subject to host policy.
+- **Scaling creates capacity, never authority.**
+- **Material decisions may deliberate.** Evidence and user constraints beat majority vote; credible dissent is preserved.
+- **Every Epic gets an ephemeral Kanban.** The completion summary is archived before the board is removed.
 
 See `TOPOLOGY.md`, `ORCHESTRATION.md`, and `DELIBERATION.md`.
 
@@ -29,35 +30,69 @@ Every user-facing Hermes result is normalized into six sections:
 
 When no credible dissent or additional permission exists, Hermes uses `No material dissent.` and `None.` rather than manufacturing content.
 
-## Effective resource quality — v2.2
+## Registry v2.2: discovery instead of a duplicated index
 
-Raw manifests intentionally stay focused on **domain-specific responsibility and capability**. `QUALITY_POLICY.yaml` supplies the restrictive operational contract that every indexed resource also needs: evidence freshness, assumptions, verification, privacy, secret handling, timeout/retry behavior, failure handling, auditability, lifecycle, and authority non-escalation.
+`catalog.yaml@2.2.0` no longer repeats hundreds of manifest identities. It declares the eight resource roots and the quality-policy files. Every `*.yaml` directly under a recognized root is discovered automatically from its own metadata.
 
-Effective quality composition is:
+This means a new Profile/Skill/Plugin/MCP/Cron/Webhook/Channel/Bundle cannot be forgotten in a hand-maintained list. Validation still fails closed on malformed manifests, duplicate identities, missing/incompatible dependencies, invalid inheritance, topology violations, or security-policy violations.
+
+See `CATALOG_DISCOVERY_V22.md`.
+
+## Effective resource quality
+
+Raw manifests stay focused on **domain-specific responsibility and capability**. `QUALITY_POLICY.yaml` and its restrictive extensions supply the common operating contract every resource needs: evidence freshness, assumptions, verification, privacy, secret handling, timeout/retry behavior, failure handling, auditability, lifecycle, and authority non-escalation.
+
+Behavior/configuration composition is:
 
 `kind defaults < domain quality overlays < resolved resource manifest < local experience overlay < private user-learned overlay < current session context`
 
-That is a behavior/configuration precedence chain only. **Host/runtime authorization is an absolute ceiling around the entire result.** User confirmation, learned behavior, inheritance, recruitment, scaling, or Bundle membership cannot create a permission the host/resource does not already possess.
-
-`QUALITY_POLICY.yaml` is defaulting/restrictive only; it never grants tools, credentials, account access, filesystem roots, network targets, physical control, transaction authority, or user-facing routes.
+**Host/runtime authorization is the absolute ceiling around the entire result.** User confirmation, learned behavior, inheritance, recruitment, scaling, or Bundle membership cannot create a permission the host/resource does not already possess.
 
 See `RESOURCE_QUALITY.md`, `SPEC.md`, and `SECURITY.md`.
 
-## Capability coverage
+## Specialist capability coverage
 
-The registry has specialist coverage across software/infrastructure, data/analytics/AI, product/business/operations/HR, finance/investment/accounting, law/privacy, home/property/resilience, farming/agriculture, education/homeschooling, research/information integrity, humanities/social sciences, career/remote work, Catholic theology/tradition/family guidance, professional PT↔EN translation, building architecture, and 3D/additive manufacturing.
+v2.1 established broad specialist coverage across product/business/operations, law/privacy, technology, home/farm, education, information integrity, Catholic domains, architecture/fabrication, and more.
 
-`CAPABILITY_COVERAGE.md` is the concise capability map. `PROFILE_MATRIX.md` / `PROFILE_MATRIX_V21.md` document Profile-to-Skill boundaries; `INTEGRATION_MATRIX.md` / `INTEGRATION_MATRIX_V21.md` document external-tool posture.
+v2.2 adds **47 Profiles, 43 Skills, and 7 Bundles** across five major areas:
 
-Bundles are **starting compositions**, never closed rosters. Orchestrator and Team Leader may recruit outside the active Bundle whenever a different specialist is needed.
+### HermesAgent and AI engineering
+
+HermesAgent Expert; AI Developer; AI Systems Architect; AI Prompt Engineer; AI Agent Orchestration Engineer; AI Evaluation Engineer; LLMOps Engineer; AI Safety & Reliability Engineer; AI Knowledge Engineer.
+
+### Traditional/naturalistic health research
+
+Traditional Remedies Researcher; Herbalism & Ethnobotany Researcher; Historical Materia Medica Researcher; Natural Lifestyle Health Educator; Traditional Foodways Health Researcher.
+
+Traditional use is never treated as clinical proof. These roles do not diagnose or prescribe and do not advise delaying urgent/effective care.
+
+### Amish and ancient traditions
+
+Dedicated Amish Profiles cover remedies, lifestyle, construction, farming, housekeeping, cooking, and preservation. Dedicated ancient-tradition Profiles cover remedies, lifestyle, construction, agriculture, domestic life, cooking, preservation, and crafts/material culture.
+
+Amish claims are community/affiliation/region-specific. Ancient claims are civilization/place/period/source-specific. Neither domain is treated as a uniform tradition, and historical precedent never overrides modern safety.
+
+### Traditional Catholic liturgy and heritage
+
+Traditional Latin Mass; Roman Rite liturgical traditions; pre-Vatican-II practice; devotions/sacramentals; Gregorian chant/sacred music; calendar/fasting/abstinence; Patristics/Church Fathers; Ecclesiastical Latin.
+
+These roles distinguish doctrine, liturgical law, discipline, historical practice, local custom, devotion, and opinion, and never impersonate ecclesiastical authority.
+
+### Specialized fitness
+
+Fitness Coach; Bodybuilding Coach; Calisthenics Coach; Powerlifting Coach; Prenatal/Postpartum Fitness Coach; Strength & Conditioning Coach; Mobility & Flexibility Coach; Endurance Conditioning Coach; Senior Fitness Coach; Youth Fitness Coach.
+
+Fitness Profiles use symptom-aware progression and referral boundaries. Performance-enhancing drug/hormone advice and dangerous dehydration/rapid cuts are denied. Pregnancy/postpartum clinician restrictions are hard constraints.
+
+See `CAPABILITY_COVERAGE.md`, `CAPABILITY_EXPANSION_V22.md`, `PROFILE_MATRIX_V22.md`, and `INTEGRATION_MATRIX_V22.md`.
 
 ## Financial and crypto separation
 
-Research/management Profiles can analyse normalized account/portfolio data and propose actions. Real-value execution remains isolated to dedicated execution operators and explicit authorization contracts.
+Research/management Profiles can analyse normalized data and propose actions. Real-value execution remains isolated to dedicated execution operators and exact authorization contracts.
 
-- Banks/brokers/exchanges/Ledger use separate data vs execution paths.
-- A recommendation, target allocation, schedule, previous order, or previous confirmation is not standing transaction authority.
-- The dedicated Hermes live wallet is separate from user Ledger secrets and remains confirmation-gated for real-value signing/broadcast.
+- Banks/brokers/exchanges/Ledger use separate data and execution paths.
+- A recommendation, target, schedule, previous order, or previous confirmation is not standing transaction authority.
+- The dedicated Hermes live wallet remains confirmation-gated for real-value signing/broadcast.
 - The autonomous sandbox wallet is testnet-only.
 
 See `FINANCIAL_ACCESS.md` and `INVESTMENT_GOVERNANCE.md`.
@@ -68,78 +103,51 @@ Runtime behavior is layered so upstream updates do not erase local learning:
 
 `upstream/effective registry < local experience overlay < private user-learned overlay < current explicit context`
 
-`resource-evolution-manager` rebases compatible updates, protects private layers, regression-tests the effective result, activates atomically, and retains rollback state. Learned overlays may improve behavior but cannot grant authority.
-
-See `RESOURCE_EVOLUTION.md`.
+Learned overlays can improve behavior but cannot grant authority. See `RESOURCE_EVOLUTION.md`.
 
 ## Voice and user channels
 
-Voice is local-first through the Home Assistant/Wyoming ecosystem: Speech-to-Phrase where suitable, Whisper for general STT, Piper for TTS, and optional openWakeWord. Raw-audio retention and cloud fallback are disabled by default.
+Voice is local-first through Home Assistant/Wyoming: Speech-to-Phrase where suitable, Whisper for general STT, Piper for TTS, and optional openWakeWord. Raw-audio retention and cloud fallback are disabled by default.
 
-WhatsApp support is **WhatsApp Business only** through its scoped integration. Every user-visible channel inherits Hermes-only routing, identity/session isolation, rate/payload controls, replay/dedup behavior where applicable, and redacted observability from the quality policy.
+WhatsApp support is WhatsApp Business only through its scoped integration. All user-visible channels remain Hermes-only.
 
 ## Resource layout
 
 - `profiles/` — durable professional/operational responsibilities.
 - `skills/` — reusable domain procedures.
 - `plugins/` — bounded runtime/external integrations.
-- `mcps/` — bounded Model Context Protocol server definitions.
+- `mcps/` — bounded Model Context Protocol definitions.
 - `channels/` — Hermes-only communication adapters.
 - `crons/` — recurring jobs.
 - `webhooks/` — authenticated event-driven jobs.
 - `bundles/` — starting team compositions.
-- `templates/` — hardened kind-specific resource starters.
-- `catalog.yaml` — canonical resource index.
-- `QUALITY_POLICY.yaml` — registry-wide effective completeness defaults.
+- `templates/` — hardened kind-specific starters.
+- `catalog.yaml` — discovery, quality-policy, and fail-closed catalog contract.
 
 ## Canonical import/materialization
 
-A provisioner should fetch a pinned Git ref, validate the registry, resolve catalog selectors/dependencies/inheritance, apply `QUALITY_POLICY.yaml`, preserve secret placeholders, apply permitted local/private overlays, intersect capabilities with host authorization, and only then instantiate resources.
+A provisioner should fetch a pinned Git ref, discover and validate manifests, resolve selectors/dependencies/inheritance, apply quality policies, preserve secret placeholders, rebase permitted local/private overlays, intersect capabilities with host authorization, and only then instantiate resources.
 
-```yaml
-resourceSource:
-  repository: Togarriapa/HermesAgent_Resources
-  ref: main
-imports:
-  - bundles/hermes-runtime.yaml
-```
-
-`RUNTIME_IMPORT.md` defines the fail-closed reference import pipeline, including isolation, credential injection, health acceptance, dynamic recruitment, atomic generation activation/rollback, and shared host-managed Codex authentication.
-
-A reference quality-policy materializer is provided:
+`RUNTIME_IMPORT.md` defines the reference import pipeline and shared host-managed Codex authentication model.
 
 ```bash
 python scripts/materialize_effective_registry.py --check-only
-# or write unresolved effective manifests under build/effective-registry/
+# or materialize unresolved effective resources under build/effective-registry/
 python scripts/materialize_effective_registry.py
 ```
 
-The live Hermes provisioner/runtime must consume and enforce these contracts before repository declarations become operational on the Pi.
-
 ## Validation
 
-Run the complete suite before merging registry changes:
+Run the complete suite before merging:
 
 ```bash
 python scripts/validate_registry.py
 python scripts/validate_deliberation.py
 python scripts/validate_expansion_v21.py
+python scripts/validate_expansion_v22.py
 python scripts/validate_quality_v22.py
 python scripts/validate_quality_overlays_v22.py
 python scripts/materialize_effective_registry.py --check-only
 ```
 
-The main quality validator iterates every catalog resource individually and verifies its **effective** contract plus direct domain content that defaults cannot invent. The overlay regression validator checks representative cross-domain resources so broad matching rules cannot silently attach inappropriate quality policies.
-
-## Safety model
-
-- Secrets and private learned data never belong in Git.
-- Non-Hermes Profiles remain internal-only.
-- External integrations are explicit, least-privilege, and default-deny.
-- Scheduled/event receipt does not create authority.
-- State changes are authorized, bounded, verified, and reversible where feasible.
-- Current/time-sensitive claims are refreshed when material.
-- Licensed/regulated/legal/medical/veterinary/engineering/physical-safety boundaries are identified and escalated.
-- Deliberation cannot vote away safety, privacy, authorization, or professional boundaries.
-
-For contribution rules and templates, see `CONTRIBUTING.md` and `templates/README.md`. For runtime/security boundaries, see `RUNTIME_IMPORT.md` and `SECURITY.md`.
+See `CONTRIBUTING.md` for contribution rules.
