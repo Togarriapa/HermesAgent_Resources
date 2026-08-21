@@ -107,6 +107,58 @@ def direct_manifest_checks(rel: str, kind: str, name: str, doc: dict[str, Any]) 
     return errors
 
 
+def homelab_authorization_checks(rel: str, kind: str, name: str, doc: dict[str, Any]) -> list[str]:
+    errors: list[str] = []
+    spec = doc.get("spec") or {}
+    if name == "homelab-infrastructure-operator":
+        auth = spec.get("authorization") or {}
+        if auth.get("identityProvider") != "authentik" or auth.get("requiredEffectiveGroup") != "System":
+            errors.append(f"{rel}: infrastructure operator must require Authentik effective group System")
+        if auth.get("mutationCheck") != "fresh-before-tool-call" or auth.get("alarmRecipientCheck") != "fresh-at-delivery" or auth.get("failClosed") is not True:
+            errors.append(f"{rel}: infrastructure operator must freshly verify mutations and alarm recipients and fail closed")
+        if auth.get("userSuppliedClaims") != "deny" or auth.get("cachedGroupMembershipAsAuthority") != "deny":
+            errors.append(f"{rel}: user-supplied or cached group claims cannot grant infrastructure authority")
+    elif name == "authentik-authorization":
+        policy = spec.get("policy") or {}
+        runtime = spec.get("runtime") or {}
+        if policy.get("writes") != "deny" or policy.get("groupAdministration") != "deny" or policy.get("roleAdministration") != "deny":
+            errors.append(f"{rel}: Authentik authorization adapter must remain read-only")
+        if policy.get("failClosedOnLookupFailure") is not True or runtime.get("requiredGroupName") != "System" or runtime.get("membershipMode") != "direct-and-indirect":
+            errors.append(f"{rel}: Authentik adapter must resolve effective System membership and fail closed")
+        if runtime.get("cacheUseForAuthorization") != "deny":
+            errors.append(f"{rel}: cached Authentik membership cannot be used as authority")
+    elif name == "homelab-ops-broker":
+        policy = spec.get("policy") or {}
+        runtime = spec.get("runtime") or {}
+        if policy.get("arbitraryShell") != "deny" or policy.get("rawSsh") != "deny" or policy.get("arbitraryCommand") != "deny":
+            errors.append(f"{rel}: homelab operations broker must deny raw SSH/arbitrary shell/commands")
+        if policy.get("writesRequireFreshAuthentikSystemMembership") is not True or runtime.get("requiredEffectiveGroupForWrites") != "System":
+            errors.append(f"{rel}: homelab operations writes must require fresh Authentik System membership")
+    elif name == "cloudflare-homelab":
+        policy = spec.get("policy") or {}
+        runtime = spec.get("runtime") or {}
+        if policy.get("writesRequireFreshAuthentikSystemMembership") is not True or runtime.get("requiredEffectiveGroupForWrites") != "System":
+            errors.append(f"{rel}: Cloudflare homelab writes must require fresh Authentik System membership")
+        for denied in ("unrelatedZoneAccess", "unrelatedTunnelAccess", "accountAdministration", "apiTokenAdministration"):
+            if policy.get(denied) != "deny":
+                errors.append(f"{rel}: policy.{denied} must remain deny")
+    elif name == "homelab-health-review":
+        policy = spec.get("policy") or {}
+        if policy.get("authorityFromSchedule") != "deny" or policy.get("remediationFromSchedule") != "deny":
+            errors.append(f"{rel}: homelab health schedule cannot create remediation authority")
+        if policy.get("infrastructureAlarmRequiredGroup") != "System" or policy.get("resolveRecipientsAtDelivery") is not True or policy.get("failClosedOnRecipientAuthorizationFailure") is not True:
+            errors.append(f"{rel}: infrastructure alarms must resolve current Authentik System recipients and fail closed")
+        if policy.get("staticRecipientListAsAuthority") != "deny":
+            errors.append(f"{rel}: static infrastructure alarm recipients cannot grant delivery authority")
+    elif name == "homelab-operations-team":
+        policy = spec.get("policy") or {}
+        if policy.get("infrastructureMutationRequiredEffectiveGroup") != "System" or policy.get("infrastructureAlarmRequiredEffectiveGroup") != "System":
+            errors.append(f"{rel}: homelab bundle must preserve System-only infrastructure mutation and alarm boundaries")
+        if policy.get("authorityExpansion") != "deny" or policy.get("failClosedOnAuthorizationFailure") is not True:
+            errors.append(f"{rel}: homelab bundle cannot expand authority and must fail closed")
+    return errors
+
+
 def main() -> int:
     errors: list[str] = []
     try:
@@ -117,8 +169,8 @@ def main() -> int:
         print(f"Quality discovery failed: {exc}", file=sys.stderr)
         return 1
 
-    if (cat.get("metadata") or {}).get("version") != "2.2.0":
-        errors.append("catalog.yaml: quality v2.2 expects catalog version 2.2.0")
+    if (cat.get("metadata") or {}).get("version") != "2.3.0":
+        errors.append("catalog.yaml: current quality validation expects catalog version 2.3.0")
     application = policy.get("application") or {}
     if application.get("scope") != "every-catalog-resource":
         errors.append("QUALITY_POLICY.yaml: policy must apply to every catalog resource")
@@ -157,6 +209,7 @@ def main() -> int:
                 errors.append(f"{rel}: effective {kind} contract missing {required}")
         errors.extend(direct_manifest_checks(rel, kind, name, doc))
         errors.extend(secret_literal_errors(rel, doc))
+        errors.extend(homelab_authorization_checks(rel, kind, name, doc))
         if (effective.get("safety") or {}).get("authorityFromInference") != "deny":
             errors.append(f"{rel}: effective policy must deny authority inferred from context")
         if (effective.get("privacy") or {}).get("secretCommit") != "deny":
