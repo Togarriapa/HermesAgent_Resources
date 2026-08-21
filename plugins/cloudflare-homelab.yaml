@@ -33,7 +33,6 @@ spec:
     writes:
       - update-approved-dns-record
       - update-approved-tunnel-configuration
-      - restart-or-rotate-approved-tunnel-connector-through-broker-when-supported
   policy:
     writesRequireFreshAuthentikSystemMembership: true
     destructiveWritesRequireExplicitConfirmation: true
