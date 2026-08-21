@@ -9,9 +9,10 @@
 5. Bump `catalog.yaml` version whenever the resource set changes. The catalog does **not** contain a manual resource list.
 6. Give Profiles real role-specific instructions and Skills real reusable method content; quality defaults cannot manufacture expertise.
 7. Keep credentials, secrets, private learned overlays and unnecessary user data out of Git.
-8. Update an existing canonical document when behavior changes. **Do not create versioned/supplemental root docs** such as `*_V23.md`, capability-expansion supplements, catalog-discovery supplements, or quality-policy extension files.
-9. Add/adjust validator regression cases for new safety, topology, integration or quality invariants.
-10. Open a PR describing behavior, authority impact, compatibility, verification and rollback.
+8. Update existing canonical documentation when behavior, responsibility or integration boundaries change. **Do not create versioned/supplemental root docs** such as `*_V23.md`, capability-expansion supplements, catalog-discovery supplements, or quality-policy extension files.
+9. Update `PROFILE_MATRIX.md`, `INTEGRATION_MATRIX.md`, and `CAPABILITY_COVERAGE.md` when their respective responsibility/integration/domain maps change.
+10. Add/adjust validator regression cases for new safety, topology, integration or quality invariants.
+11. Open a PR describing behavior, authority impact, compatibility, verification and rollback.
 
 ## Discovery contract
 
@@ -25,6 +26,7 @@
 
 - changed existing resources bump semantic version;
 - any resource-set change bumps catalog version relative to the base branch;
+- canonical root documents exist;
 - forbidden versioned/supplemental root docs are absent;
 - canonical Markdown local links resolve;
 - checkout has enough history to compare against the PR base.
@@ -49,8 +51,8 @@ python scripts/materialize_effective_registry.py --check-only
 
 Review both the declared manifest and its inherited/effective quality contract. Confirm distinct responsibility, least privilege, bounded integrations, runtime-only secrets, safe retries/idempotency, explicit side-effect authorization, verification/rollback where applicable, Hermes-only user routing, non-authority-bearing Cron/Webhook/Bundle behavior, current evidence where material, and explicit professional/medical/legal/physical/financial boundaries.
 
-For Kobo/ebook changes additionally preserve exported-file-only notebook ingestion, source/rights provenance, EPUB validation, model capability detection, explicit outbound delivery, and the no-DRM-circumvention boundary.
+For Kobo/ebook changes additionally preserve exported/authorized-file-only notebook ingestion, source/rights provenance, model/transport capability detection, EPUB validation, explicit outbound delivery, source-artifact preservation, and the no-DRM-circumvention boundary.
 
 ## Canonical documentation
 
-Keep these living documents current rather than adding supplements: `README.md`, `SPEC.md`, `TOPOLOGY.md`, `ORCHESTRATION.md`, `DELIBERATION.md`, `RESOURCE_QUALITY.md`, `RESOURCE_EVOLUTION.md`, `RUNTIME_IMPORT.md`, `EXTERNAL_INTEGRATIONS.md`, `SECURITY.md`, `FINANCIAL_ACCESS.md`, `INVESTMENT_GOVERNANCE.md`, and `CAPABILITY_COVERAGE.md`.
+Keep these living documents current rather than adding supplements: `README.md`, `SPEC.md`, `TOPOLOGY.md`, `ORCHESTRATION.md`, `DELIBERATION.md`, `PROFILE_MATRIX.md`, `INTEGRATION_MATRIX.md`, `CAPABILITY_COVERAGE.md`, `RESOURCE_QUALITY.md`, `RESOURCE_EVOLUTION.md`, `RUNTIME_IMPORT.md`, `EXTERNAL_INTEGRATIONS.md`, `SECURITY.md`, `FINANCIAL_ACCESS.md`, `INVESTMENT_GOVERNANCE.md`, and `CONTRIBUTING.md`.
