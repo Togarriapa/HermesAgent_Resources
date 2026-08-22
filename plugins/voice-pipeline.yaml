@@ -2,12 +2,28 @@ apiVersion: hermes.togarriapa/v1
 kind: Plugin
 metadata:
   name: voice-pipeline
-  version: 1.0.0
+  version: 1.0.1
   description: Local-first Home Assistant/Wyoming voice pipeline using Speech-to-Phrase or Whisper for STT and Piper for TTS.
   tags: [voice, stt, tts, home-assistant, wyoming]
 spec:
   provider: home-assistant-wyoming
   transport: wyoming
+  capabilities:
+    - stream-authorized-microphone-audio-to-a-configured-local-wyoming-stt-endpoint
+    - route-home-control-utterances-to-speech-to-phrase-and-general-utterances-to-whisper-when-configured
+    - synthesize-assistant-responses-through-the-configured-local-piper-endpoint
+    - optionally-consume-local-openwakeword-events-without-making-wakeword-detection-an-authorization-signal
+  permissions:
+    microphoneInput: session-authorized
+    localWyomingNetwork: configured-endpoints-only
+    rawAudioPersistence: deny
+    cloudSpeechFallback: deny
+    homeControlMutation: delegated-to-independently-authorized-home-control-path
+  sessions:
+    audioScope: current-voice-session
+    transcriptScope: hermes-session-topology
+    crossUserAudioReuse: deny
+    wakeWordCreatesAuthority: false
   speechToText:
     homeControlPreferred: speech-to-phrase
     generalAssistantPreferred: whisper
@@ -25,6 +41,7 @@ spec:
     cloudFallback: deny
     rawAudioRetention: false
     transcriptsFollowHermesTopology: true
+    authorityFromWakeWord: deny
     safetySensitiveHomeControl: confirm-when-required
   provenance:
     officialWyomingDocs: https://www.home-assistant.io/integrations/wyoming/
