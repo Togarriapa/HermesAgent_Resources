@@ -2,7 +2,7 @@ apiVersion: hermes.togarriapa/v1
 kind: Cron
 metadata:
   name: daily-resource-reconcile
-  version: 1.0.1
+  version: 1.0.2
   description: Daily candidate assessment of upstream Hermes resources while preserving local and private overlays; schedule never grants activation authority.
   tags: [cron, resources, updates, learning, infrastructure]
 spec:
@@ -18,7 +18,10 @@ spec:
     ref: main
     mode: candidate-assessment
   policy:
-    autoApply: false
+    # The schedule is only a discovery/assessment trigger. Auto-application is
+    # limited to changes independently classified as safe-compatible by host
+    # policy after validation, regression and overlay-rebase checks.
+    autoApply: safe-compatible-only
     candidateMaterialization: true
     authorityFromSchedule: deny
     activationFromSchedule: deny
